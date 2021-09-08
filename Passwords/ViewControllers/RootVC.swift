@@ -41,7 +41,7 @@ final class RootVC: UITabBarController {
                 
         //𝌏 -- Groups Tab
         self.groupsTVC = GroupsTVC.initFromStoryboard()
-        self.groupsTVC.tabBarItem.image = UIImage(named: "view_list")?.withRenderingMode(.alwaysTemplate)
+        self.groupsTVC.tabBarItem.image = UIImage(named: "lock")?.withRenderingMode(.alwaysTemplate)
         self.groupsTVC.tabBarItem.title = "Groups"
         self.groupsTVC.tabBarItem.isAccessibilityElement = true;
         self.groupsTVC.tabBarItem.accessibilityLabel = "GroupsTab"
