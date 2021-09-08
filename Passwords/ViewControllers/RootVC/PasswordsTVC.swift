@@ -31,11 +31,20 @@ class PasswordsTVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.lightGray
+        // Navigation bar Button
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(self.actionNavBarButton(sender:)))
 
         
     }
     
+    // MARK: - Actions
+    @objc func actionNavBarButton(sender: UIBarButtonItem) {
+        let passCreateVC = PasswordCreateVC.initFromStoryboard()
+        let pcNC = UINavigationController(rootViewController: passCreateVC)
+        self.present(pcNC, animated: true, completion: nil)
+
+    }
+
     
         
 }
