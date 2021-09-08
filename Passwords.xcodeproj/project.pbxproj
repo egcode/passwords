@@ -26,7 +26,7 @@
 		6A06829E26E965C600FB3827 /* KeychainError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06829D26E965C600FB3827 /* KeychainError.swift */; };
 		6A0682A126E965D300FB3827 /* KeychainQueryable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0682A026E965D300FB3827 /* KeychainQueryable.swift */; };
 		6A0682A426E9664400FB3827 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0682A326E9664400FB3827 /* Constants.swift */; };
-		6A0682A926E967E000FB3827 /* GroupsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0682A826E967E000FB3827 /* GroupsTVC.swift */; };
+		6A0682A926E967E000FB3827 /* PasswordsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0682A826E967E000FB3827 /* PasswordsTVC.swift */; };
 		6A0682AC26E9681900FB3827 /* SettingsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0682AB26E9681900FB3827 /* SettingsTVC.swift */; };
 		6BAE4D2A2E48141DF5A8EDFD /* Pods_Passwords.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF9FDB5408917DB5E183064 /* Pods_Passwords.framework */; };
 /* End PBXBuildFile section */
@@ -55,7 +55,7 @@
 		6A06829D26E965C600FB3827 /* KeychainError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainError.swift; sourceTree = "<group>"; };
 		6A0682A026E965D300FB3827 /* KeychainQueryable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainQueryable.swift; sourceTree = "<group>"; };
 		6A0682A326E9664400FB3827 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		6A0682A826E967E000FB3827 /* GroupsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsTVC.swift; sourceTree = "<group>"; };
+		6A0682A826E967E000FB3827 /* PasswordsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordsTVC.swift; sourceTree = "<group>"; };
 		6A0682AB26E9681900FB3827 /* SettingsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTVC.swift; sourceTree = "<group>"; };
 		B95D31F078F21E37587CF4F6 /* Pods-Passwords.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Passwords.debug.xcconfig"; path = "Target Support Files/Pods-Passwords/Pods-Passwords.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -194,7 +194,7 @@
 		6A0682A726E967A300FB3827 /* RootVC */ = {
 			isa = PBXGroup;
 			children = (
-				6A0682A826E967E000FB3827 /* GroupsTVC.swift */,
+				6A0682A826E967E000FB3827 /* PasswordsTVC.swift */,
 				6A0682AB26E9681900FB3827 /* SettingsTVC.swift */,
 			);
 			path = RootVC;
@@ -333,7 +333,7 @@
 				6A06827C26E93EA000FB3827 /* LoginVC.swift in Sources */,
 				6A06822826E9379800FB3827 /* AppDelegate.swift in Sources */,
 				6A06826426E9391F00FB3827 /* StartupVC.swift in Sources */,
-				6A0682A926E967E000FB3827 /* GroupsTVC.swift in Sources */,
+				6A0682A926E967E000FB3827 /* PasswordsTVC.swift in Sources */,
 				6A0682AC26E9681900FB3827 /* SettingsTVC.swift in Sources */,
 				6A06829326E964C900FB3827 /* DataManager.swift in Sources */,
 				6A06829A26E965B700FB3827 /* KeychainStore.swift in Sources */,

@@ -10,7 +10,7 @@ import UIKit
 final class RootVC: UITabBarController {
 
     
-    var groupsTVC: GroupsTVC!
+    var passwordsTVC: PasswordsTVC!
     var settingsTVC: SettingsTVC!
         
     // MARK: - init/deinit
@@ -39,14 +39,14 @@ final class RootVC: UITabBarController {
         var activeViewControllers = [UIViewController]()
         let itemTitleOffset = UIOffset(horizontal: 0, vertical: 0)
                 
-        //𝌏 -- Groups Tab
-        self.groupsTVC = GroupsTVC.initFromStoryboard()
-        self.groupsTVC.tabBarItem.image = UIImage(named: "lock")?.withRenderingMode(.alwaysTemplate)
-        self.groupsTVC.tabBarItem.title = "Groups"
-        self.groupsTVC.tabBarItem.isAccessibilityElement = true;
-        self.groupsTVC.tabBarItem.accessibilityLabel = "GroupsTab"
-        self.groupsTVC.tabBarItem.titlePositionAdjustment = itemTitleOffset; // Move Title Up
-        let viewGroupsNC = UINavigationController(rootViewController: self.groupsTVC)
+        //𝌏 -- Passwords Tab
+        self.passwordsTVC = PasswordsTVC.initFromStoryboard()
+        self.passwordsTVC.tabBarItem.image = UIImage(named: "lock")?.withRenderingMode(.alwaysTemplate)
+        self.passwordsTVC.tabBarItem.title = "Passwords"
+        self.passwordsTVC.tabBarItem.isAccessibilityElement = true;
+        self.passwordsTVC.tabBarItem.accessibilityLabel = "PasswordsTab"
+        self.passwordsTVC.tabBarItem.titlePositionAdjustment = itemTitleOffset; // Move Title Up
+        let viewGroupsNC = UINavigationController(rootViewController: self.passwordsTVC)
         activeViewControllers.append(viewGroupsNC)
 
         
