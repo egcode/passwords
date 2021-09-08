@@ -19,6 +19,13 @@
 		6A06827F26E93EAC00FB3827 /* RootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06827E26E93EAC00FB3827 /* RootVC.swift */; };
 		6A06828226E93EE500FB3827 /* LoginVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A06828126E93EE500FB3827 /* LoginVC.storyboard */; };
 		6A06828526E93EFA00FB3827 /* RootVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A06828426E93EFA00FB3827 /* RootVC.storyboard */; };
+		6A06828F26E94FD700FB3827 /* CacheRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06828E26E94FD700FB3827 /* CacheRealm.swift */; };
+		6A06829326E964C900FB3827 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06829226E964C900FB3827 /* DataManager.swift */; };
+		6A06829626E9653A00FB3827 /* DataManager+Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06829526E9653A00FB3827 /* DataManager+Keychain.swift */; };
+		6A06829A26E965B700FB3827 /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06829926E965B700FB3827 /* KeychainStore.swift */; };
+		6A06829E26E965C600FB3827 /* KeychainError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06829D26E965C600FB3827 /* KeychainError.swift */; };
+		6A0682A126E965D300FB3827 /* KeychainQueryable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0682A026E965D300FB3827 /* KeychainQueryable.swift */; };
+		6A0682A426E9664400FB3827 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0682A326E9664400FB3827 /* Constants.swift */; };
 		6BAE4D2A2E48141DF5A8EDFD /* Pods_Passwords.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF9FDB5408917DB5E183064 /* Pods_Passwords.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +46,13 @@
 		6A06827E26E93EAC00FB3827 /* RootVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootVC.swift; sourceTree = "<group>"; };
 		6A06828126E93EE500FB3827 /* LoginVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginVC.storyboard; sourceTree = "<group>"; };
 		6A06828426E93EFA00FB3827 /* RootVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RootVC.storyboard; sourceTree = "<group>"; };
+		6A06828E26E94FD700FB3827 /* CacheRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheRealm.swift; sourceTree = "<group>"; };
+		6A06829226E964C900FB3827 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		6A06829526E9653A00FB3827 /* DataManager+Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataManager+Keychain.swift"; sourceTree = "<group>"; };
+		6A06829926E965B700FB3827 /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
+		6A06829D26E965C600FB3827 /* KeychainError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainError.swift; sourceTree = "<group>"; };
+		6A0682A026E965D300FB3827 /* KeychainQueryable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainQueryable.swift; sourceTree = "<group>"; };
+		6A0682A326E9664400FB3827 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B95D31F078F21E37587CF4F6 /* Pods-Passwords.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Passwords.debug.xcconfig"; path = "Target Support Files/Pods-Passwords/Pods-Passwords.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -86,6 +100,8 @@
 			children = (
 				6A06822726E9379800FB3827 /* AppDelegate.swift */,
 				6A06822926E9379800FB3827 /* SceneDelegate.swift */,
+				6A0682A326E9664400FB3827 /* Constants.swift */,
+				6A06829126E964AE00FB3827 /* Managers */,
 				6A06826B26E93AC000FB3827 /* SwiftHelpers */,
 				6A06826726E939BC00FB3827 /* Extensions */,
 				6A06828C26E94D2600FB3827 /* Models */,
@@ -145,8 +161,29 @@
 		6A06828C26E94D2600FB3827 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				6A06829826E965A900FB3827 /* Keychain */,
+				6A06828E26E94FD700FB3827 /* CacheRealm.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		6A06829126E964AE00FB3827 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				6A06829226E964C900FB3827 /* DataManager.swift */,
+				6A06829526E9653A00FB3827 /* DataManager+Keychain.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		6A06829826E965A900FB3827 /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				6A06829926E965B700FB3827 /* KeychainStore.swift */,
+				6A06829D26E965C600FB3827 /* KeychainError.swift */,
+				6A0682A026E965D300FB3827 /* KeychainQueryable.swift */,
+			);
+			path = Keychain;
 			sourceTree = "<group>";
 		};
 		9065BF45591649E6B6B91CCE /* Frameworks */ = {
@@ -273,12 +310,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A06828F26E94FD700FB3827 /* CacheRealm.swift in Sources */,
+				6A06829626E9653A00FB3827 /* DataManager+Keychain.swift in Sources */,
 				6A06826D26E93ACD00FB3827 /* GCD.swift in Sources */,
 				6A06827F26E93EAC00FB3827 /* RootVC.swift in Sources */,
+				6A06829E26E965C600FB3827 /* KeychainError.swift in Sources */,
 				6A06826926E939CC00FB3827 /* UIViewController+Alert.swift in Sources */,
 				6A06827C26E93EA000FB3827 /* LoginVC.swift in Sources */,
 				6A06822826E9379800FB3827 /* AppDelegate.swift in Sources */,
 				6A06826426E9391F00FB3827 /* StartupVC.swift in Sources */,
+				6A06829326E964C900FB3827 /* DataManager.swift in Sources */,
+				6A06829A26E965B700FB3827 /* KeychainStore.swift in Sources */,
+				6A0682A426E9664400FB3827 /* Constants.swift in Sources */,
+				6A0682A126E965D300FB3827 /* KeychainQueryable.swift in Sources */,
 				6A06822A26E9379800FB3827 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
