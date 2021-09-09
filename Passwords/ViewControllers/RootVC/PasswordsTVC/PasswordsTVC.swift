@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol PasswordsTVCRefreshProtocol: AnyObject {
+    func refreshFromDelegate()
+}
+
 class PasswordsTVC: UITableViewController {
         
     var passwordViewModelParent = PasswordViewModelParent()
@@ -41,11 +45,18 @@ class PasswordsTVC: UITableViewController {
     // MARK: - Actions
     @objc func actionNavBarButton(sender: UIBarButtonItem) {
         let passCreateVC = PasswordCreateVC.initFromStoryboard()
+        passCreateVC.delegate = self
         let pcNC = UINavigationController(rootViewController: passCreateVC)
         self.present(pcNC, animated: true, completion: nil)
-
     }
 
     
         
+}
+
+extension PasswordsTVC: PasswordsTVCRefreshProtocol {
+    func refreshFromDelegate() {
+        self.passwordViewModelParent.refreshPasswordViewModels()
+        self.tableView.reloadData()
+    }
 }

@@ -10,7 +10,7 @@ import Foundation
 public class DataManager: NSObject {
     
     public static let shared = DataManager()
-    public var passwords = [Password]()
+    private var passwords = [Password]()
     
     override init() {
         super.init()
@@ -21,6 +21,17 @@ public class DataManager: NSObject {
             let password = Password(title: "Title \(i)", password: "Password\(i)", userID: "UserID \(i)", desc: "Description \(i)")
             self.passwords.append(password)
         }
+    }
+    
+    
+    // MARK: - Public
+    
+    public func getPasswords() -> [Password] {
+        return self.passwords
+    }
+    
+    public func addPassword(password:Password) {
+        self.passwords.append(password)
     }
     
     

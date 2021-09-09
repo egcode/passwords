@@ -17,6 +17,8 @@ class PasswordCreateVC : UIViewController {
     @IBOutlet weak var buttonCancel: UIButton!
     @IBOutlet weak var buttonCreate: UIButton!
     
+    weak var delegate: PasswordsTVCRefreshProtocol?
+    
     // MARK: - init/deinit
     
     @objc public static func initFromStoryboard() -> PasswordCreateVC {
@@ -87,12 +89,13 @@ class PasswordCreateVC : UIViewController {
         
         // TODO: - Check if title is already exists
         // Ready to create object
-        self.showAlert(title: "Created: ", message: "Title: \(title)\nPassword:\(password)\nUserID:\(userID)\nDescription:\(desc)") {
-            self.dismiss(animated: true, completion: nil)
+        
+        let passwordObject = Password(title: title, password: password, userID: userID, desc: desc)
+        DataManager.shared.addPassword(password: passwordObject)
+        self.delegate?.refreshFromDelegate()
+        self.dismiss(animated: true) {
         }
-        
-        
-        
+
         
     }
     

@@ -12,7 +12,12 @@ public class PasswordViewModelParent: NSObject {
     public var passwordViewModels = [PasswordViewModel]()
     
     override init() {
-        self.passwordViewModels = DataManager.shared.passwords.map({return PasswordViewModel(password: $0)})
+        super.init()
+        self.refreshPasswordViewModels()
+    }
+    
+    public func refreshPasswordViewModels() {
+        self.passwordViewModels = DataManager.shared.getPasswords().map({return PasswordViewModel(password: $0)})
     }
     
     // MARK: - Debug description
