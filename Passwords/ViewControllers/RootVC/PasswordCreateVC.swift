@@ -9,6 +9,14 @@ import UIKit
 
 class PasswordCreateVC : UIViewController {
     
+    @IBOutlet weak var textFieldTitle: UITextField!
+    @IBOutlet weak var textFieldUserID: UITextField!
+    @IBOutlet weak var textFieldPassword: UITextField!
+    @IBOutlet weak var textFieldDescription: UITextField!
+    
+    @IBOutlet weak var buttonCancel: UIButton!
+    @IBOutlet weak var buttonCreate: UIButton!
+    
     // MARK: - init/deinit
     
     @objc public static func initFromStoryboard() -> PasswordCreateVC {
@@ -41,5 +49,38 @@ class PasswordCreateVC : UIViewController {
         }
     }
 
+    @IBAction func actionButtonCancel(_ sender: UIButton) {
+        self.dismiss(animated: true) {
+        }
+    }
+    
+    @IBAction func actionButtonCreate(_ sender: UIButton) {
+        var title = ""
+        var password = ""
+        var userID = ""
+        var desc = ""
+        
+        if let t = self.textFieldTitle.text,
+           let p = self.textFieldPassword.text {
+            title = t
+            password = p
+            if let uid = self.textFieldUserID.text {
+                userID = uid
+            }
+            if let d = self.textFieldDescription.text {
+                desc = d
+            }
+        }
+        if title == "" && password == "" {
+            self.showAlert(title: "Title and password should not be empty", message: "")
+            return
+        }
+        
+        // Ready to create object
+        self.showAlert(title: "Created: ", message: "Title: \(title)\nPassword:\(password)\nUserID:\(userID)\nDescription:\(desc)") {
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+    }
     
 }
