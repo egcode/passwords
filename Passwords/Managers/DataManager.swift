@@ -10,6 +10,7 @@ import Foundation
 @objcMembers public class DataManager: NSObject {
     
     public static let shared = DataManager()
+    public var passwords = [Password]()
     
     override init() {
         super.init()

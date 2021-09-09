@@ -9,6 +9,7 @@ import UIKit
 
 class PasswordsTVC: UITableViewController {
         
+    var passwordViewModelParent = PasswordViewModelParent()
     
     // MARK: - init/deinit
     

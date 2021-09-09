@@ -85,10 +85,14 @@ class PasswordCreateVC : UIViewController {
             return
         }
         
+        // TODO: - Check if title is already exists
         // Ready to create object
         self.showAlert(title: "Created: ", message: "Title: \(title)\nPassword:\(password)\nUserID:\(userID)\nDescription:\(desc)") {
             self.dismiss(animated: true, completion: nil)
         }
+        
+        
+        
         
     }
     
