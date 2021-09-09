@@ -42,6 +42,15 @@ class PasswordCreateVC : UIViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.cancel, target: self, action: #selector(self.actionNavBarButton(sender:)))
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.textFieldTitle.becomeFirstResponder()
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
     
     // MARK: - Actions
     @objc func actionNavBarButton(sender: UIBarButtonItem) {
