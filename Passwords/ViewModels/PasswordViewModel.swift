@@ -14,6 +14,7 @@ public class PasswordViewModel: CustomDebugStringConvertible {
     var desc = ""
     
     init(password:Password) {
+        self.password = password
         self.title = password.title
         self.desc = password.desc
     }

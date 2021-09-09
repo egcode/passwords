@@ -7,7 +7,7 @@
 
 import Foundation
 
-@objcMembers public class DataManager: NSObject {
+public class DataManager: NSObject {
     
     public static let shared = DataManager()
     public var passwords = [Password]()
@@ -16,27 +16,12 @@ import Foundation
         super.init()
     }
     
-//    private func fakeData() {
-//        for i in 1...5 {
-//            if let s = self.sites.first, let l = s.locations.first, let d = l.devices.first {
-//                // SITE
-//                let newSite = Site(data: s.data)
-//
-//                // LOCATION
-//                let newLocation = Location(data: l.data)
-//                newLocation.name = "Location  \(String(format: "%03d", i))"
-//
-//                // DEVICE
-//                let newDevice = Device(data: d.data)
-//                newDevice.name = "Camera  \(String(format: "%03d", i))"
-//                newLocation.devices.append(newDevice)
-//
-//
-//                newSite.locations.append(newLocation)
-//                self.sites.append(newSite)
-//            }
-//        }
-//    }
+    public func generateFakeData() {
+        for i in 1...5 {
+            let password = Password(title: "Title \(i)", password: "Password\(i)", userID: "UserID \(i)", desc: "Description \(i)")
+            self.passwords.append(password)
+        }
+    }
     
     
 }
