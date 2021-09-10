@@ -24,10 +24,11 @@ extension BaseTVC  {
                                       NSAttributedString.Key.font: Fonts.latoRegular(size: 14)]
         UIBarButtonItem.appearance().setTitleTextAttributes(cancelButtonAttributes , for: .normal)
 
-        // Search Bar textcolor
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-
+        // Search textField textColor
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedString.Key.foregroundColor: Colors.navTintColor]
         
+        // Search textField icon color
+        self.searchController.searchBar.searchTextField.leftView?.tintColor = Colors.navTintColor
         
         self.navigationItem.searchController = self.searchController // Place SearchController
     }
