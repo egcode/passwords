@@ -19,34 +19,17 @@ extension BaseTVC  {
         // Search controller cancelButton
         self.searchController.searchBar.setValue("Cancel", forKey:"cancelButtonText")
         
-        // Searchbar text Font
-        if let textFieldInsideSearchBar = self.searchController.searchBar.value(forKey: "searchField") as? UITextField {
-            textFieldInsideSearchBar.font = Fonts.latoRegular(size: 17)
-        }
+        // Search controller cancelButton
+        let cancelButtonAttributes = [NSAttributedString.Key.foregroundColor: Colors.navTintColor,
+                                      NSAttributedString.Key.font: Fonts.latoRegular(size: 14)]
+        UIBarButtonItem.appearance().setTitleTextAttributes(cancelButtonAttributes , for: .normal)
+
+        // Search Bar textcolor
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+
         
-        if #available(iOS 11.0, *) {
-            // Search controller cancelButton
-            let cancelButtonAttributes = [NSAttributedString.Key.foregroundColor: Colors.navTitleColor,
-                                          NSAttributedString.Key.font: Fonts.latoRegular(size: 14)]
-            UIBarButtonItem.appearance().setTitleTextAttributes(cancelButtonAttributes , for: .normal)
-            
-            // Search controller Background color
-            if let first = self.searchController.searchBar.subviews.first {
-                for textField in first.subviews where textField is UITextField {
-                    textField.subviews.first?.backgroundColor = .white
-                    textField.subviews.first?.layer.cornerRadius = 10.5
-                    textField.subviews.first?.layer.masksToBounds = true
-                }
-            }
-            
-            self.navigationItem.searchController = self.searchController // Place SearchController
-        } else {
-            // Search controller cancelButton
-            let cancelButtonAttributes = [NSAttributedString.Key.foregroundColor: Colors.navBottomColor]
-            UIBarButtonItem.appearance().setTitleTextAttributes(cancelButtonAttributes , for: .normal)
-            
-            self.tableView.tableHeaderView = searchController.searchBar // Place SearchController
-        }
+        
+        self.navigationItem.searchController = self.searchController // Place SearchController
     }
     
 }
@@ -79,3 +62,10 @@ extension BaseTVC: UISearchBarDelegate {
     
 }
 
+
+
+extension UISearchBar {
+    var textField: UITextField? {
+        return subviews.first?.subviews.compactMap { $0 as? UITextField }.first
+    }
+}

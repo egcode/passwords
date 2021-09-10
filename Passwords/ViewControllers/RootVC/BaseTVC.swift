@@ -26,26 +26,9 @@ public class BaseTVC: UITableViewController {
         ///////////////////////////////////////////////////////////////////////////////////
         // NAVBAR SETUP
 
-//        // Search bar
-//        self.setupSearchBar()
-
-//        // Back button
-//        let backImage = UIImage(named: "back")?.withRenderingMode(.alwaysOriginal)
-//        self.navigationController?.navigationBar.backIndicatorImage = backImage
-//        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
-//        self.navigationController?.navigationBar.backItem?.title = ""
-//        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItem.Style.plain, target: nil, action: nil)
-//
-//        self.tableView.scrollsToTop = true
+        // Search bar
+        self.setupSearchBar()
     }
-    
-    public override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-
-//        // Update navbar gradient
-//        self.navigationController?.navigationBar.applyGlobalNavbarColor()
-    }
-
 
     // MARK: - Refresh
 
