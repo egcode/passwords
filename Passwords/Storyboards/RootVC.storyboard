@@ -33,36 +33,33 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="passCell" id="zFX-QA-aRu" customClass="PasswordCell" customModule="Passwords" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="24.5" width="414" height="94.5"/>
+                                <rect key="frame" x="0.0" y="24.5" width="414" height="65.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zFX-QA-aRu" id="Iki-n7-zw6">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="94.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="65.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label Label Label Label Label Label Label Label Label Label Label Label " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qus-nf-Xlk">
-                                            <rect key="frame" x="20" y="11" width="374" height="41.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qus-nf-Xlk">
+                                            <rect key="frame" x="20" y="11" width="374" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WTs-Fe-caO" userLabel="Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label">
-                                            <rect key="frame" x="20" y="68.5" width="374" height="15"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="15" id="Nab-D6-B3F"/>
-                                            </constraints>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WTs-Fe-caO" userLabel="Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label">
+                                            <rect key="frame" x="20" y="40" width="374" height="14.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="qus-nf-Xlk" firstAttribute="leading" secondItem="Iki-n7-zw6" secondAttribute="leadingMargin" id="4hz-ZH-lrJ"/>
-                                        <constraint firstItem="qus-nf-Xlk" firstAttribute="trailing" secondItem="Iki-n7-zw6" secondAttribute="trailingMargin" id="FPv-pp-A1W"/>
-                                        <constraint firstItem="WTs-Fe-caO" firstAttribute="bottom" secondItem="Iki-n7-zw6" secondAttribute="bottomMargin" id="ZQt-nJ-dgZ"/>
-                                        <constraint firstItem="WTs-Fe-caO" firstAttribute="trailing" secondItem="Iki-n7-zw6" secondAttribute="trailingMargin" id="bCz-o0-Y2I"/>
-                                        <constraint firstItem="qus-nf-Xlk" firstAttribute="top" secondItem="Iki-n7-zw6" secondAttribute="topMargin" id="h57-Pk-ayP"/>
-                                        <constraint firstItem="WTs-Fe-caO" firstAttribute="top" secondItem="qus-nf-Xlk" secondAttribute="bottom" constant="16" id="hCb-rT-fhZ"/>
-                                        <constraint firstItem="WTs-Fe-caO" firstAttribute="leading" secondItem="Iki-n7-zw6" secondAttribute="leadingMargin" id="nH9-gM-ysI"/>
+                                        <constraint firstItem="qus-nf-Xlk" firstAttribute="top" secondItem="Iki-n7-zw6" secondAttribute="top" constant="11" id="1jp-Ry-l8M"/>
+                                        <constraint firstItem="WTs-Fe-caO" firstAttribute="trailing" secondItem="Iki-n7-zw6" secondAttribute="trailingMargin" id="7sl-7w-VxY"/>
+                                        <constraint firstItem="qus-nf-Xlk" firstAttribute="trailing" secondItem="Iki-n7-zw6" secondAttribute="trailingMargin" id="IEO-9o-F3u"/>
+                                        <constraint firstItem="WTs-Fe-caO" firstAttribute="leading" secondItem="Iki-n7-zw6" secondAttribute="leadingMargin" id="TdQ-fD-XpP"/>
+                                        <constraint firstItem="qus-nf-Xlk" firstAttribute="leading" secondItem="Iki-n7-zw6" secondAttribute="leadingMargin" id="imZ-A9-O14"/>
+                                        <constraint firstItem="WTs-Fe-caO" firstAttribute="top" secondItem="qus-nf-Xlk" secondAttribute="bottom" constant="8" symbolic="YES" id="ndf-Im-n1X"/>
+                                        <constraint firstAttribute="bottom" secondItem="WTs-Fe-caO" secondAttribute="bottom" constant="11" id="xqD-Uh-Nll"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
