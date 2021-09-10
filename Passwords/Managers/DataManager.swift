@@ -18,6 +18,16 @@ public class DataManager: NSObject {
     
     // MARK: -  Fake Data
     
+    public func generateFakeDataForSearch() {
+        let arr = ["one", "One", "two", "TWO","three", "Three", "THREE", "four", "Five", "FIVE"]
+        
+        for t in arr {
+            let password = Password(title: t, password: "Password\(t)", userID: "UserID \(t)", desc: "Description \(t)")
+            self.passwords.append(password)
+        }
+    }
+
+    
     public func generateFakeData() {
         for i in 1...5 {
             let password = Password(title: "Title \(i)", password: "Password\(i)", userID: "UserID \(i)", desc: "Description \(i)")
