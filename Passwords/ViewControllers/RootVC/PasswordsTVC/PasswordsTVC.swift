@@ -11,7 +11,7 @@ protocol PasswordsTVCRefreshProtocol: AnyObject {
     func addPassword(passwordVM:PasswordViewModel)
 }
 
-class PasswordsTVC: UITableViewController {
+class PasswordsTVC: BaseTVC {
         
     var passwordViewModelParent = PasswordViewModelParent()
     

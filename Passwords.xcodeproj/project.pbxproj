@@ -38,6 +38,10 @@
 		6A16EBB626EAC426002C3651 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A16EBB526EAC426002C3651 /* Colors.swift */; };
 		6A16EBB826EAC4A3002C3651 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A16EBB726EAC4A3002C3651 /* Fonts.swift */; };
 		6A16EBBA26EADFF1002C3651 /* PasswordCreateVC+UITextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A16EBB926EADFF1002C3651 /* PasswordCreateVC+UITextFieldDelegate.swift */; };
+		6A16EBBC26EAED89002C3651 /* BaseTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A16EBBB26EAED89002C3651 /* BaseTVC.swift */; };
+		6A16EBBE26EAEDC0002C3651 /* UINavigationBar+Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A16EBBD26EAEDC0002C3651 /* UINavigationBar+Gradient.swift */; };
+		6A16EBC026EAEE45002C3651 /* UINavigationController+LargeTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A16EBBF26EAEE45002C3651 /* UINavigationController+LargeTitle.swift */; };
+		6A16EBC226EAEFB7002C3651 /* BaseTVC+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A16EBC126EAEFB7002C3651 /* BaseTVC+Search.swift */; };
 		6BAE4D2A2E48141DF5A8EDFD /* Pods_Passwords.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF9FDB5408917DB5E183064 /* Pods_Passwords.framework */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +81,10 @@
 		6A16EBB526EAC426002C3651 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		6A16EBB726EAC4A3002C3651 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		6A16EBB926EADFF1002C3651 /* PasswordCreateVC+UITextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PasswordCreateVC+UITextFieldDelegate.swift"; sourceTree = "<group>"; };
+		6A16EBBB26EAED89002C3651 /* BaseTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTVC.swift; sourceTree = "<group>"; };
+		6A16EBBD26EAEDC0002C3651 /* UINavigationBar+Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Gradient.swift"; sourceTree = "<group>"; };
+		6A16EBBF26EAEE45002C3651 /* UINavigationController+LargeTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+LargeTitle.swift"; sourceTree = "<group>"; };
+		6A16EBC126EAEFB7002C3651 /* BaseTVC+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseTVC+Search.swift"; sourceTree = "<group>"; };
 		B95D31F078F21E37587CF4F6 /* Pods-Passwords.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Passwords.debug.xcconfig"; path = "Target Support Files/Pods-Passwords/Pods-Passwords.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -166,6 +174,8 @@
 			children = (
 				6A06826826E939CC00FB3827 /* UIViewController+Alert.swift */,
 				6A16EBB326EAC3E2002C3651 /* UITableView+EmptyState.swift */,
+				6A16EBBD26EAEDC0002C3651 /* UINavigationBar+Gradient.swift */,
+				6A16EBBF26EAEE45002C3651 /* UINavigationController+LargeTitle.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -219,6 +229,8 @@
 		6A0682A726E967A300FB3827 /* RootVC */ = {
 			isa = PBXGroup;
 			children = (
+				6A16EBBB26EAED89002C3651 /* BaseTVC.swift */,
+				6A16EBC126EAEFB7002C3651 /* BaseTVC+Search.swift */,
 				6A16EBB226EAC1EE002C3651 /* PasswordsTVC */,
 				6A0682AF26E9760A00FB3827 /* PasswordCreateVC.swift */,
 				6A16EBB926EADFF1002C3651 /* PasswordCreateVC+UITextFieldDelegate.swift */,
@@ -372,13 +384,16 @@
 			files = (
 				6A16EBB426EAC3E2002C3651 /* UITableView+EmptyState.swift in Sources */,
 				6A16EBB626EAC426002C3651 /* Colors.swift in Sources */,
+				6A16EBBC26EAED89002C3651 /* BaseTVC.swift in Sources */,
 				6A16EBA826EABA2B002C3651 /* Password.swift in Sources */,
 				6A06828F26E94FD700FB3827 /* CacheRealm.swift in Sources */,
 				6A06829626E9653A00FB3827 /* DataManager+Keychain.swift in Sources */,
 				6A0682B026E9760A00FB3827 /* PasswordCreateVC.swift in Sources */,
 				6A16EBB826EAC4A3002C3651 /* Fonts.swift in Sources */,
 				6A16EBAF26EAC133002C3651 /* PasswordsTVC+TableView.swift in Sources */,
+				6A16EBBE26EAEDC0002C3651 /* UINavigationBar+Gradient.swift in Sources */,
 				6A16EBBA26EADFF1002C3651 /* PasswordCreateVC+UITextFieldDelegate.swift in Sources */,
+				6A16EBC026EAEE45002C3651 /* UINavigationController+LargeTitle.swift in Sources */,
 				6A06826D26E93ACD00FB3827 /* GCD.swift in Sources */,
 				6A06827F26E93EAC00FB3827 /* RootVC.swift in Sources */,
 				6A06829E26E965C600FB3827 /* KeychainError.swift in Sources */,
@@ -387,6 +402,7 @@
 				6A16EBAD26EAC016002C3651 /* PasswordViewModelParent.swift in Sources */,
 				6A06822826E9379800FB3827 /* AppDelegate.swift in Sources */,
 				6A16EBB126EAC1E0002C3651 /* PasswordCell.swift in Sources */,
+				6A16EBC226EAEFB7002C3651 /* BaseTVC+Search.swift in Sources */,
 				6A06826426E9391F00FB3827 /* StartupVC.swift in Sources */,
 				6A0682A926E967E000FB3827 /* PasswordsTVC.swift in Sources */,
 				6A0682AC26E9681900FB3827 /* SettingsTVC.swift in Sources */,
