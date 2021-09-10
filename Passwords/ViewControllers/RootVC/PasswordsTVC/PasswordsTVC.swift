@@ -36,10 +36,10 @@ class PasswordsTVC: BaseTVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "Passwords"
+        
         // Navigation bar Button
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(self.actionNavBarButton(sender:)))
-
-        
     }
     
     // MARK: - Actions

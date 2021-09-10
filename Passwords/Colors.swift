@@ -10,20 +10,20 @@ import UIKit
 @objcMembers public class Colors : UIColor {
     
     // Text Color
+    public static let mainColor = UIColor(red: 0.0, green: 181.0/255.0, blue: 226.0/255.0, alpha: 1.0)
     public static let textDarkGrey = UIColor(red: 66.0/255.0, green: 66.0/255.0, blue: 66.0/255.0, alpha: 1.0)
     public static let textLightGrey = UIColor(red: 0.62, green: 0.62, blue: 0.62, alpha: 1.0)
     public static let textWhite = UIColor.white
     public static let textTransparentBG = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.2)
-    public static let alertButtonTextColor = UIColor(red: 0.0, green: 181.0/255.0, blue: 226.0/255.0, alpha: 1.0)
     public static let multiOrgCellTextColor = UIColor(named: "#424242")
     
     // Global
     public static let windowColor = UIColor.white
 
     // Navigation Bar
-    public static let navBGColor = UIColor.white
+    public static let navBGColor = mainColor
     public static let navTitleColor = textDarkGrey
-    public static let navTintColor = UIColor.darkText
+    public static let navTintColor = textWhite
 
     public static let navBottomColor = UIColor(red: 93.0/255.0, green: 145.0/255.0, blue: 195.0/255.0, alpha: 1.0)
     public static let navTopColor = UIColor(red: 24.0/255.0, green: 46.0/255.0, blue: 72.0/255.0, alpha: 1.0)

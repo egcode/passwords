@@ -8,13 +8,13 @@
 import UIKit
 
 public extension UINavigationController {
-    @objc func applyLargeTitle(titleColor:UIColor = Colors.navTitleColor) {
+    @objc func applyLargeTitle() {
         if #available(iOS 11.0, *) {
             self.navigationBar.prefersLargeTitles = true
             self.navigationItem.largeTitleDisplayMode = .automatic
             
             let originalFont = UIFont.preferredFont(forTextStyle: .largeTitle)
-            self.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: titleColor,
+            self.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: Colors.navTitleColor,
                                                            NSAttributedString.Key.font: Fonts.latoBold(size: originalFont.pointSize)]
         } else {
             // Fallback on earlier versions

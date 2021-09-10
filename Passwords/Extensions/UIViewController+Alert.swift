@@ -19,6 +19,7 @@ public extension UIViewController {
                 c()
             }
         })
+        action.setValue(Colors.mainColor, forKey: "titleTextColor")
         alert.addAction(action)
         self.present(alert, animated: true)
     }
