@@ -92,7 +92,7 @@ class PasswordCreateVC : UIViewController {
         
         let passwordObject = Password(title: title, password: password, userID: userID, desc: desc)
         DataManager.shared.addPassword(password: passwordObject)
-        self.delegate?.refreshFromDelegate()
+        self.delegate?.addPassword(passwordVM: PasswordViewModel(password: passwordObject))
         self.dismiss(animated: true) {
         }
 

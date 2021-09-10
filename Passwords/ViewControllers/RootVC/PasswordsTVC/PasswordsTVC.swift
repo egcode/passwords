@@ -8,7 +8,7 @@
 import UIKit
 
 protocol PasswordsTVCRefreshProtocol: AnyObject {
-    func refreshFromDelegate()
+    func addPassword(passwordVM:PasswordViewModel)
 }
 
 class PasswordsTVC: UITableViewController {
@@ -55,8 +55,11 @@ class PasswordsTVC: UITableViewController {
 }
 
 extension PasswordsTVC: PasswordsTVCRefreshProtocol {
-    func refreshFromDelegate() {
-        self.passwordViewModelParent.refreshPasswordViewModels()
+    
+    func addPassword(passwordVM: PasswordViewModel) {
+        self.passwordViewModelParent.addPasswordViewModel(passwordVM: passwordVM)
         self.tableView.reloadData()
     }
+    
+    
 }

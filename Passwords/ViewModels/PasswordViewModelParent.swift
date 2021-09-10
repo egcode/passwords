@@ -16,8 +16,14 @@ public class PasswordViewModelParent: NSObject {
         self.refreshPasswordViewModels()
     }
     
+    // MARK: - Password management
+    
     public func refreshPasswordViewModels() {
         self.passwordViewModels = DataManager.shared.getPasswords().map({return PasswordViewModel(password: $0)})
+    }
+    
+    public func addPasswordViewModel(passwordVM: PasswordViewModel) {
+        self.passwordViewModels.append(passwordVM)
     }
     
     // MARK: - Debug description
