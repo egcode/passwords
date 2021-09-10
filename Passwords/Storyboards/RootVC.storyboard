@@ -146,7 +146,7 @@
                                     <constraint firstAttribute="height" constant="34" id="sME-EK-Vaq"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PFH-bg-GpJ">
                                 <rect key="frame" x="40" y="300" width="334" height="34"/>
@@ -154,7 +154,7 @@
                                     <constraint firstAttribute="height" constant="34" id="CvM-dw-akL"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="User ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DEq-TG-n39">
                                 <rect key="frame" x="40" y="246" width="334" height="34"/>
@@ -162,7 +162,7 @@
                                     <constraint firstAttribute="height" constant="34" id="y6E-A3-S3v"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dLL-4V-6bm">
                                 <rect key="frame" x="40" y="192" width="334" height="34"/>
@@ -170,7 +170,7 @@
                                     <constraint firstAttribute="height" constant="34" id="tA8-C2-tQ9"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
                             </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="zcH-nb-0dZ"/>
