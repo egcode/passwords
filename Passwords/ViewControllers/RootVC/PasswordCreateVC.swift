@@ -40,6 +40,12 @@ class PasswordCreateVC : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // UITextFieldDelegate setup
+        self.textFieldTitle.delegate = self
+        self.textFieldUserID.delegate = self
+        self.textFieldPassword.delegate = self
+        self.textFieldDescription.delegate = self
+        
         // Navigation bar Button
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.cancel, target: self, action: #selector(self.actionNavBarButton(sender:)))
     }
@@ -66,6 +72,13 @@ class PasswordCreateVC : UIViewController {
     }
     
     @IBAction func actionButtonCreate(_ sender: UIButton) {
+        self.submit()
+    }
+    
+    
+    // MARK: - Submit
+    
+    func submit() {
         var title = ""
         var password = ""
         var userID = ""
@@ -87,7 +100,7 @@ class PasswordCreateVC : UIViewController {
             return
         }
         
-        // TODO: - Check if title is already exists
+        // TODO: - Check if title is already exists in cache
         // Ready to create object
         
         let passwordObject = Password(title: title, password: password, userID: userID, desc: desc)
@@ -95,8 +108,6 @@ class PasswordCreateVC : UIViewController {
         self.delegate?.addPassword(passwordVM: PasswordViewModel(password: passwordObject))
         self.dismiss(animated: true) {
         }
-
-        
     }
     
 }
