@@ -14,7 +14,7 @@ extension BaseTVC  {
         self.searchController.searchResultsUpdater = self
 //        self.searchController.hidesNavigationBarDuringPresentation = false /// causes navigation title overlay bug
         self.definesPresentationContext = true
-        self.searchController.dimsBackgroundDuringPresentation = false
+        self.searchController.obscuresBackgroundDuringPresentation = false
         self.searchController.searchBar.searchBarStyle = UISearchBar.Style.minimal
         // Search controller cancelButton
         self.searchController.searchBar.setValue("Cancel", forKey:"cancelButtonText")
