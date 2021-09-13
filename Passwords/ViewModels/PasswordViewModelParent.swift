@@ -10,6 +10,7 @@ import UIKit
 public class PasswordViewModelParent: NSObject {
     
     public var passwordViewModels = [PasswordViewModel]()
+    public var filteredPasswordViewModels = [PasswordViewModel]()
     
     override init() {
         super.init()

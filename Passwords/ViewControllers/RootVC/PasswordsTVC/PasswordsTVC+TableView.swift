@@ -12,12 +12,16 @@ extension PasswordsTVC {
     // MARK: - TableView data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (self.passwordViewModelParent.passwordViewModels.count == 0){
-            self.tableView.setEmptyState("No passwords yet", "Please create passord to display it here")
+        if self.isFiltering() {
+            return self.passwordViewModelParent.filteredPasswordViewModels.count
         } else {
-            self.tableView.restore()
+            if (self.passwordViewModelParent.passwordViewModels.count == 0){
+                self.tableView.setEmptyState("No passwords yet", "Please create passord to display it here")
+            } else {
+                self.tableView.restore()
+            }
+            return self.passwordViewModelParent.passwordViewModels.count
         }
-        return self.passwordViewModelParent.passwordViewModels.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -25,7 +29,11 @@ extension PasswordsTVC {
             print("Error in list item cell")
             return UITableViewCell()
         }
-        passCell.passwordViewModel = self.passwordViewModelParent.passwordViewModels[indexPath.row]
+        if self.isFiltering() {
+            passCell.passwordViewModel = self.passwordViewModelParent.filteredPasswordViewModels[indexPath.row]
+        } else {
+            passCell.passwordViewModel = self.passwordViewModelParent.passwordViewModels[indexPath.row]
+        }
         return passCell
     }
     
@@ -33,10 +41,14 @@ extension PasswordsTVC {
     // MARK: - TableView delegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selPass = self.passwordViewModelParent.passwordViewModels[indexPath.row]
-        print("🔑SELECTED Password: \(selPass)")
+        if self.isFiltering() {
+            let selPass = self.passwordViewModelParent.filteredPasswordViewModels[indexPath.row]
+            print("🔑SELECTED FILTERED Password: \(selPass)")
+        } else {
+            let selPass = self.passwordViewModelParent.passwordViewModels[indexPath.row]
+            print("🔑SELECTED Password: \(selPass)")
+        }
     }
-    
-    
+
     
 }
