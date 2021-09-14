@@ -58,7 +58,7 @@ class PasswordViewVC : UIViewController {
     // MARK: - Actions
     
     @IBAction func actionButtonEdit(_ sender: UIButton) {
-        print("Sel: \(self.passwordViewModel)")
+        print("Sel: \(String(describing: self.passwordViewModel))")
     }
     
     
