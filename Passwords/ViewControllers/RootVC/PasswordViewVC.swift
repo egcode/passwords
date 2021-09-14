@@ -13,7 +13,7 @@ class PasswordViewVC : UIViewController {
     
     @IBOutlet weak var labelUserID: UILabel!
     @IBOutlet weak var labelPassword: UILabel!
-    @IBOutlet weak var labelDescription: UILabel!
+    @IBOutlet weak var textViewDescription: UITextView!
     @IBOutlet weak var buttonEdit: UIButton!
     
     
@@ -51,7 +51,7 @@ class PasswordViewVC : UIViewController {
         self.title = self.passwordViewModel.title
         self.labelUserID.text = self.passwordViewModel.userID
         self.labelPassword.text = self.passwordViewModel.pass
-        self.labelDescription.text = self.passwordViewModel.desc
+        self.textViewDescription.text = self.passwordViewModel.desc
     }
     
     
