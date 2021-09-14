@@ -50,8 +50,14 @@ extension PasswordsTVC {
                     preferredStyle: .alert)
                 
                 let yesButton = UIAlertAction(title: "yes", style: .default) { (action) in
-                    self.passwordViewModelParent.deletePasswordViewModel(index: indexPath.row)
-                    tableView.deleteRows(at: [indexPath], with: .fade)
+                    DataManager.shared.cacheDeletePassword(id: selPass.getID()) { success in
+                        if success {
+                            self.passwordViewModelParent.deletePasswordViewModel(index: indexPath.row)
+                            tableView.deleteRows(at: [indexPath], with: .fade)
+                        } else {
+                            self.showAlert(title: "Error", message: "Error deleting password")
+                        }
+                    }
                 }
                 let noButton = UIAlertAction(title: "no", style: .default) { (action) in
                     //

@@ -13,7 +13,7 @@ extension DataManager {
     func cacheStartUser(userID: String, completion: @escaping (Bool) -> Void) {
 //        GCD.cacheThread {
             if let _ =  CacheRealm.realm.object(ofType: User.self, forPrimaryKey: userID) {
-                print("🗄 REALM: User with id: \(userID) is already exists")
+                Log.error("🗄 REALM: User with id: \(userID) is already exists")
                 completion(true)
             } else {
                 CacheRealm.write {
@@ -27,7 +27,7 @@ extension DataManager {
 
     func cacheGetPasswords(completion: @escaping ([Password]) -> Void) {
         guard let usr =  CacheRealm.realm.object(ofType: User.self, forPrimaryKey: DataManager.shared.userID) else {
-            print("⛔️REALM: Unable to get User from realm")
+            Log.error("⛔️REALM: Unable to get User from realm")
             completion([Password]())
             return
         }
@@ -39,7 +39,7 @@ extension DataManager {
 
     func cacheSavePassword(title: String, password: String, userID: String, desc: String, completion: @escaping (_ password: Password?) -> Void) {
         guard let usr =  CacheRealm.realm.object(ofType: User.self, forPrimaryKey: DataManager.shared.userID) else {
-            print("⛔️REALM: Unable save password to realm")
+            Log.error("⛔️REALM: Unable get user to save password to realm")
             completion(nil)
             return
         }
@@ -51,5 +51,17 @@ extension DataManager {
 
     }
 
+    func cacheDeletePassword(id: String, completion: @escaping (_ success: Bool) -> Void) {
+        if let passToDel = CacheRealm.realm.objects(Password.self).filter("id = %@", id).first {
+            CacheRealm.write {
+                CacheRealm.realm.delete(passToDel)
+                completion(true)
+            }
+        } else {
+            completion(false)
+        }
+    }
+
+    
     
 }

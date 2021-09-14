@@ -8,6 +8,7 @@
 import UIKit
 
 public class PasswordViewModel: CustomDebugStringConvertible {
+    
     private var password: Password!
     
     var title = ""
@@ -17,6 +18,10 @@ public class PasswordViewModel: CustomDebugStringConvertible {
         self.password = password
         self.title = password.title
         self.desc = password.desc
+    }
+    
+    public func getID() -> String {
+        return self.password.id
     }
     
     // MARK: - Debug description
