@@ -103,7 +103,6 @@ class PasswordCreateVC : UIViewController {
         // Ready to create object
         DataManager.shared.cacheSavePassword(title: title, password: password, userID: userID, desc: desc) {[weak self] passwordObject in
             if let pass = passwordObject {
-                DataManager.shared.addPassword(password: pass)
                 self?.delegate?.addPassword(passwordVM: PasswordViewModel(password: pass))
                 self?.dismiss(animated: true, completion: nil)
             } else {

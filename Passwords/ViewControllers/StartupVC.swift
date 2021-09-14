@@ -21,8 +21,8 @@ class StartupVC: UIViewController {
         // Orientation portrait only
         AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
         
-        // TODO: - Remove this
-        DataManager.shared.generateFakeDataForSearch()
+//         TODO: - Remove this
+//        DataManager.shared.generateFakeDataForSearch()
 //        DataManager.shared.generateFakeData()
 //        DataManager.shared.generateFakeDataLong()
     }

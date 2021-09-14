@@ -20,7 +20,10 @@ public class PasswordViewModelParent: NSObject {
     // MARK: - Password management
     
     public func refreshPasswordViewModels() {
-        self.passwordViewModels = DataManager.shared.getPasswords().map({return PasswordViewModel(password: $0)})
+        // Getting passwords from cache
+        DataManager.shared.cacheGetPasswords { passwords in
+            self.passwordViewModels = passwords.map({return PasswordViewModel(password: $0)})
+        }
     }
     
     public func addPasswordViewModel(passwordVM: PasswordViewModel) {
