@@ -10,7 +10,15 @@ import Foundation
 public class DataManager: NSObject {
     
     public static let shared = DataManager()
+    
+    
+    
+    public var userID = "11222333" // Global user ID for RealmCache (could be email or whatever)
     private var passwords = [Password]()
+    
+    
+    
+    
     
     override init() {
         super.init()

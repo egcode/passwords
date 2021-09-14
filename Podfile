@@ -4,7 +4,6 @@ use_frameworks!
 
 target 'Passwords' do
     use_frameworks!
-    pod 'Realm', '~> 3.17.1'
-    pod 'RealmSwift', '~> 3.17.1'
+    pod 'RealmSwift', '~> 4.4.1'
 end
 
