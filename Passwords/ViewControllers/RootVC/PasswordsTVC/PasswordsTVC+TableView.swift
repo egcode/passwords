@@ -74,12 +74,20 @@ extension PasswordsTVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if self.isFiltering() {
             let selPass = self.passwordViewModelParent.filteredPasswordViewModels[indexPath.row]
-            print("🔑SELECTED FILTERED Password: \(selPass)")
+            self.handleSelect(passwordVM: selPass)
+            Log.debug("🔑SELECTED FILTERED Password: \(selPass)")
         } else {
             let selPass = self.passwordViewModelParent.passwordViewModels[indexPath.row]
-            print("🔑SELECTED Password: \(selPass)")
+            self.handleSelect(passwordVM: selPass)
+            Log.debug("🔑SELECTED Password: \(selPass)")
         }
     }
 
+    // MARK: - Handle Did select
+    
+    func handleSelect(passwordVM: PasswordViewModel) {
+        let passViewVC = PasswordViewVC.initFromStoryboard(passwordViewModel: passwordVM)
+        self.navigationController?.pushViewController(passViewVC, animated: true)
+    }
     
 }

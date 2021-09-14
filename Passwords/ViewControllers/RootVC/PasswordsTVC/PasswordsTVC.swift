@@ -26,6 +26,16 @@ class PasswordsTVC: BaseTVC {
         return passwordsTVC
     }
     
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        Log.error("PasswordsTVC inited without storyboard. It should not happen")
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        Log.debug("PasswordsTVC inited")
+    }
+    
     deinit {
         print("PasswordsTVC deinited")
     }

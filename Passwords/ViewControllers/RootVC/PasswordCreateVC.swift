@@ -30,6 +30,16 @@ class PasswordCreateVC : UIViewController {
         return passwordCreateVC
     }
     
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        Log.error("PasswordCreateVC inited without storyboard. It should not happen")
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        Log.debug("PasswordCreateVC inited")
+    }
+
     deinit {
         print("PasswordCreateVC deinited")
     }

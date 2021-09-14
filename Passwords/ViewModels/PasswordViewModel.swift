@@ -12,11 +12,15 @@ public class PasswordViewModel: CustomDebugStringConvertible {
     private var password: Password!
     
     var title = ""
+    var userID = ""
+    var pass = ""
     var desc = ""
     
     init(password:Password) {
         self.password = password
         self.title = password.title
+        self.userID = password.userID
+        self.pass = password.password
         self.desc = password.desc
     }
     
