@@ -39,7 +39,7 @@ class CacheRealm: NSObject {
     
     fileprivate static var encrypt = false
     fileprivate static let fileName = "p.realm"
-
+    
     static let shared: CacheRealm = {
         return CacheRealm()
     }()

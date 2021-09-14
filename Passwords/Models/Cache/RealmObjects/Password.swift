@@ -15,7 +15,6 @@ public class Password: Object {
     @objc dynamic var password = ""
     @objc dynamic var userID = ""
     @objc dynamic var desc = ""
-    
     @objc dynamic var updatedAt = Date()
 
     let user = LinkingObjects(fromType: User.self, property: "passwords")
@@ -30,12 +29,8 @@ public class Password: Object {
         self.updatedAt = Date()
     }
     
-    func passwordFromCachedPassword() -> Password {
-        return Password(title: self.title, password: self.password, userID: self.userID, desc: self.desc)
-    }
-
     public override class func primaryKey() -> String? {
-        return "title"
+        return "id"
     }
     
     // MARK: - Debug description

@@ -34,7 +34,7 @@ extension DataManager {
 //        let sortProperties = [SortDescriptor(keyPath: "title")]
         let sortProperties = [SortDescriptor(keyPath: "updatedAt")]
         let cachedPasswords = usr.passwords.sorted(by: sortProperties)
-        completion(cachedPasswords.map({return $0.passwordFromCachedPassword()}))
+        completion(Array(cachedPasswords))
     }
 
     func savePassword(title: String, password: String, userID: String, desc: String, completion: @escaping (_ password: Password?) -> Void) {
