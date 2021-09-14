@@ -14,22 +14,22 @@ public class PasswordViewModelParent: NSObject {
     
     override init() {
         super.init()
-        self.refreshPasswordViewModels()
-    }
-    
-    // MARK: - Password management
-    
-    public func refreshPasswordViewModels() {
         // Getting passwords from cache
         DataManager.shared.cacheGetPasswords { passwords in
             self.passwordViewModels = passwords.map({return PasswordViewModel(password: $0)})
         }
     }
     
+    // MARK: - Password management
+        
     public func addPasswordViewModel(passwordVM: PasswordViewModel) {
         self.passwordViewModels.append(passwordVM)
     }
     
+    public func deletePasswordViewModel(index: Int) {
+        self.passwordViewModels.remove(at: index)
+    }
+
     // MARK: - Debug description
     
     override public var debugDescription: String {

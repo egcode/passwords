@@ -40,6 +40,31 @@ extension PasswordsTVC {
     
     // MARK: - TableView delegate
     
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if !self.isFiltering() {
+            if editingStyle == .delete {
+                let selPass = self.passwordViewModelParent.passwordViewModels[indexPath.row]
+                let alert = UIAlertController(
+                    title: "Are you sure?",
+                    message: "Are you sure you want to delete \(selPass.title)?",
+                    preferredStyle: .alert)
+                
+                let yesButton = UIAlertAction(title: "yes", style: .default) { (action) in
+                    self.passwordViewModelParent.deletePasswordViewModel(index: indexPath.row)
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                }
+                let noButton = UIAlertAction(title: "no", style: .default) { (action) in
+                    //
+                }
+                alert.addAction(noButton)
+                alert.addAction(yesButton)
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+            
+
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if self.isFiltering() {
             let selPass = self.passwordViewModelParent.filteredPasswordViewModels[indexPath.row]
