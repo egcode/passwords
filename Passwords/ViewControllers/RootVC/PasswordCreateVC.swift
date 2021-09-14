@@ -100,13 +100,17 @@ class PasswordCreateVC : UIViewController {
             return
         }
         
-        // TODO: - Check if title is already exists in cache
         // Ready to create object
-        
-        let passwordObject = Password(title: title, password: password, userID: userID, desc: desc)
-        DataManager.shared.addPassword(password: passwordObject)
-        self.delegate?.addPassword(passwordVM: PasswordViewModel(password: passwordObject))
-        self.dismiss(animated: true) {
+        DataManager.shared.cacheSavePassword(title: title, password: password, userID: userID, desc: desc) {[weak self] passwordObject in
+            if let pass = passwordObject {
+                DataManager.shared.addPassword(password: pass)
+                self?.delegate?.addPassword(passwordVM: PasswordViewModel(password: pass))
+                self?.dismiss(animated: true, completion: nil)
+            } else {
+                self?.showAlert(title: "Cache error", message: "Unable to save password", completion: {
+                    self?.dismiss(animated: true, completion: nil)
+                })
+            }
         }
     }
     

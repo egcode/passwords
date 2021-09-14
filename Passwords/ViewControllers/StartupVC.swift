@@ -23,8 +23,8 @@ class StartupVC: UIViewController {
         
         // TODO: - Remove this
         DataManager.shared.generateFakeDataForSearch()
-        DataManager.shared.generateFakeData()
-        DataManager.shared.generateFakeDataLong()
+//        DataManager.shared.generateFakeData()
+//        DataManager.shared.generateFakeDataLong()
     }
     
 
@@ -32,7 +32,7 @@ class StartupVC: UIViewController {
         super.viewDidAppear(animated)
         StartupVC.showLogin(title: "Title Blah", message: "message blah")
         
-        DataManager.shared.startUser(userID: DataManager.shared.userID) { success in
+        DataManager.shared.cacheStartUser(userID: DataManager.shared.userID) { success in
             if success {
                 Log.debug("✅ Success user start")
             } else {

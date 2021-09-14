@@ -10,7 +10,7 @@ import RealmSwift
 
 extension DataManager {
     
-    func startUser(userID: String, completion: @escaping (Bool) -> Void) {
+    func cacheStartUser(userID: String, completion: @escaping (Bool) -> Void) {
 //        GCD.cacheThread {
             if let _ =  CacheRealm.realm.object(ofType: User.self, forPrimaryKey: userID) {
                 print("🗄 REALM: User with id: \(userID) is already exists")
@@ -25,7 +25,7 @@ extension DataManager {
 //        }
     }
 
-    func getPasswords(completion: @escaping ([Password]) -> Void) {
+    func cacheGetPasswords(completion: @escaping ([Password]) -> Void) {
         guard let usr =  CacheRealm.realm.object(ofType: User.self, forPrimaryKey: DataManager.shared.userID) else {
             print("⛔️REALM: Unable to get User from realm")
             completion([Password]())
@@ -37,7 +37,7 @@ extension DataManager {
         completion(Array(cachedPasswords))
     }
 
-    func savePassword(title: String, password: String, userID: String, desc: String, completion: @escaping (_ password: Password?) -> Void) {
+    func cacheSavePassword(title: String, password: String, userID: String, desc: String, completion: @escaping (_ password: Password?) -> Void) {
         guard let usr =  CacheRealm.realm.object(ofType: User.self, forPrimaryKey: DataManager.shared.userID) else {
             print("⛔️REALM: Unable save password to realm")
             completion(nil)
