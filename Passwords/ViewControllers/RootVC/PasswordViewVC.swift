@@ -49,8 +49,22 @@ class PasswordViewVC : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = self.passwordViewModel.title
+        
         self.labelUserID.text = self.passwordViewModel.userID
+        if self.passwordViewModel.userID == "" {
+            self.labelUserID.isHidden = true
+        } else {
+            self.labelUserID.isHidden = false
+            let tapUser = UITapGestureRecognizer(target: self, action: #selector(self.tapOnUserID(_:)))
+            self.labelUserID.addGestureRecognizer(tapUser)
+            self.labelUserID.isUserInteractionEnabled = true
+        }
+        
         self.labelPassword.text = self.passwordViewModel.pass
+        let tapPass = UITapGestureRecognizer(target: self, action: #selector(self.tapOnPassword(_:)))
+        self.labelPassword.addGestureRecognizer(tapPass)
+        self.labelPassword.isUserInteractionEnabled = true
+
         self.textViewDescription.text = self.passwordViewModel.desc
     }
     
@@ -61,6 +75,12 @@ class PasswordViewVC : UIViewController {
         print("Sel: \(String(describing: self.passwordViewModel))")
     }
     
-    
-    
+    @objc func tapOnUserID(_ sender: UITapGestureRecognizer) {
+         print("tapOnUserID")
+      }
+
+    @objc func tapOnPassword(_ sender: UITapGestureRecognizer) {
+         print("tapOnPassword")
+      }
+
 }
