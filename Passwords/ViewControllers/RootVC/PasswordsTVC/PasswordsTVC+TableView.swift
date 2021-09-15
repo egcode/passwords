@@ -33,6 +33,7 @@ extension PasswordsTVC {
             passCell.passwordViewModel = self.passwordViewModelParent.filteredPasswordViewModels[indexPath.row]
         } else {
             passCell.passwordViewModel = self.passwordViewModelParent.passwordViewModels[indexPath.row]
+            passCell.passwordViewModel.originalIndexPath = indexPath
         }
         return passCell
     }

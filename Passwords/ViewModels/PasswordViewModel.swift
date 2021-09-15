@@ -21,6 +21,8 @@ public class PasswordViewModel: CustomDebugStringConvertible {
     public var passModel = Box("")
     public var descModel = Box("")
     
+    var originalIndexPath: IndexPath?
+    
     init(password:Password) {
         self.updatePassword(password: password)
     }
