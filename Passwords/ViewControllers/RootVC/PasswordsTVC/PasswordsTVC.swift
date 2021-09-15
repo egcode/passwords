@@ -74,8 +74,8 @@ extension PasswordsTVC: PasswordsTVCRefreshProtocol {
     
     func editPassword(indexPathOldVM: IndexPath, newPasswordVM: PasswordViewModel) {
         self.passwordViewModelParent.deletePasswordViewModel(index: indexPathOldVM.row)
-        tableView.deleteRows(at: [indexPathOldVM], with: .fade)
-        self.addPassword(passwordVM: newPasswordVM)
+        self.passwordViewModelParent.addPasswordViewModel(passwordVM: newPasswordVM)
+        self.tableView.reloadData()
     }
 
 }
