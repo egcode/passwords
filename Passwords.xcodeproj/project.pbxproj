@@ -49,6 +49,7 @@
 		6A44485726F01D6000597539 /* TextLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A44485626F01D6000597539 /* TextLog.swift */; };
 		6A44485926F01DA400597539 /* FileManager+DateSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A44485826F01DA400597539 /* FileManager+DateSort.swift */; };
 		6ADAD0A926F0428F00D0E755 /* PasswordViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADAD0A826F0428F00D0E755 /* PasswordViewVC.swift */; };
+		6ADAD0AD26F1970100D0E755 /* UINavigationController+Completion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADAD0AC26F1970100D0E755 /* UINavigationController+Completion.swift */; };
 		6BAE4D2A2E48141DF5A8EDFD /* Pods_Passwords.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF9FDB5408917DB5E183064 /* Pods_Passwords.framework */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +100,7 @@
 		6A44485626F01D6000597539 /* TextLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextLog.swift; sourceTree = "<group>"; };
 		6A44485826F01DA400597539 /* FileManager+DateSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FileManager+DateSort.swift"; path = "../../../../../../FileManager+DateSort.swift"; sourceTree = "<group>"; };
 		6ADAD0A826F0428F00D0E755 /* PasswordViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewVC.swift; sourceTree = "<group>"; };
+		6ADAD0AC26F1970100D0E755 /* UINavigationController+Completion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Completion.swift"; sourceTree = "<group>"; };
 		B95D31F078F21E37587CF4F6 /* Pods-Passwords.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Passwords.debug.xcconfig"; path = "Target Support Files/Pods-Passwords/Pods-Passwords.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -191,6 +193,7 @@
 				6A16EBB326EAC3E2002C3651 /* UITableView+EmptyState.swift */,
 				6A16EBBD26EAEDC0002C3651 /* UINavigationBar+Gradient.swift */,
 				6A16EBBF26EAEE45002C3651 /* UINavigationController+LargeTitle.swift */,
+				6ADAD0AC26F1970100D0E755 /* UINavigationController+Completion.swift */,
 				6A44485826F01DA400597539 /* FileManager+DateSort.swift */,
 			);
 			path = Extensions;
@@ -424,6 +427,7 @@
 				6A16EBB626EAC426002C3651 /* Colors.swift in Sources */,
 				6A16EBBC26EAED89002C3651 /* BaseTVC.swift in Sources */,
 				6A06828F26E94FD700FB3827 /* CacheRealm.swift in Sources */,
+				6ADAD0AD26F1970100D0E755 /* UINavigationController+Completion.swift in Sources */,
 				6A06829626E9653A00FB3827 /* DataManager+Keychain.swift in Sources */,
 				6A0682B026E9760A00FB3827 /* PasswordCreateEditVC.swift in Sources */,
 				6A16EBB826EAC4A3002C3651 /* Fonts.swift in Sources */,

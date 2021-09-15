@@ -9,7 +9,7 @@ import UIKit
 
 protocol PasswordsTVCRefreshProtocol: AnyObject {
     func addPassword(passwordVM:PasswordViewModel)
-    func editPassword(indexPathOldVM: IndexPath, newPasswordVM: PasswordViewModel)
+    func refreshFromDelegate()
 }
 
 class PasswordsTVC: BaseTVC {
@@ -21,7 +21,7 @@ class PasswordsTVC: BaseTVC {
     @objc public static func initFromStoryboard() -> PasswordsTVC {
         let sb = UIStoryboard(name: "RootVC", bundle: Bundle(for: PasswordsTVC.self))
         guard let passwordsTVC = sb.instantiateViewController(withIdentifier: "PasswordsTVCID") as? PasswordsTVC else {
-            print("⛔️ Error getting PasswordsTVCID from storyboard")
+            Log.debug("⛔️ Error getting PasswordsTVCID from storyboard")
             return PasswordsTVC()
         }
         return passwordsTVC
@@ -38,7 +38,7 @@ class PasswordsTVC: BaseTVC {
     }
     
     deinit {
-        print("PasswordsTVC deinited")
+        Log.debug("PasswordsTVC deinited")
     }
 
 
@@ -72,10 +72,8 @@ extension PasswordsTVC: PasswordsTVCRefreshProtocol {
         self.tableView.reloadData()
     }
     
-    func editPassword(indexPathOldVM: IndexPath, newPasswordVM: PasswordViewModel) {
-        self.passwordViewModelParent.deletePasswordViewModel(index: indexPathOldVM.row)
-        self.passwordViewModelParent.addPasswordViewModel(passwordVM: newPasswordVM)
-        self.tableView.reloadData()
+    func refreshFromDelegate() {
+        self.refreshTableView(animated: false)
     }
 
 }

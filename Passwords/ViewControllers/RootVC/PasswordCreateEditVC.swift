@@ -15,16 +15,18 @@ class PasswordCreateEditVC : UIViewController {
     @IBOutlet weak var textFieldDescription: UITextField!
     
     @IBOutlet weak var buttonCancel: UIButton!
-    @IBOutlet weak var buttonCreate: UIButton!
+    @IBOutlet weak var buttonSubmit: UIButton!
     
     weak var delegate: PasswordsTVCRefreshProtocol?
+    weak var passwordViewModel: PasswordViewModel? // If in ✏️ Edit Mode
+    var action = {}
     
     // MARK: - init/deinit
     
     @objc public static func initFromStoryboard() -> PasswordCreateEditVC {
         let sb = UIStoryboard(name: "RootVC", bundle: Bundle(for: PasswordCreateEditVC.self))
         guard let passwordCreateVC = sb.instantiateViewController(withIdentifier: "PasswordCreateEditVCID") as? PasswordCreateEditVC else {
-            print("⛔️ Error getting PasswordCreateEditVCID from storyboard")
+            Log.debug("⛔️ Error getting PasswordCreateEditVCID from storyboard")
             return PasswordCreateEditVC()
         }
         return passwordCreateVC
@@ -41,7 +43,7 @@ class PasswordCreateEditVC : UIViewController {
     }
 
     deinit {
-        print("PasswordCreateEditVC deinited")
+        Log.debug("PasswordCreateEditVC deinited")
     }
 
     
@@ -62,8 +64,15 @@ class PasswordCreateEditVC : UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // ✏️ Edit Mode
+        if let passVM = self.passwordViewModel {
+            self.textFieldTitle.text = passVM.title
+            self.textFieldUserID.text = passVM.userID
+            self.textFieldPassword.text = passVM.pass
+            self.textFieldDescription.text = passVM.desc
+        }
         self.textFieldTitle.becomeFirstResponder()
-
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -72,20 +81,35 @@ class PasswordCreateEditVC : UIViewController {
     
     // MARK: - Actions
     @objc func actionNavBarButton(sender: UIBarButtonItem) {
-        self.dismiss(animated: true) {
-        }
+        self.dismisVC(completion: nil)
     }
 
     @IBAction func actionButtonCancel(_ sender: UIButton) {
-        self.dismiss(animated: true) {
-        }
+        self.dismisVC(completion: nil)
     }
     
-    @IBAction func actionButtonCreate(_ sender: UIButton) {
+    @IBAction func actionButtonSubmit(_ sender: UIButton) {
         self.submit()
     }
+    // MARK: - Dismiss
     
-    
+    func dismisVC(completion: (()->())? ) {
+        if self.passwordViewModel == nil {
+            self.dismiss(animated: true) {
+                if let c = completion {
+                    c()
+                }
+            }
+        } else {
+            // ✏️ Edit Mode
+            self.navigationController?.popViewController(animated: true, completion: {
+                if let c = completion {
+                    c()
+                }
+            })
+        }
+    }
+
     // MARK: - Submit
     
     func submit() {
@@ -110,15 +134,35 @@ class PasswordCreateEditVC : UIViewController {
             return
         }
         
-        // Ready to create object
-        DataManager.shared.cacheSavePassword(title: title, password: password, userID: userID, desc: desc) {[weak self] passwordObject in
-            if let pass = passwordObject {
-                self?.delegate?.addPassword(passwordVM: PasswordViewModel(password: pass))
-                self?.dismiss(animated: true, completion: nil)
-            } else {
-                self?.showAlert(title: "Cache error", message: "Unable to save password", completion: {
+        // ✏️ Edit Mode
+        if let passVM = self.passwordViewModel {
+            DataManager.shared.cacheUpdatePassword(id: passVM.getID(), title: title, password: password, userID: userID, desc: desc) {[weak self] updatedPassword in
+                if let p = updatedPassword {
+                    passVM.title = p.title
+                    passVM.pass = p.password
+                    passVM.userID = p.userID
+                    passVM.desc = p.desc
+                    self?.dismisVC(completion: {
+                        self?.action()
+                    })
+                } else {
+                    self?.showAlert(title: "Cache error", message: "Unable to update password", completion: {
+                        self?.dismisVC(completion: nil)
+                    })
+                }
+            }
+        } else {
+            // 🆕 Create Mode
+            // Ready to create object
+            DataManager.shared.cacheSavePassword(title: title, password: password, userID: userID, desc: desc) {[weak self] passwordObject in
+                if let pass = passwordObject {
+                    self?.delegate?.addPassword(passwordVM: PasswordViewModel(password: pass))
                     self?.dismiss(animated: true, completion: nil)
-                })
+                } else {
+                    self?.showAlert(title: "Cache error", message: "Unable to save new password", completion: {
+                        self?.dismisVC(completion: nil)
+                    })
+                }
             }
         }
     }

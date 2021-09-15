@@ -23,7 +23,7 @@ class PasswordViewVC : UIViewController {
     public static func initFromStoryboard(passwordViewModel: PasswordViewModel) -> PasswordViewVC {
         let sb = UIStoryboard(name: "RootVC", bundle: Bundle(for: PasswordViewVC.self))
         guard let passwordViewVC = sb.instantiateViewController(withIdentifier: "PasswordViewVCID") as? PasswordViewVC else {
-            print("⛔️ Error getting PasswordViewVC from storyboard")
+            Log.debug("⛔️ Error getting PasswordViewVC from storyboard")
             return PasswordViewVC()
         }
         passwordViewVC.passwordViewModel = passwordViewModel
@@ -41,7 +41,7 @@ class PasswordViewVC : UIViewController {
     }
 
     deinit {
-        print("PasswordViewVC deinited")
+        Log.debug("PasswordViewVC deinited")
     }
 
     
@@ -73,22 +73,21 @@ class PasswordViewVC : UIViewController {
     // MARK: - Actions
     
     @IBAction func actionButtonEdit(_ sender: UIButton) {
-        print("Sel: \(String(describing: self.passwordViewModel))")
-        
-//        let passCreateVC = PasswordCreateVC.initFromStoryboard()
-//        passCreateVC.delegate = self
-//        let pcNC = UINavigationController(rootViewController: passCreateVC)
-//        self.present(pcNC, animated: true, completion: nil)
-
-        
+        Log.debug("Sel: \(String(describing: self.passwordViewModel))")
+        let passCreateVC = PasswordCreateEditVC.initFromStoryboard()
+        passCreateVC.passwordViewModel = self.passwordViewModel
+        passCreateVC.action = {
+            self.delegate?.refreshFromDelegate()
+        }
+        self.navigationController?.pushViewController(passCreateVC, animated: true)
     }
     
     @objc func tapOnUserID(_ sender: UITapGestureRecognizer) {
-         print("tapOnUserID")
+        Log.debug("tapOnUserID")
       }
 
     @objc func tapOnPassword(_ sender: UITapGestureRecognizer) {
-         print("tapOnPassword")
+        Log.debug("tapOnPassword")
       }
 
 }

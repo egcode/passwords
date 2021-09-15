@@ -62,6 +62,21 @@ extension DataManager {
         }
     }
 
+    func cacheUpdatePassword(id: String, title: String, password: String, userID: String, desc: String, completion: @escaping (_ password: Password?) -> Void) {
+        if let pass = CacheRealm.realm.object(ofType: Password.self, forPrimaryKey: id) {
+            CacheRealm.write {
+                pass.title = title
+                pass.password = password
+                pass.userID = userID
+                pass.desc = desc
+                pass.updatedAt = Date()
+                completion(pass)
+            }
+        } else {
+            completion(nil)
+        }
+    }
+
     
     
 }

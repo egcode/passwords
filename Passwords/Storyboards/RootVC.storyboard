@@ -138,7 +138,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="actionButtonCreate:" destination="sR5-uq-bnl" eventType="touchUpInside" id="IuK-SF-Xmb"/>
+                                    <action selector="actionButtonSubmit:" destination="sR5-uq-bnl" eventType="touchUpInside" id="E49-5w-582"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Mo-ga-uar">
@@ -197,7 +197,7 @@
                     </view>
                     <connections>
                         <outlet property="buttonCancel" destination="YrN-DP-CdH" id="bBe-wB-lwz"/>
-                        <outlet property="buttonCreate" destination="EYI-Bj-itB" id="x1Q-OG-Q4a"/>
+                        <outlet property="buttonSubmit" destination="EYI-Bj-itB" id="VeE-wO-Sbi"/>
                         <outlet property="textFieldDescription" destination="8Mo-ga-uar" id="Uzx-lJ-ZjC"/>
                         <outlet property="textFieldPassword" destination="PFH-bg-GpJ" id="qkh-BY-5Jr"/>
                         <outlet property="textFieldTitle" destination="dLL-4V-6bm" id="CYy-M5-r3o"/>

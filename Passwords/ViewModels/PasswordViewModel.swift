@@ -16,8 +16,6 @@ public class PasswordViewModel: CustomDebugStringConvertible {
     var pass = ""
     var desc = ""
     
-    var indexPath: IndexPath?
-    
     init(password:Password) {
         self.password = password
         self.title = password.title
