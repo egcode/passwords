@@ -51,6 +51,7 @@
 		6ADAD0A926F0428F00D0E755 /* PasswordViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADAD0A826F0428F00D0E755 /* PasswordViewVC.swift */; };
 		6ADAD0AD26F1970100D0E755 /* UINavigationController+Completion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADAD0AC26F1970100D0E755 /* UINavigationController+Completion.swift */; };
 		6ADAD0AF26F1987300D0E755 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADAD0AE26F1987300D0E755 /* Box.swift */; };
+		6ADAD0B126F1A5B300D0E755 /* PasswordsTVC+PasswordsTVCRefreshProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADAD0B026F1A5B300D0E755 /* PasswordsTVC+PasswordsTVCRefreshProtocol.swift */; };
 		6BAE4D2A2E48141DF5A8EDFD /* Pods_Passwords.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF9FDB5408917DB5E183064 /* Pods_Passwords.framework */; };
 /* End PBXBuildFile section */
 
@@ -103,6 +104,7 @@
 		6ADAD0A826F0428F00D0E755 /* PasswordViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewVC.swift; sourceTree = "<group>"; };
 		6ADAD0AC26F1970100D0E755 /* UINavigationController+Completion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Completion.swift"; sourceTree = "<group>"; };
 		6ADAD0AE26F1987300D0E755 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
+		6ADAD0B026F1A5B300D0E755 /* PasswordsTVC+PasswordsTVCRefreshProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PasswordsTVC+PasswordsTVCRefreshProtocol.swift"; sourceTree = "<group>"; };
 		B95D31F078F21E37587CF4F6 /* Pods-Passwords.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Passwords.debug.xcconfig"; path = "Target Support Files/Pods-Passwords/Pods-Passwords.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -278,6 +280,7 @@
 				6A0682A826E967E000FB3827 /* PasswordsTVC.swift */,
 				6A16EBC426EB09A6002C3651 /* PasswordsTVC+Search.swift */,
 				6A16EBAE26EAC133002C3651 /* PasswordsTVC+TableView.swift */,
+				6ADAD0B026F1A5B300D0E755 /* PasswordsTVC+PasswordsTVCRefreshProtocol.swift */,
 				6A16EBB026EAC1E0002C3651 /* PasswordCell.swift */,
 			);
 			path = PasswordsTVC;
@@ -460,6 +463,7 @@
 				6A06829326E964C900FB3827 /* DataManager.swift in Sources */,
 				6A16EBAB26EABDB7002C3651 /* PasswordViewModel.swift in Sources */,
 				6A06829A26E965B700FB3827 /* KeychainStore.swift in Sources */,
+				6ADAD0B126F1A5B300D0E755 /* PasswordsTVC+PasswordsTVCRefreshProtocol.swift in Sources */,
 				6A0682A426E9664400FB3827 /* Constants.swift in Sources */,
 				6A0682A126E965D300FB3827 /* KeychainQueryable.swift in Sources */,
 				6A06822A26E9379800FB3827 /* SceneDelegate.swift in Sources */,

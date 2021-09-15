@@ -7,11 +7,6 @@
 
 import UIKit
 
-protocol PasswordsTVCRefreshProtocol: AnyObject {
-    func addPassword(passwordVM:PasswordViewModel)
-    func putToTop(passwordVM: PasswordViewModel)
-}
-
 class PasswordsTVC: BaseTVC {
         
     var passwordViewModelParent = PasswordViewModelParent()
@@ -63,24 +58,4 @@ class PasswordsTVC: BaseTVC {
 
     
         
-}
-
-extension PasswordsTVC: PasswordsTVCRefreshProtocol {
-    
-    func addPassword(passwordVM: PasswordViewModel) {
-        self.passwordViewModelParent.addPasswordViewModel(passwordVM: passwordVM)
-        self.refreshTableView(animated: false)
-    }
-    
-    func putToTop(passwordVM: PasswordViewModel) {
-        if let indPath = passwordVM.originalIndexPath {
-            self.passwordViewModelParent.deletePasswordViewModel(index: indPath.row)
-            tableView.deleteRows(at: [indPath], with: .fade)
-            self.passwordViewModelParent.addPasswordViewModel(passwordVM: passwordVM)
-            self.refreshTableView(animated: false)
-        } else {
-            Log.error("⛔️ Error put to top passwordVM")
-        }
-    }
-
 }
