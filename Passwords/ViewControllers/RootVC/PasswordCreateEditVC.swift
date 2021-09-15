@@ -138,10 +138,7 @@ class PasswordCreateEditVC : UIViewController {
         if let passVM = self.passwordViewModel {
             DataManager.shared.cacheUpdatePassword(id: passVM.getID(), title: title, password: password, userID: userID, desc: desc) {[weak self] updatedPassword in
                 if let p = updatedPassword {
-                    passVM.title = p.title
-                    passVM.pass = p.password
-                    passVM.userID = p.userID
-                    passVM.desc = p.desc
+                    passVM.updatePassword(password: p)
                     self?.dismisVC(completion: {
                         self?.action()
                     })

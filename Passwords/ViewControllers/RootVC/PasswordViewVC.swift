@@ -49,26 +49,43 @@ class PasswordViewVC : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = self.passwordViewModel.title
-        
-        self.labelUserID.text = self.passwordViewModel.userID
-        if self.passwordViewModel.userID == "" {
-            self.labelUserID.isHidden = true
-        } else {
-            self.labelUserID.isHidden = false
-            let tapUser = UITapGestureRecognizer(target: self, action: #selector(self.tapOnUserID(_:)))
-            self.labelUserID.addGestureRecognizer(tapUser)
-            self.labelUserID.isUserInteractionEnabled = true
-        }
-        
-        self.labelPassword.text = self.passwordViewModel.pass
         let tapPass = UITapGestureRecognizer(target: self, action: #selector(self.tapOnPassword(_:)))
         self.labelPassword.addGestureRecognizer(tapPass)
         self.labelPassword.isUserInteractionEnabled = true
-
-        self.textViewDescription.text = self.passwordViewModel.desc
+        self.initBindUI()
     }
     
+    // MARK: - Bind UI
+    
+    func initBindUI() {
+        self.passwordViewModel.titleModel.bind { [weak self] title in
+            if let s = self {
+                s.title=title
+                s.navigationController?.title = title
+            }
+        }
+        self.passwordViewModel.userIDModel.bind { [weak self] userID in
+            if let s = self {
+                s.labelUserID.text = userID
+                if userID == "" {
+                    s.labelUserID.isHidden = true
+                    s.labelUserID.gestureRecognizers?.removeAll()
+                } else {
+                    s.labelUserID.isHidden = false
+                    let tapUser = UITapGestureRecognizer(target: s, action: #selector(s.tapOnUserID(_:)))
+                    s.labelUserID.addGestureRecognizer(tapUser)
+                    s.labelUserID.isUserInteractionEnabled = true
+                }
+            }
+        }
+        self.passwordViewModel.passModel.bind { [weak self] passwrd in
+            self?.labelPassword.text = passwrd
+        }
+        self.passwordViewModel.descModel.bind { [weak self] dsc in
+            self?.textViewDescription.text = dsc
+        }
+    }
+
     
     // MARK: - Actions
     
