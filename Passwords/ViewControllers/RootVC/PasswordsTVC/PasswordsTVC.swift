@@ -69,7 +69,7 @@ extension PasswordsTVC: PasswordsTVCRefreshProtocol {
     
     func addPassword(passwordVM: PasswordViewModel) {
         self.passwordViewModelParent.addPasswordViewModel(passwordVM: passwordVM)
-        self.tableView.reloadData()
+        self.refreshTableView(animated: false)
     }
     
     func refreshFromDelegate() {

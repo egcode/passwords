@@ -255,9 +255,9 @@
 				6A16EBBB26EAED89002C3651 /* BaseTVC.swift */,
 				6A16EBC126EAEFB7002C3651 /* BaseTVC+Search.swift */,
 				6A16EBB226EAC1EE002C3651 /* PasswordsTVC */,
+				6ADAD0A826F0428F00D0E755 /* PasswordViewVC.swift */,
 				6A0682AF26E9760A00FB3827 /* PasswordCreateEditVC.swift */,
 				6A16EBB926EADFF1002C3651 /* PasswordCreateVC+UITextFieldDelegate.swift */,
-				6ADAD0A826F0428F00D0E755 /* PasswordViewVC.swift */,
 				6A0682AB26E9681900FB3827 /* SettingsTVC.swift */,
 			);
 			path = RootVC;
