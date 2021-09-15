@@ -9,6 +9,7 @@ import UIKit
 
 protocol PasswordsTVCRefreshProtocol: AnyObject {
     func addPassword(passwordVM:PasswordViewModel)
+    func editPassword(indexPathOldVM: IndexPath, newPasswordVM: PasswordViewModel)
 }
 
 class PasswordsTVC: BaseTVC {
@@ -54,7 +55,7 @@ class PasswordsTVC: BaseTVC {
     
     // MARK: - Actions
     @objc func actionNavBarButton(sender: UIBarButtonItem) {
-        let passCreateVC = PasswordCreateVC.initFromStoryboard()
+        let passCreateVC = PasswordCreateEditVC.initFromStoryboard()
         passCreateVC.delegate = self
         let pcNC = UINavigationController(rootViewController: passCreateVC)
         self.present(pcNC, animated: true, completion: nil)
@@ -71,5 +72,10 @@ extension PasswordsTVC: PasswordsTVCRefreshProtocol {
         self.tableView.reloadData()
     }
     
-    
+    func editPassword(indexPathOldVM: IndexPath, newPasswordVM: PasswordViewModel) {
+        self.passwordViewModelParent.deletePasswordViewModel(index: indexPathOldVM.row)
+        tableView.deleteRows(at: [indexPathOldVM], with: .fade)
+        self.addPassword(passwordVM: newPasswordVM)
+    }
+
 }

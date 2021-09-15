@@ -107,10 +107,10 @@
             </objects>
             <point key="canvasLocation" x="201" y="-321"/>
         </scene>
-        <!--Password CreateVC-->
+        <!--Password Create EditVC-->
         <scene sceneID="I3D-dU-Lyu">
             <objects>
-                <viewController storyboardIdentifier="PasswordCreateVCID" id="sR5-uq-bnl" customClass="PasswordCreateVC" customModule="Passwords" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PasswordCreateEditVCID" id="sR5-uq-bnl" customClass="PasswordCreateEditVC" customModule="Passwords" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ojo-aW-69I">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

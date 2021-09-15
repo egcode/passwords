@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PasswordCreateVC : UIViewController {
+class PasswordCreateEditVC : UIViewController {
     
     @IBOutlet weak var textFieldTitle: UITextField!
     @IBOutlet weak var textFieldUserID: UITextField!
@@ -21,27 +21,27 @@ class PasswordCreateVC : UIViewController {
     
     // MARK: - init/deinit
     
-    @objc public static func initFromStoryboard() -> PasswordCreateVC {
-        let sb = UIStoryboard(name: "RootVC", bundle: Bundle(for: PasswordCreateVC.self))
-        guard let passwordCreateVC = sb.instantiateViewController(withIdentifier: "PasswordCreateVCID") as? PasswordCreateVC else {
-            print("⛔️ Error getting PasswordCreateVCID from storyboard")
-            return PasswordCreateVC()
+    @objc public static func initFromStoryboard() -> PasswordCreateEditVC {
+        let sb = UIStoryboard(name: "RootVC", bundle: Bundle(for: PasswordCreateEditVC.self))
+        guard let passwordCreateVC = sb.instantiateViewController(withIdentifier: "PasswordCreateEditVCID") as? PasswordCreateEditVC else {
+            print("⛔️ Error getting PasswordCreateEditVCID from storyboard")
+            return PasswordCreateEditVC()
         }
         return passwordCreateVC
     }
     
     init() {
         super.init(nibName: nil, bundle: nil)
-        Log.error("PasswordCreateVC inited without storyboard. It should not happen")
+        Log.error("PasswordCreateEditVC inited without storyboard. It should not happen")
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        Log.debug("PasswordCreateVC inited")
+        Log.debug("PasswordCreateEditVC inited")
     }
 
     deinit {
-        print("PasswordCreateVC deinited")
+        print("PasswordCreateEditVC deinited")
     }
 
     

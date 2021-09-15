@@ -16,6 +16,7 @@ class PasswordViewVC : UIViewController {
     @IBOutlet weak var textViewDescription: UITextView!
     @IBOutlet weak var buttonEdit: UIButton!
     
+    weak var delegate: PasswordsTVCRefreshProtocol?
     
     // MARK: - init/deinit
     
@@ -73,6 +74,13 @@ class PasswordViewVC : UIViewController {
     
     @IBAction func actionButtonEdit(_ sender: UIButton) {
         print("Sel: \(String(describing: self.passwordViewModel))")
+        
+//        let passCreateVC = PasswordCreateVC.initFromStoryboard()
+//        passCreateVC.delegate = self
+//        let pcNC = UINavigationController(rootViewController: passCreateVC)
+//        self.present(pcNC, animated: true, completion: nil)
+
+        
     }
     
     @objc func tapOnUserID(_ sender: UITapGestureRecognizer) {

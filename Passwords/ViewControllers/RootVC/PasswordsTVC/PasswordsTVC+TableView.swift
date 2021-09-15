@@ -87,6 +87,7 @@ extension PasswordsTVC {
     
     func handleSelect(passwordVM: PasswordViewModel) {
         let passViewVC = PasswordViewVC.initFromStoryboard(passwordViewModel: passwordVM)
+        passViewVC.delegate = self
         self.navigationController?.pushViewController(passViewVC, animated: true)
     }
     
