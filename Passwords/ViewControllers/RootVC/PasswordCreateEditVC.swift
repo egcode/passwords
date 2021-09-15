@@ -52,6 +52,9 @@ class PasswordCreateEditVC : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Remove Large Title
+        self.navigationItem.largeTitleDisplayMode = .never
+        
         // UITextFieldDelegate setup
         self.textFieldTitle.delegate = self
         self.textFieldUserID.delegate = self
