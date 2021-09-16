@@ -90,7 +90,7 @@ extension DataManager {
     
     func cacheGetUseTouchFaceID(completion: @escaping (_ isOn: Bool) -> Void) {
         guard let usr = self.getUser() else {
-            Log.error("⛔️ REALM: Unable get user to get cacheGetUseBiometric")
+            Log.error("⛔️ REALM: Unable get user to get cacheGetUseTouchFaceID")
             completion(false)
             return
         }
@@ -99,12 +99,34 @@ extension DataManager {
 
     func cacheSetUseTouchFaceID(isOn: Bool, completion: @escaping (_ isOn: Bool) -> Void) {
         guard let usr = self.getUser() else {
-            Log.error("⛔️ REALM: Unable get user to get cacheGetUseBiometric")
+            Log.error("⛔️ REALM: Unable get user to get cacheSetUseTouchFaceID")
             completion(false)
             return
         }
         CacheRealm.write {
             usr.useTouchFaceID = isOn
+            completion(isOn)
+        }
+    }
+
+    
+    func cacheGetUsePassword(completion: @escaping (_ isOn: Bool) -> Void) {
+        guard let usr = self.getUser() else {
+            Log.error("⛔️ REALM: Unable get user to get cacheGetUsePassword")
+            completion(false)
+            return
+        }
+        completion(usr.usePassword)
+    }
+
+    func cacheSetUsePassword(isOn: Bool, completion: @escaping (_ isOn: Bool) -> Void) {
+        guard let usr = self.getUser() else {
+            Log.error("⛔️ REALM: Unable get user to get cacheSetUsePassword")
+            completion(false)
+            return
+        }
+        CacheRealm.write {
+            usr.usePassword = isOn
             completion(isOn)
         }
     }

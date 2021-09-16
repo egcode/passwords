@@ -20,7 +20,9 @@ extension SettingsTVC : SettingsTVCSwitch {
             }
             break
         case .passwordEnable:
-            Log.debug("PasswordEnable Switch changed to \(isOn)")
+            DataManager.shared.cacheSetUsePassword(isOn: isOn) { isOnSet in
+                Log.debug("PasswordEnable Switch changed to \(isOnSet)")
+            }
             break
         default:
             Log.error("⛔️ Weird switch triggered")

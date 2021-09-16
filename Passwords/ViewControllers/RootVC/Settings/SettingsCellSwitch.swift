@@ -32,7 +32,9 @@ class SettingsCellSwitch: UITableViewCell {
             }
             break
         case .passwordEnable:
-
+            DataManager.shared.cacheGetUsePassword { usePassword in
+                self.switchOnOff.isOn = usePassword
+            }
             break
         default:
             break
