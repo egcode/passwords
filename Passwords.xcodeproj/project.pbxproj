@@ -53,6 +53,8 @@
 		6ADAD0AF26F1987300D0E755 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADAD0AE26F1987300D0E755 /* Box.swift */; };
 		6ADAD0B126F1A5B300D0E755 /* PasswordsTVC+PasswordsTVCRefreshProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADAD0B026F1A5B300D0E755 /* PasswordsTVC+PasswordsTVCRefreshProtocol.swift */; };
 		6ADAD0B326F2C8B700D0E755 /* SettingsTVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADAD0B226F2C8B700D0E755 /* SettingsTVC+TableView.swift */; };
+		6ADAD0B826F2CEA400D0E755 /* SettingsCellSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADAD0B726F2CEA400D0E755 /* SettingsCellSwitch.swift */; };
+		6ADAD0BA26F2CEEE00D0E755 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADAD0B926F2CEEE00D0E755 /* SettingsCell.swift */; };
 		6BAE4D2A2E48141DF5A8EDFD /* Pods_Passwords.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF9FDB5408917DB5E183064 /* Pods_Passwords.framework */; };
 /* End PBXBuildFile section */
 
@@ -107,6 +109,8 @@
 		6ADAD0AE26F1987300D0E755 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		6ADAD0B026F1A5B300D0E755 /* PasswordsTVC+PasswordsTVCRefreshProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PasswordsTVC+PasswordsTVCRefreshProtocol.swift"; sourceTree = "<group>"; };
 		6ADAD0B226F2C8B700D0E755 /* SettingsTVC+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsTVC+TableView.swift"; sourceTree = "<group>"; };
+		6ADAD0B726F2CEA400D0E755 /* SettingsCellSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCellSwitch.swift; sourceTree = "<group>"; };
+		6ADAD0B926F2CEEE00D0E755 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		B95D31F078F21E37587CF4F6 /* Pods-Passwords.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Passwords.debug.xcconfig"; path = "Target Support Files/Pods-Passwords/Pods-Passwords.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -262,8 +266,7 @@
 				6ADAD0A826F0428F00D0E755 /* PasswordViewVC.swift */,
 				6A0682AF26E9760A00FB3827 /* PasswordCreateEditVC.swift */,
 				6A16EBB926EADFF1002C3651 /* PasswordCreateVC+UITextFieldDelegate.swift */,
-				6A0682AB26E9681900FB3827 /* SettingsTVC.swift */,
-				6ADAD0B226F2C8B700D0E755 /* SettingsTVC+TableView.swift */,
+				6ADAD0B426F2CE6D00D0E755 /* Settings */,
 			);
 			path = RootVC;
 			sourceTree = "<group>";
@@ -305,6 +308,17 @@
 				6A16EBC926EFF5E2002C3651 /* Password.swift */,
 			);
 			path = RealmObjects;
+			sourceTree = "<group>";
+		};
+		6ADAD0B426F2CE6D00D0E755 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				6A0682AB26E9681900FB3827 /* SettingsTVC.swift */,
+				6ADAD0B226F2C8B700D0E755 /* SettingsTVC+TableView.swift */,
+				6ADAD0B926F2CEEE00D0E755 /* SettingsCell.swift */,
+				6ADAD0B726F2CEA400D0E755 /* SettingsCellSwitch.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		9065BF45591649E6B6B91CCE /* Frameworks */ = {
@@ -437,6 +451,7 @@
 				6A16EBBC26EAED89002C3651 /* BaseTVC.swift in Sources */,
 				6A06828F26E94FD700FB3827 /* CacheRealm.swift in Sources */,
 				6ADAD0AD26F1970100D0E755 /* UINavigationController+Completion.swift in Sources */,
+				6ADAD0BA26F2CEEE00D0E755 /* SettingsCell.swift in Sources */,
 				6ADAD0AF26F1987300D0E755 /* Box.swift in Sources */,
 				6A06829626E9653A00FB3827 /* DataManager+Keychain.swift in Sources */,
 				6A0682B026E9760A00FB3827 /* PasswordCreateEditVC.swift in Sources */,
@@ -456,6 +471,7 @@
 				6A16EBCA26EFF5E2002C3651 /* Password.swift in Sources */,
 				6A16EBAD26EAC016002C3651 /* PasswordViewModelParent.swift in Sources */,
 				6A06822826E9379800FB3827 /* AppDelegate.swift in Sources */,
+				6ADAD0B826F2CEA400D0E755 /* SettingsCellSwitch.swift in Sources */,
 				6A16EBC826EFF5CF002C3651 /* User.swift in Sources */,
 				6A16EBB126EAC1E0002C3651 /* PasswordCell.swift in Sources */,
 				6A44485526F01D1C00597539 /* Log.swift in Sources */,
