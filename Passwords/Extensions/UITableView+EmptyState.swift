@@ -20,7 +20,7 @@ public extension UITableView {
         // Title label on the Center
         let titleLabel = UILabel(frame: CGRect(x: margin, y:(self.bounds.size.height/2)-(titleHeight/2) , width: self.bounds.size.width-(margin*2), height: titleHeight))
         titleLabel.text = title
-        titleLabel.textColor = Colors.emptyStateText
+        titleLabel.textColor = Colors.darkGray
         titleLabel.numberOfLines = 0;
         titleLabel.textAlignment = .center;
         titleLabel.font = Fonts.latoRegular(size: 32)
@@ -30,7 +30,7 @@ public extension UITableView {
         
         let messageLabel = UILabel(frame: CGRect(x: margin, y: (self.bounds.size.height/2)+(titleHeight/2), width: self.bounds.size.width-(margin*2), height: messageHeight))
         messageLabel.text = message
-        messageLabel.textColor = Colors.emptyStateText
+        messageLabel.textColor = Colors.lightGray
         messageLabel.numberOfLines = 3;
         messageLabel.textAlignment = .center;
         messageLabel.font = Fonts.latoLight(size: 16)
