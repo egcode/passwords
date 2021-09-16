@@ -26,14 +26,18 @@ class SettingsCellSwitch: UITableViewCell {
         self.delegate = delegate
         
         switch type {
-        case .touchFaceID:
-            DataManager.shared.cacheGetUseTouchFaceID { useTouchFaceID in
-                self.switchOnOff.isOn = useTouchFaceID
-            }
-            break
         case .passwordEnable:
             DataManager.shared.cacheGetUsePassword { usePassword in
                 self.switchOnOff.isOn = usePassword
+            }
+            break
+        case .touchFaceID:
+            DataManager.shared.cacheGetUsePassword { usePassword in
+                self.switchOnOff.isEnabled = usePassword
+                self.labelTitle.isEnabled = usePassword
+                DataManager.shared.cacheGetUseTouchFaceID { useTouchFaceID in
+                    self.switchOnOff.isOn = useTouchFaceID
+                }
             }
             break
         default:

@@ -14,14 +14,15 @@ protocol SettingsTVCSwitch: AnyObject {
 extension SettingsTVC : SettingsTVCSwitch {
     func switchDidChange(cellType: CellType, isOn: Bool) {
         switch cellType {
-        case .touchFaceID:
-            DataManager.shared.cacheSetUseTouchFaceID(isOn: isOn) { isOnSet in
-                Log.debug("TouchFaceID Switch changed to \(isOnSet)")
-            }
-            break
         case .passwordEnable:
             DataManager.shared.cacheSetUsePassword(isOn: isOn) { isOnSet in
                 Log.debug("PasswordEnable Switch changed to \(isOnSet)")
+            }
+            self.refreshTableView(animated: true)
+            break
+        case .touchFaceID:
+            DataManager.shared.cacheSetUseTouchFaceID(isOn: isOn) { isOnSet in
+                Log.debug("TouchFaceID Switch changed to \(isOnSet)")
             }
             break
         default:

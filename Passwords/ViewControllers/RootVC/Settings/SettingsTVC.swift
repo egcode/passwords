@@ -54,8 +54,8 @@ class SettingsTVC: BaseTVC {
 
         
         self.sect.append(Segment(title: "Security", cells:[
-            Cell(title: "Touch/Face ID", type: .touchFaceID),
-            Cell(title: "Password Protection", type: .passwordEnable)
+            Cell(title: "Password Protection", type: .passwordEnable),
+            Cell(title: "Touch/Face ID", type: .touchFaceID)
         ] ))
         self.sect.append(Segment(title: "Export", cells:[
             Cell(title: "Export Passwords", type: .exportPassword)
