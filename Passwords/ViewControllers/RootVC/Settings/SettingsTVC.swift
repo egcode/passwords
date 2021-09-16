@@ -9,12 +9,20 @@ import UIKit
 
 class SettingsTVC: BaseTVC {
     
+    enum CellType {
+        case touchFaceID
+        case passwordEnable
+        case exportPassword
+    }
+    struct Cell {
+        var title: String
+        var type: CellType
+    }
     struct Segment {
         var title: String
-        var processTypes = [String]()
+        var cells = [Cell]()
     }
     var sect = [Segment]()
-    
     
     // MARK: - init/deinit
     
@@ -40,17 +48,16 @@ class SettingsTVC: BaseTVC {
         
         // Remove Search bar
         self.searchController.searchBar.isHidden = true
-        if #available(iOS 11.0, *) {
-            self.navigationItem.searchController = nil
-        } else {
-            self.tableView.tableHeaderView = nil
-        }
+        self.navigationItem.searchController = nil
+
         
-        self.sect.append(Segment(title: "Security", processTypes: ["Password Protection",
-                                                                         "Touch/Face ID"
-]))
-        self.sect.append(Segment(title: "Export", processTypes: ["Export Passwords"]))
-        
+        self.sect.append(Segment(title: "Security", cells:[
+            Cell(title: "Touch/Face ID", type: .touchFaceID),
+            Cell(title: "Password Protection", type: .passwordEnable)
+        ] ))
+        self.sect.append(Segment(title: "Export", cells:[
+            Cell(title: "Export Passwords", type: .exportPassword)
+        ] ))
     }
     
         

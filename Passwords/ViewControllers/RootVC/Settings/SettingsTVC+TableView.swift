@@ -20,7 +20,7 @@ extension SettingsTVC {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.sect[section].processTypes.count
+        return self.sect[section].cells.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -31,14 +31,14 @@ extension SettingsTVC {
             }
             //disable cell clicking
             settingCellSwitch.selectionStyle = UITableViewCell.SelectionStyle.none
-            settingCellSwitch.labelTitle?.text = self.sect[indexPath.section].processTypes[indexPath.row]
+            settingCellSwitch.labelTitle?.text = self.sect[indexPath.section].cells[indexPath.row].title
             return settingCellSwitch
         } else if indexPath.section == 1 {
             guard let settingCell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath) as? SettingsCell else {
                 Log.error("⛔️ Unable to initialise SettingsCell")
                 return UITableViewCell()
             }
-            settingCell.labelTitle?.text = self.sect[indexPath.section].processTypes[indexPath.row]
+            settingCell.labelTitle?.text = self.sect[indexPath.section].cells[indexPath.row].title
             return settingCell
         }
         return UITableViewCell()
