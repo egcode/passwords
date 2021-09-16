@@ -20,8 +20,9 @@ class PasswordCell: UITableViewCell {
     }
     
     
-    override class func awakeFromNib() {
-        //Configure ui look
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
     }
     
 }

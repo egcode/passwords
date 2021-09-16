@@ -10,8 +10,8 @@ import UIKit
 class SettingsCell: UITableViewCell {
     @IBOutlet weak var labelTitle: UILabel!
     
-    override class func awakeFromNib() {
-        //Configure ui look
+    override func awakeFromNib() {
+        super.awakeFromNib()
     }
     
 }
