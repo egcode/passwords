@@ -15,7 +15,9 @@ extension SettingsTVC : SettingsTVCSwitch {
     func switchDidChange(cellType: CellType, isOn: Bool) {
         switch cellType {
         case .touchFaceID:
-            Log.debug("TouchFaceID Switch changed to \(isOn)")
+            DataManager.shared.cacheSetUseTouchFaceID(isOn: isOn) { isOnSet in
+                Log.debug("TouchFaceID Switch changed to \(isOnSet)")
+            }
             break
         case .passwordEnable:
             Log.debug("PasswordEnable Switch changed to \(isOn)")

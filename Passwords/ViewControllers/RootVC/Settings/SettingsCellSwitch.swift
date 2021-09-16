@@ -24,6 +24,20 @@ class SettingsCellSwitch: UITableViewCell {
         self.labelTitle.text = title
         self.type = type
         self.delegate = delegate
+        
+        switch type {
+        case .touchFaceID:
+            DataManager.shared.cacheGetUseTouchFaceID { useTouchFaceID in
+                self.switchOnOff.isOn = useTouchFaceID
+            }
+            break
+        case .passwordEnable:
+
+            break
+        default:
+            break
+        }
+        
     }
     
     @IBAction func actionSwitch(_ sender: UISwitch) {

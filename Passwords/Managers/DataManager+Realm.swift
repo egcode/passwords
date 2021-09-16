@@ -10,6 +10,8 @@ import RealmSwift
 
 extension DataManager {
     
+    // MARK: - User
+        
     func cacheStartUser(userID: String, completion: @escaping (Bool) -> Void) {
 //        GCD.cacheThread {
             if let _ =  CacheRealm.realm.object(ofType: User.self, forPrimaryKey: userID) {
@@ -24,9 +26,16 @@ extension DataManager {
             }
 //        }
     }
+    
+    fileprivate func getUser() -> User? {
+        return CacheRealm.realm.object(ofType: User.self, forPrimaryKey: DataManager.shared.userID)
+    }
 
+
+    // MARK: - Passwords
+    
     func cacheGetPasswords(completion: @escaping ([Password]) -> Void) {
-        guard let usr =  CacheRealm.realm.object(ofType: User.self, forPrimaryKey: DataManager.shared.userID) else {
+        guard let usr = self.getUser() else {
             Log.error("⛔️REALM: Unable to get User from realm")
             completion([Password]())
             return
@@ -38,7 +47,7 @@ extension DataManager {
     }
 
     func cacheSavePassword(title: String, password: String, userID: String, desc: String, completion: @escaping (_ password: Password?) -> Void) {
-        guard let usr =  CacheRealm.realm.object(ofType: User.self, forPrimaryKey: DataManager.shared.userID) else {
+        guard let usr = self.getUser() else {
             Log.error("⛔️REALM: Unable get user to save password to realm")
             completion(nil)
             return
@@ -76,6 +85,30 @@ extension DataManager {
             completion(nil)
         }
     }
+
+    // MARK: - Settings
+    
+    func cacheGetUseTouchFaceID(completion: @escaping (_ isOn: Bool) -> Void) {
+        guard let usr = self.getUser() else {
+            Log.error("⛔️ REALM: Unable get user to get cacheGetUseBiometric")
+            completion(false)
+            return
+        }
+        completion(usr.useTouchFaceID)
+    }
+
+    func cacheSetUseTouchFaceID(isOn: Bool, completion: @escaping (_ isOn: Bool) -> Void) {
+        guard let usr = self.getUser() else {
+            Log.error("⛔️ REALM: Unable get user to get cacheGetUseBiometric")
+            completion(false)
+            return
+        }
+        CacheRealm.write {
+            usr.useTouchFaceID = isOn
+            completion(isOn)
+        }
+    }
+
 
     
     
