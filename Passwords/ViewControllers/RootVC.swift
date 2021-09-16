@@ -62,7 +62,7 @@ final class RootVC: UITabBarController {
 
         self.viewControllers = activeViewControllers
         
-//        UITabBar.appearance().tintColor = ARColor.tabbarSelectedTabTint
+        UITabBar.appearance().tintColor = Colors.mainColor
         self.tabBar.isTranslucent = false
         // Fixes UIKit bug when tabbar doesn't layout UINavigation controller properly.
         self.tabBar.isTranslucent = true
