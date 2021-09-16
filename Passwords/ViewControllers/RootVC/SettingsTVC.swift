@@ -7,8 +7,14 @@
 
 import UIKit
 
-class SettingsTVC: UITableViewController {
-        
+class SettingsTVC: BaseTVC {
+    
+    struct Segment {
+        var title: String
+        var processTypes = [String]()
+    }
+    var sect = [Segment]()
+    
     
     // MARK: - init/deinit
     
@@ -30,8 +36,22 @@ class SettingsTVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Settings"
         
-        self.view.backgroundColor = UIColor.red
+        // Remove Search bar
+        self.searchController.searchBar.isHidden = true
+        if #available(iOS 11.0, *) {
+            self.navigationItem.searchController = nil
+        } else {
+            self.tableView.tableHeaderView = nil
+        }
+        
+        self.sect.append(Segment(title: "Security", processTypes: ["Password Protection",
+                                                                         "Touch/Face ID"
+]))
+        self.sect.append(Segment(title: "Export", processTypes: ["Export Plist",
+                                                                  "Import Plist"
+                                                                      ]))
         
     }
     

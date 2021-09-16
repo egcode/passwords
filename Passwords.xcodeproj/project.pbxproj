@@ -52,6 +52,7 @@
 		6ADAD0AD26F1970100D0E755 /* UINavigationController+Completion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADAD0AC26F1970100D0E755 /* UINavigationController+Completion.swift */; };
 		6ADAD0AF26F1987300D0E755 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADAD0AE26F1987300D0E755 /* Box.swift */; };
 		6ADAD0B126F1A5B300D0E755 /* PasswordsTVC+PasswordsTVCRefreshProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADAD0B026F1A5B300D0E755 /* PasswordsTVC+PasswordsTVCRefreshProtocol.swift */; };
+		6ADAD0B326F2C8B700D0E755 /* SettingsTVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADAD0B226F2C8B700D0E755 /* SettingsTVC+TableView.swift */; };
 		6BAE4D2A2E48141DF5A8EDFD /* Pods_Passwords.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF9FDB5408917DB5E183064 /* Pods_Passwords.framework */; };
 /* End PBXBuildFile section */
 
@@ -105,6 +106,7 @@
 		6ADAD0AC26F1970100D0E755 /* UINavigationController+Completion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Completion.swift"; sourceTree = "<group>"; };
 		6ADAD0AE26F1987300D0E755 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		6ADAD0B026F1A5B300D0E755 /* PasswordsTVC+PasswordsTVCRefreshProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PasswordsTVC+PasswordsTVCRefreshProtocol.swift"; sourceTree = "<group>"; };
+		6ADAD0B226F2C8B700D0E755 /* SettingsTVC+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsTVC+TableView.swift"; sourceTree = "<group>"; };
 		B95D31F078F21E37587CF4F6 /* Pods-Passwords.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Passwords.debug.xcconfig"; path = "Target Support Files/Pods-Passwords/Pods-Passwords.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -261,6 +263,7 @@
 				6A0682AF26E9760A00FB3827 /* PasswordCreateEditVC.swift */,
 				6A16EBB926EADFF1002C3651 /* PasswordCreateVC+UITextFieldDelegate.swift */,
 				6A0682AB26E9681900FB3827 /* SettingsTVC.swift */,
+				6ADAD0B226F2C8B700D0E755 /* SettingsTVC+TableView.swift */,
 			);
 			path = RootVC;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 				6A0682AC26E9681900FB3827 /* SettingsTVC.swift in Sources */,
 				6A06829326E964C900FB3827 /* DataManager.swift in Sources */,
 				6A16EBAB26EABDB7002C3651 /* PasswordViewModel.swift in Sources */,
+				6ADAD0B326F2C8B700D0E755 /* SettingsTVC+TableView.swift in Sources */,
 				6A06829A26E965B700FB3827 /* KeychainStore.swift in Sources */,
 				6ADAD0B126F1A5B300D0E755 /* PasswordsTVC+PasswordsTVCRefreshProtocol.swift in Sources */,
 				6A0682A426E9664400FB3827 /* Constants.swift in Sources */,
