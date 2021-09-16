@@ -29,6 +29,8 @@ extension SettingsTVC {
                 Log.error("⛔️ Unable to initialise SettingsCellSwitch")
                 return UITableViewCell()
             }
+            //disable cell clicking
+            settingCellSwitch.selectionStyle = UITableViewCell.SelectionStyle.none
             settingCellSwitch.labelTitle?.text = self.sect[indexPath.section].processTypes[indexPath.row]
             return settingCellSwitch
         } else if indexPath.section == 1 {
@@ -61,15 +63,13 @@ extension SettingsTVC {
         } else if indexPath.section == 1 {
             switch indexPath.row {
             case 0:
-                Log.debug("Export Plist")
-                break
-            case 1:
-                Log.debug("Import Plist")
+                Log.debug("Export Passwords")
                 break
             default:
                 Log.debug("Nothing Selected")
                 break
             }
+            tableView.deselectRow(at: indexPath, animated: true)
         }
     }
 

@@ -49,9 +49,7 @@ class SettingsTVC: BaseTVC {
         self.sect.append(Segment(title: "Security", processTypes: ["Password Protection",
                                                                          "Touch/Face ID"
 ]))
-        self.sect.append(Segment(title: "Export", processTypes: ["Export Plist",
-                                                                  "Import Plist"
-                                                                      ]))
+        self.sect.append(Segment(title: "Export", processTypes: ["Export Passwords"]))
         
     }
     
