@@ -11,13 +11,23 @@ class SettingsCellSwitch: UITableViewCell {
     @IBOutlet weak var labelTitle: UILabel!
     @IBOutlet weak var switchOnOff: UISwitch!
     
+    var type: SettingsTVC.CellType = .none
+    weak var delegate: SettingsTVCSwitch?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.selectionStyle = UITableViewCell.SelectionStyle.none
         self.switchOnOff.onTintColor = Colors.mainColor
     }
     
+    func configureCell(title: String, type: SettingsTVC.CellType, delegate: SettingsTVCSwitch) {
+        self.labelTitle.text = title
+        self.type = type
+        self.delegate = delegate
+    }
+    
     @IBAction func actionSwitch(_ sender: UISwitch) {
-        
+        self.delegate?.switchDidChange(cellType: self.type, isOn: sender.isOn)
     }
     
 }

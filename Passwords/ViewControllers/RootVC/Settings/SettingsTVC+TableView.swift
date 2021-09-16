@@ -29,9 +29,8 @@ extension SettingsTVC {
                 Log.error("⛔️ Unable to initialise SettingsCellSwitch")
                 return UITableViewCell()
             }
-            //disable cell clicking
-            settingCellSwitch.selectionStyle = UITableViewCell.SelectionStyle.none
-            settingCellSwitch.labelTitle?.text = self.sect[indexPath.section].cells[indexPath.row].title
+            let c = self.sect[indexPath.section].cells[indexPath.row]
+            settingCellSwitch.configureCell(title: c.title, type: c.type, delegate: self)
             return settingCellSwitch
         } else if indexPath.section == 1 {
             guard let settingCell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath) as? SettingsCell else {

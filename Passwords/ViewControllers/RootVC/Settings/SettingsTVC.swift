@@ -7,9 +7,11 @@
 
 import UIKit
 
+
 class SettingsTVC: BaseTVC {
     
     enum CellType {
+        case none
         case touchFaceID
         case passwordEnable
         case exportPassword
@@ -60,5 +62,4 @@ class SettingsTVC: BaseTVC {
         ] ))
     }
     
-        
 }
