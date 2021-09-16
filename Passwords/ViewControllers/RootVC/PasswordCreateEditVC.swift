@@ -132,7 +132,7 @@ class PasswordCreateEditVC : UIViewController {
                 desc = d
             }
         }
-        if title == "" && password == "" {
+        if title == "" || password == "" {
             self.showAlert(title: "Title and password should not be empty", message: "")
             return
         }

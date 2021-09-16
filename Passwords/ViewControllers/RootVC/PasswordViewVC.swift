@@ -16,6 +16,10 @@ class PasswordViewVC : UIViewController {
     @IBOutlet weak var textViewDescription: UITextView!
     @IBOutlet weak var buttonEdit: UIButton!
     
+    @IBOutlet weak var labelLabelUserID: UILabel!
+    @IBOutlet weak var labelLabelPassword: UILabel!
+    @IBOutlet weak var labelTextViewDescription: UILabel!
+    
     weak var delegate: PasswordsTVCRefreshProtocol?
     
     // MARK: - init/deinit
@@ -70,8 +74,10 @@ class PasswordViewVC : UIViewController {
                 if userID == "" {
                     s.labelUserID.isHidden = true
                     s.labelUserID.gestureRecognizers?.removeAll()
+                    s.labelLabelUserID.isHidden = true
                 } else {
                     s.labelUserID.isHidden = false
+                    s.labelLabelUserID.isHidden = false
                     let tapUser = UITapGestureRecognizer(target: s, action: #selector(s.tapOnUserID(_:)))
                     s.labelUserID.addGestureRecognizer(tapUser)
                     s.labelUserID.isUserInteractionEnabled = true
@@ -82,6 +88,13 @@ class PasswordViewVC : UIViewController {
             self?.labelPassword.text = passwrd
         }
         self.passwordViewModel.descModel.bind { [weak self] dsc in
+            if let s = self {
+                if dsc == "" {
+                    s.labelTextViewDescription.isHidden = true
+                } else {
+                    s.labelTextViewDescription.isHidden = false
+                }
+            }
             self?.textViewDescription.text = dsc
         }
     }
