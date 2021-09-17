@@ -36,9 +36,14 @@ class CacheRealm: NSObject {
             CacheRealm.deleteRealmFileAndLogout()
         }
     }
-    
+        
+    #if DEBUG
     fileprivate static var encrypt = false
     fileprivate static let fileName = Constants.CacheNaming.cacheFileName
+    #else
+    fileprivate static var encrypt = true
+    fileprivate static let fileName = Constants.CacheNaming.cacheFileName
+    #endif
     
     static let shared: CacheRealm = {
         return CacheRealm()

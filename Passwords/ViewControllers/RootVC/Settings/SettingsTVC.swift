@@ -91,10 +91,24 @@ class SettingsTVC: BaseTVC {
                     }
                     // TODO: - "supercache" should be renamed to key
                     let documentsFolderPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
+                    
+                    
+                    #if DEBUG
                     guard let destPath = documentsFolderPath.appendingPathComponent("supercache") else {
                         Log.error("⛔️ Unable to get documentsFolderPath path")
                         return
                     }
+                    #else
+                    guard let k = DataManager.shared.keychainReadCacheKey() else {
+                        self.showAlert(title: "⛔️ Unable to get key", message: "")
+                        return
+                    }
+                    guard let destPath = documentsFolderPath.appendingPathComponent(k) else {
+                        self.showAlert(title: "⛔️ Unable to get documentsFolderPath path", message: "")
+                        return
+                    }
+                    #endif
+                    
                     do {
                         if !FileManager.default.fileExists(atPath: srcPath.path) {
 //                            Log.error("⛔️ Realm File doesn't exists")
