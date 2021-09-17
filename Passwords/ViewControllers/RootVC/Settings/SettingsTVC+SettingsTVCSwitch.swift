@@ -26,8 +26,7 @@ extension SettingsTVC : SettingsTVCSwitch {
                 
                 DataManager.shared.cacheGetSettingsPassword { [weak self] setPass in
                     if let sp = setPass, let s = self {
-//                        sp.userPassword
-                        s.showPasswordChangeAlert(currentPassword: sp.userPassword) { match, error in
+                        s.showSettingsPasswordEditAlert(title: "Disabling Password", message: "Please enter your current password", currentPassword: sp.userPassword) { match, error in
                             if match && error == nil {
                                 
                                 // Delete Existing one
@@ -73,28 +72,5 @@ extension SettingsTVC : SettingsTVCSwitch {
             Log.error("⛔️ Weird switch triggered")
         }
     }
-    
-    fileprivate func showPasswordChangeAlert(currentPassword: String, completion: @escaping (_ match: Bool, _ error: String?) -> Void) {
-        let alert = UIAlertController(title: "Disabling Password", message: "Please enter your current password", preferredStyle: .alert)
-        alert.addTextField { (textField) in
-            textField.placeholder = "Password"
-        }
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { [weak self] action in
-            self?.refreshTableView(animated: true)
-        }))
-        alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak alert] (_) in
-        if let al = alert, let tfs = al.textFields, let tf = tfs.first {
-            if tf.text == currentPassword {
-                completion(true, nil)
-            } else {
-                completion(false, "Wrong password")
-            }
-        } else {
-            completion(false, "Internal error")
-        }
-        }))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
     
 }
