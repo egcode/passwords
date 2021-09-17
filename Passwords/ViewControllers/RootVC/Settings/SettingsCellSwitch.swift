@@ -27,16 +27,18 @@ class SettingsCellSwitch: UITableViewCell {
         
         switch type {
         case .passwordEnable:
-            DataManager.shared.cacheGetUsePassword { usePassword in
-                self.switchOnOff.isOn = usePassword
+            DataManager.shared.cacheGetSettingsPassword { settingsPassword in
+                self.switchOnOff.isOn = (settingsPassword != nil)
             }
             break
         case .touchFaceID:
-            DataManager.shared.cacheGetUsePassword { usePassword in
-                self.switchOnOff.isEnabled = usePassword
-                self.labelTitle.isEnabled = usePassword
-                DataManager.shared.cacheGetUseTouchFaceID { useTouchFaceID in
-                    self.switchOnOff.isOn = useTouchFaceID
+            DataManager.shared.cacheGetSettingsPassword { settingsPassword in
+                self.switchOnOff.isEnabled = (settingsPassword != nil)
+                self.labelTitle.isEnabled = (settingsPassword != nil)
+                if let sp = settingsPassword {
+                    self.switchOnOff.isOn = sp.useTouchFaceID
+                } else {
+                    self.switchOnOff.isOn = false
                 }
             }
             break

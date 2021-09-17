@@ -10,8 +10,8 @@ import RealmSwift
 
 public class User: Object {
     @objc dynamic var id = ""
-    @objc dynamic var usePassword = false
-    @objc dynamic var useTouchFaceID = false
+    
+    @objc dynamic var settingsPassword: SettingsPassword?
     
     let passwords = List<Password>()
     

@@ -14,13 +14,13 @@ extension PasswordCreateEditVC : UITextFieldDelegate {
             self.textFieldTitle.resignFirstResponder()
             self.textFieldUserID.becomeFirstResponder()
       } else if textField == self.textFieldUserID {
-        self.textFieldUserID.resignFirstResponder()
-        self.textFieldPassword.becomeFirstResponder()
+            self.textFieldUserID.resignFirstResponder()
+            self.textFieldPassword.becomeFirstResponder()
       } else if textField == self.textFieldPassword {
-        self.textFieldPassword.resignFirstResponder()
-        self.textFieldDescription.becomeFirstResponder()
+            self.textFieldPassword.resignFirstResponder()
+            self.textFieldDescription.becomeFirstResponder()
       } else if textField == self.textFieldDescription {
-        self.submit()
+            self.submit()
       }
      return true
     }

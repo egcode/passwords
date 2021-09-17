@@ -7,6 +7,16 @@
 
 import UIKit
 
+protocol SettingsTVCRefresh: AnyObject {
+    func refreshFromDelegate()
+}
+
+extension SettingsTVC: SettingsTVCRefresh {
+    func refreshFromDelegate() {
+        self.refreshTableView(animated: true)
+    }
+}
+
 extension SettingsTVC {
     
     // MARK: - Table view data source

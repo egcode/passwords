@@ -122,7 +122,8 @@ extension CacheRealm {
 extension CacheRealm {
     static let modelObjectTypes: [Object.Type] = [
         User.self,
-        Password.self
+        Password.self,
+        SettingsPassword.self
     ]
 }
 

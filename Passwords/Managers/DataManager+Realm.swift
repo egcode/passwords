@@ -86,52 +86,59 @@ extension DataManager {
         }
     }
 
-    // MARK: - Settings
+    // MARK: - Settings Password
     
-    func cacheGetUseTouchFaceID(completion: @escaping (_ isOn: Bool) -> Void) {
+    func cacheGetSettingsPassword(completion: @escaping (_ settingsPass: SettingsPassword?) -> Void) {
         guard let usr = self.getUser() else {
-            Log.error("⛔️ REALM: Unable get user to get cacheGetUseTouchFaceID")
-            completion(false)
+            Log.error("⛔️ REALM: Unable get user to get cacheGetSettingsPassword")
+            completion(nil)
             return
         }
-        completion(usr.useTouchFaceID)
+        completion(usr.settingsPassword)
     }
-
-    func cacheSetUseTouchFaceID(isOn: Bool, completion: @escaping (_ isOn: Bool) -> Void) {
+    
+    func cacheSaveSettingsPassword(newPassword: String, yourQuestion: String, yourAnswer: String, completion: @escaping (_ success: Bool) -> Void) {
         guard let usr = self.getUser() else {
-            Log.error("⛔️ REALM: Unable get user to get cacheSetUseTouchFaceID")
+            Log.error("⛔️ REALM: Unable get user to get cacheSaveSettingsPassword")
             completion(false)
             return
         }
         CacheRealm.write {
-            usr.useTouchFaceID = isOn
-            completion(isOn)
+            let newSettingsPass = SettingsPassword(userPassword: newPassword, userSecurityQuestion: yourQuestion, userSecurityAnswer: yourAnswer)
+            usr.settingsPassword = newSettingsPass
+            completion(true)
         }
     }
 
-    
-    func cacheGetUsePassword(completion: @escaping (_ isOn: Bool) -> Void) {
+    func cacheUpdateSettingsPassword(id: String, newPassword: String, yourQuestion: String, yourAnswer: String, completion: @escaping (_ settingsPass: SettingsPassword?) -> Void) {
+        if let sp = CacheRealm.realm.object(ofType: SettingsPassword.self, forPrimaryKey: id) {
+            CacheRealm.write {
+                sp.userPassword = newPassword
+                sp.userSecurityQuestion = yourQuestion
+                sp.userSecurityAnswer = yourAnswer
+                completion(sp)
+            }
+        } else {
+            completion(nil)
+        }
+    }
+
+    func cacheDeleteSettingsPassword(completion: @escaping (_ success: Bool) -> Void) {
         guard let usr = self.getUser() else {
-            Log.error("⛔️ REALM: Unable get user to get cacheGetUsePassword")
+            Log.error("⛔️ REALM: Unable get user to get cacheDeleteSettingsPassword")
             completion(false)
             return
         }
-        completion(usr.usePassword)
-    }
-
-    func cacheSetUsePassword(isOn: Bool, completion: @escaping (_ isOn: Bool) -> Void) {
-        guard let usr = self.getUser() else {
-            Log.error("⛔️ REALM: Unable get user to get cacheSetUsePassword")
+        if let sp = usr.settingsPassword {
+            CacheRealm.write {
+                CacheRealm.realm.delete(sp)
+                usr.settingsPassword=nil
+                completion(true)
+            }
+        } else {
             completion(false)
-            return
-        }
-        CacheRealm.write {
-            usr.usePassword = isOn
-            completion(isOn)
         }
     }
 
-
-    
     
 }
