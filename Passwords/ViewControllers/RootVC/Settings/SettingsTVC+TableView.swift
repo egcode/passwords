@@ -53,33 +53,16 @@ extension SettingsTVC {
         return UITableViewCell()
     }
     
+    
+    
     // MARK: - Table view delegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-                
-        if indexPath.section == 0 {
-//            switch indexPath.row {
-//                case 0:
-//                    Log.debug("Password Protection")
-//                    break
-//                case 1:
-//                    Log.debug("Touch/Face ID")
-//                    break
-//                default:
-//                    Log.debug("Nothing Selected")
-//                    break
-//            }
-        } else if indexPath.section == 1 {
-            switch indexPath.row {
-            case 0:
-                Log.debug("Export Passwords")
-                break
-            default:
-                Log.debug("Nothing Selected")
-                break
-            }
-            tableView.deselectRow(at: indexPath, animated: true)
+        let c = self.sect[indexPath.section].cells[indexPath.row]
+        if let action = c.action {
+            action()
         }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
 }

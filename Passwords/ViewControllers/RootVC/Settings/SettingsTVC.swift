@@ -19,6 +19,7 @@ class SettingsTVC: BaseTVC {
     struct Cell {
         var title: String
         var type: CellType
+        var action: (() -> (Void))?
     }
     struct Segment {
         var title: String
@@ -51,14 +52,15 @@ class SettingsTVC: BaseTVC {
         // Remove Search bar
         self.searchController.searchBar.isHidden = true
         self.navigationItem.searchController = nil
-
         
         self.sect.append(Segment(title: "Security", cells:[
-            Cell(title: "Password Protection", type: .passwordEnable),
-            Cell(title: "Touch/Face ID", type: .touchFaceID)
+            Cell(title: "Password Protection", type: .passwordEnable, action: nil),
+            Cell(title: "Touch/Face ID", type: .touchFaceID, action: nil)
         ] ))
         self.sect.append(Segment(title: "Export", cells:[
-            Cell(title: "Export Passwords", type: .exportPassword)
+            Cell(title: "Export Passwords", type: .exportPassword, action: {
+                print("🙀 ACTION : Export Passwords")
+            })
         ] ))
     }
     
