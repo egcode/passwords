@@ -65,13 +65,27 @@ extension CacheRealm {
         }
     }
 
-    fileprivate class func getDocsDir() -> NSURL {
-        let fm = FileManager.default
-        return fm.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
+    fileprivate class func getCacheDir() -> NSURL {
+//        // Documents
+//        let fm = FileManager.default
+//        return fm.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
+        
+        // Application Support
+        let fileManager = FileManager.default
+        let urls = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask)
+
+        if let applicationSupportURL = urls.last {
+            do {
+                try fileManager.createDirectory(at: applicationSupportURL, withIntermediateDirectories: true, attributes: nil)
+            } catch let err {
+                Log.error(err)
+            }
+        }
+        return urls.first! as NSURL
     }
 
     fileprivate static func deleteRealmFile() {
-        guard let dbPath = CacheRealm.getDocsDir().appendingPathComponent(fileName) else {
+        guard let dbPath = CacheRealm.getCacheDir().appendingPathComponent(fileName) else {
             print("⛔️Unable to get Realm path")
             return
         }
@@ -90,7 +104,7 @@ extension CacheRealm {
     
     public static func getRealmConfig() -> Realm.Configuration {
                 
-        guard let dbPath = CacheRealm.getDocsDir().appendingPathComponent(fileName) else {
+        guard let dbPath = CacheRealm.getCacheDir().appendingPathComponent(fileName) else {
             print("⛔️Unable to get dbPath")
             return Realm.Configuration()
         }
