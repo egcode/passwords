@@ -34,29 +34,4 @@ public class Log: NSObject {
         #endif
     }
 
-    /**
-     Don't use this function directly, use LogDebug(msg, ...) macro in Constants.h instead
-     */
-    public class func debugObjc(_ message: String) {
-        let msg = "<Debug>\t\(Date()): \(message)"
-        #if DEBUG
-            print(msg)
-            textLog.write("\(msg)") // write to logs.txt file
-        #else
-        #endif
-    }
-    
-    /**
-     Don't use this function directly, use LogError(msg, ...) macro in Constants.h instead
-     */
-    public class func errorObjc(_ message: String) {
-        let msg = "🚫<Error>\t\(Date()): \(message)"
-        #if DEBUG
-            print(msg)
-            textLog.write("\(msg)") // write to logs.txt file
-        #else
-
-        #endif
-    }
-
 }
