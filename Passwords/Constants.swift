@@ -10,6 +10,10 @@ import Foundation
 @objcMembers open class Constants: NSObject {
     
     
+    open class CacheNaming: NSObject {
+        public static var cacheFileName = "r.realm"
+    }
+
     open class KeychainKey: NSObject {
         public static var cacheKey = "cacheKey"
     }

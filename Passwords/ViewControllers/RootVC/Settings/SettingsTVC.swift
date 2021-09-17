@@ -76,7 +76,7 @@ class SettingsTVC: BaseTVC {
         let fileManager = FileManager.default
 
         let appSupportFolderPath = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first! as NSURL
-        guard let srcPath = appSupportFolderPath.appendingPathComponent("p.realm") else {
+        guard let srcPath = appSupportFolderPath.appendingPathComponent(Constants.CacheNaming.cacheFileName) else {
             Log.error("⛔️Unable to get Realm path")
             return
         }
