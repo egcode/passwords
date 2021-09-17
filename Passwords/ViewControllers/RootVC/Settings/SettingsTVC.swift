@@ -65,11 +65,42 @@ class SettingsTVC: BaseTVC {
         self.sect.append(Segment(title: "Export", cells:[
             Cell(title: "Export Passwords", type: .exportPassword, action: {
                 print("🙀 ACTION : Export Passwords")
+                self.copyCacheFileIntoDocumentsDir()
             })
         ] ))
     }
     
-    // MARK: -
+    // MARK: - Actions
+    
+    func copyCacheFileIntoDocumentsDir() {
+        let fileManager = FileManager.default
+
+        let appSupportFolderPath = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first! as NSURL
+        guard let srcPath = appSupportFolderPath.appendingPathComponent("p.realm") else {
+            Log.error("⛔️Unable to get Realm path")
+            return
+        }
+        
+        let documentsFolderPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
+        guard let destPath = documentsFolderPath.appendingPathComponent("supercache") else {
+            Log.error("⛔️ Unable to get documentsFolderPath path")
+            return
+        }
+
+        
+        do {
+            if !FileManager.default.fileExists(atPath: srcPath.path) {
+                Log.error("⛔️ Realm File doesn't exists")
+                return
+            }
+            try FileManager.default.copyItem(at: srcPath, to: destPath)
+        } catch (let error) {
+            Log.error("Cannot copy item at \(srcPath) to \(destPath): \(error)")
+            return
+        }
+    }
+
+    
     
     func changeSettingsPassword() {
         
