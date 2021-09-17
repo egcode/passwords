@@ -73,31 +73,60 @@ class SettingsTVC: BaseTVC {
     // MARK: - Actions
     
     func copyCacheFileIntoDocumentsDir() {
-        let fileManager = FileManager.default
-
-        let appSupportFolderPath = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first! as NSURL
-        guard let srcPath = appSupportFolderPath.appendingPathComponent(Constants.CacheNaming.cacheFileName) else {
-            Log.error("⛔️Unable to get Realm path")
-            return
-        }
         
-        let documentsFolderPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
-        guard let destPath = documentsFolderPath.appendingPathComponent("supercache") else {
-            Log.error("⛔️ Unable to get documentsFolderPath path")
-            return
-        }
+        var isBiometricNeeded = true
+        #if targetEnvironment(simulator)
+        isBiometricNeeded = false
+        #else
+        #endif
+        if Passcode.isDevicePasscodeSet() && isBiometricNeeded {
+            Passcode.authenticateUser(message: "Please authenticate to proceed") { (success, error) in
+                if success && error == nil {
 
-        
-        do {
-            if !FileManager.default.fileExists(atPath: srcPath.path) {
-                Log.error("⛔️ Realm File doesn't exists")
-                return
+                    let fileManager = FileManager.default
+                    let appSupportFolderPath = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first! as NSURL
+                    guard let srcPath = appSupportFolderPath.appendingPathComponent(Constants.CacheNaming.cacheFileName) else {
+                        Log.error("⛔️Unable to get Realm path")
+                        return
+                    }
+                    // TODO: - "supercache" should be renamed to key
+                    let documentsFolderPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
+                    guard let destPath = documentsFolderPath.appendingPathComponent("supercache") else {
+                        Log.error("⛔️ Unable to get documentsFolderPath path")
+                        return
+                    }
+                    do {
+                        if !FileManager.default.fileExists(atPath: srcPath.path) {
+//                            Log.error("⛔️ Realm File doesn't exists")
+                            self.showAlert(title: "File at \(srcPath.path) doesn't exist", message: "")
+                            return
+                        }
+                        if FileManager.default.fileExists(atPath: destPath.path) {
+                            try FileManager.default.removeItem(at: destPath)
+                        }
+
+                        try FileManager.default.copyItem(at: srcPath, to: destPath)
+                    } catch (let error) {
+//                        Log.error("Cannot copy item at \(srcPath) to \(destPath): \(error)")
+                        self.showAlert(title: "Cannot copy item at \(srcPath) to \(destPath): \(error)", message: error.localizedDescription)
+                        return
+                    }
+                    
+                } else {
+                    if let e = error {
+                        self.showAlert(title: "Error", message: e.localizedDescription)
+                    } else {
+                        self.showAlert(title: "Error", message: "Something went wrong")
+                    }
+                }
             }
-            try FileManager.default.copyItem(at: srcPath, to: destPath)
-        } catch (let error) {
-            Log.error("Cannot copy item at \(srcPath) to \(destPath): \(error)")
-            return
+        } else {
+            self.showAlert(title: "Operation not performed", message: "")
         }
+
+        
+        
+        
     }
 
     
