@@ -14,6 +14,7 @@ class SettingsTVC: BaseTVC {
         case none
         case touchFaceID
         case passwordEnable
+        case passwordChange
         case exportPassword
     }
     struct Cell {
@@ -55,7 +56,10 @@ class SettingsTVC: BaseTVC {
         
         self.sect.append(Segment(title: "Security", cells:[
             Cell(title: "Password Protection", type: .passwordEnable, action: nil),
-            Cell(title: "Touch/Face ID", type: .touchFaceID, action: nil)
+            Cell(title: "Touch/Face ID", type: .touchFaceID, action: nil),
+            Cell(title: "Change Password", type: .passwordChange, action: {
+                print("🙀 ACTION : Change Password")
+            })
         ] ))
         self.sect.append(Segment(title: "Export", cells:[
             Cell(title: "Export Passwords", type: .exportPassword, action: {

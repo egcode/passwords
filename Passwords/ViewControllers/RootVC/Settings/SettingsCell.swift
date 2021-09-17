@@ -14,4 +14,18 @@ class SettingsCell: UITableViewCell {
         super.awakeFromNib()
     }
     
+    func configureCell(title: String, type: SettingsTVC.CellType) {
+        self.labelTitle.text = title
+        
+        switch type {
+        case .passwordChange:
+            DataManager.shared.cacheGetSettingsPassword { settingsPassword in
+                self.labelTitle.isEnabled = (settingsPassword != nil)
+            }
+            break
+        default:
+            break
+        }
+    }
+
 }

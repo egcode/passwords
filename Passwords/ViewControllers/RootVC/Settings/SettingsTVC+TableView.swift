@@ -34,23 +34,22 @@ extension SettingsTVC {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
+        let c = self.sect[indexPath.section].cells[indexPath.row]
+        if c.type == .passwordEnable || c.type == .touchFaceID {
             guard let settingCellSwitch = tableView.dequeueReusableCell(withIdentifier: "SettingsCellSwitch", for: indexPath) as? SettingsCellSwitch else {
                 Log.error("⛔️ Unable to initialise SettingsCellSwitch")
                 return UITableViewCell()
             }
-            let c = self.sect[indexPath.section].cells[indexPath.row]
             settingCellSwitch.configureCell(title: c.title, type: c.type, delegate: self)
             return settingCellSwitch
-        } else if indexPath.section == 1 {
+        } else {
             guard let settingCell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath) as? SettingsCell else {
                 Log.error("⛔️ Unable to initialise SettingsCell")
                 return UITableViewCell()
             }
-            settingCell.labelTitle?.text = self.sect[indexPath.section].cells[indexPath.row].title
+            settingCell.configureCell(title: c.title, type: c.type)
             return settingCell
         }
-        return UITableViewCell()
     }
     
     
