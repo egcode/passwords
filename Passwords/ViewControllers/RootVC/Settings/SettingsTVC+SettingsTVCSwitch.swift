@@ -55,11 +55,19 @@ extension SettingsTVC : SettingsTVCSwitch {
             }
             break
         case .touchFaceID:
-            
-//            DataManager.shared.cacheSetUseTouchFaceID(isOn: isOn) { isOnSet in
-//                Log.debug("TouchFaceID Switch changed to \(isOnSet)")
-//            }
-            
+            DataManager.shared.cacheGetSettingsPassword { [weak self] setPass in
+                if let sp = setPass, let s = self {
+                    DataManager.shared.cacheUpdateSettingsPasswordUseTouchID(settingPasswordID: sp.id, useTouchFaceID: isOn) { success in
+                        if !success {
+                            s.showAlert(title: "Unable to enable/disable Touch/Face ID", message: "") {
+                                s.refreshTableView(animated: true)
+                            }
+                        }
+                    }
+                } else {
+                    Log.error("⛔️ Error getting settings password")
+                }
+            }
             break
         default:
             Log.error("⛔️ Weird switch triggered")

@@ -140,5 +140,16 @@ extension DataManager {
         }
     }
 
+    func cacheUpdateSettingsPasswordUseTouchID(settingPasswordID: String, useTouchFaceID: Bool, completion: @escaping (_ success: Bool) -> Void) {
+        if let sp = CacheRealm.realm.object(ofType: SettingsPassword.self, forPrimaryKey: settingPasswordID) {
+            CacheRealm.write {
+                sp.useTouchFaceID = useTouchFaceID
+                completion(true)
+            }
+        } else {
+            completion(false)
+        }
+    }
+
     
 }
