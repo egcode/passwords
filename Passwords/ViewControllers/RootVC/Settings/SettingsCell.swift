@@ -21,6 +21,11 @@ class SettingsCell: UITableViewCell {
         case .passwordChange:
             DataManager.shared.cacheGetSettingsPassword { settingsPassword in
                 self.labelTitle.isEnabled = (settingsPassword != nil)
+                if settingsPassword == nil {
+                    self.selectionStyle = UITableViewCell.SelectionStyle.none
+                } else {
+                    self.selectionStyle = UITableViewCell.SelectionStyle.default
+                }
             }
             break
         default:

@@ -58,10 +58,31 @@ extension SettingsTVC {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let c = self.sect[indexPath.section].cells[indexPath.row]
-        if let action = c.action {
-            action()
+        
+        switch c.type {
+        case .passwordChange:
+            // Ignore tap if there is no password
+            if c.type == .passwordChange {
+                DataManager.shared.cacheGetSettingsPassword { settingsPassword in
+                    if settingsPassword == nil {
+                        return
+                    } else {
+                        if let action = c.action {
+                            action()
+                        }
+                    }
+                }
+            }
+            
+            break
+        default:
+            if let action = c.action {
+                action()
+            }
         }
+        
         tableView.deselectRow(at: indexPath, animated: true)
+
     }
 
 }
