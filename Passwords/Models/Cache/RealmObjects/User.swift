@@ -10,14 +10,16 @@ import RealmSwift
 
 public class User: Object {
     @objc dynamic var id = ""
-    
+    @objc dynamic var name = ""
+
     @objc dynamic var settingsPassword: SettingsPassword?
     
     let passwords = List<Password>()
     
-    convenience init(id:String) {
+    convenience init(name: String) {
         self.init()
-        self.id = id
+        self.id = NSUUID().uuidString
+        self.name = name
     }
         
     public override class func primaryKey() -> String? {

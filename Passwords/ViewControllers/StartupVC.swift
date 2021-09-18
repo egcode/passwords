@@ -32,13 +32,13 @@ class StartupVC: UIViewController {
         super.viewDidAppear(animated)
         StartupVC.showLogin(title: "Title Blah", message: "message blah")
         
-        DataManager.shared.cacheStartUser(userID: DataManager.shared.userID) { success in
-            if success {
-                Log.debug("✅ Success user start")
-            } else {
-                Log.debug("⛔️ Unable To start user")
-            }
-        }
+//        DataManager.shared.cacheStartUser(userID: DataManager.shared.userID) { success in
+//            if success {
+//                Log.debug("✅ Success user start")
+//            } else {
+//                Log.debug("⛔️ Unable To start user")
+//            }
+//        }
     }
     
     
