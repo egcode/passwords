@@ -79,6 +79,7 @@ extension LoginTVC {
     // MARK: - Handle Did select
     
     func handleSelect(user: User) {
+        // TODO: - Check if user has Touch/ID setup
         Log.debug("🔑SELECTED user: \(user.name)")
         DataManager.shared.userID = user.id
         StartupVC.showRootVC()
