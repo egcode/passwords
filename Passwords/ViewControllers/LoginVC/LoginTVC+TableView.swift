@@ -51,6 +51,8 @@ extension LoginTVC {
                 
                 let yesButton = UIAlertAction(title: "yes", style: .default) { (action) in
                     DataManager.shared.cacheDeleteUser(user: selUser)
+                    self.users.remove(at: indexPath.row)
+                    self.tableView.deleteRows(at: [indexPath], with: .fade)
                 }
                 let noButton = UIAlertAction(title: "no", style: .default) { (action) in
                     //
