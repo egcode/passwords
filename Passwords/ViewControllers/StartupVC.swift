@@ -30,7 +30,7 @@ class StartupVC: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        StartupVC.showLogin(title: "Title Blah", message: "message blah")
+        StartupVC.showLogin(title: nil, message: nil)
         
 //        DataManager.shared.cacheStartUser(userID: DataManager.shared.userID) { success in
 //            if success {
@@ -54,9 +54,9 @@ class StartupVC: UIViewController {
         StartupVC.animateTransition(sb, addNavigationBar: true) { (vc) in
             StartupVC._isLoggedIn = false
             if let t = title, let m = message {
-//                vc.showAlert(title: t, message: m) {
-//                    //
-//                }
+                vc.showAlert(title: t, message: m) {
+                    //
+                }
             } else {
                 print("showLogin title and message are nil. showLogin without alert")
             }

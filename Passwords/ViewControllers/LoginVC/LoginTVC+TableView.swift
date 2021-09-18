@@ -80,6 +80,8 @@ extension LoginTVC {
     
     func handleSelect(user: User) {
         Log.debug("🔑SELECTED user: \(user.name)")
+        DataManager.shared.userID = user.id
+        StartupVC.showRootVC()
     }
     
 }

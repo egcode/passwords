@@ -16,6 +16,7 @@ class SettingsTVC: BaseTVC {
         case passwordEnable
         case passwordChange
         case exportPassword
+        case exit
     }
     struct Cell {
         var title: String
@@ -66,6 +67,10 @@ class SettingsTVC: BaseTVC {
             Cell(title: "Export Passwords", type: .exportPassword, action: {
                 Log.debug("🙀 ACTION : Export Passwords")
                 self.copyCacheFileIntoDocumentsDir()
+            }),
+            Cell(title: "Exit", type: .exportPassword, action: {
+                Log.debug("🙀 Exit")
+                self.exit()
             })
         ] ))
     }
@@ -89,7 +94,6 @@ class SettingsTVC: BaseTVC {
                         Log.error("⛔️Unable to get Realm path")
                         return
                     }
-                    // TODO: - "supercache" should be renamed to key
                     let documentsFolderPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
                     
                     
@@ -137,13 +141,7 @@ class SettingsTVC: BaseTVC {
         } else {
             self.showAlert(title: "Operation not performed", message: "")
         }
-
-        
-        
-        
     }
-
-    
     
     func changeSettingsPassword() {
         
@@ -170,6 +168,11 @@ class SettingsTVC: BaseTVC {
             }
         }
         
+    }
+    
+    func exit() {
+        DataManager.shared.userID = ""
+        StartupVC.showLogin(title: nil, message: nil)
     }
     
     // MARK: - Helpers
