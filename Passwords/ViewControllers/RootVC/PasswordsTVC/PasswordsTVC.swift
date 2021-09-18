@@ -46,6 +46,9 @@ class PasswordsTVC: BaseTVC {
         
         // Navigation bar Button
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(self.actionNavBarButton(sender:)))
+        
+        self.navigationItem.hidesSearchBarWhenScrolling = false
+
     }
     
     // MARK: - Actions
@@ -54,6 +57,17 @@ class PasswordsTVC: BaseTVC {
         passCreateVC.delegate = self
         let pcNC = UINavigationController(rootViewController: passCreateVC)
         self.present(pcNC, animated: true, completion: nil)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+       super.viewDidAppear(animated)
+//        self.searchController.searchBar.becomeFirstResponder()
+
+        UIView.animate(withDuration: 0.2) {
+            self.tableView.setContentOffset(CGPoint(x: self.tableView.contentOffset.x, y: self.tableView.contentOffset.y-1), animated: false)
+        }
+
+        
     }
 
     

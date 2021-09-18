@@ -47,6 +47,10 @@ class LoginTVC: BaseTVC {
         
         self.users = DataManager.shared.cacheGetAllUsers()
         
+        // Remove Search bar
+        self.searchController.searchBar.isHidden = true
+        self.navigationItem.searchController = nil
+
         // Navigation bar Button
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(self.actionNavBarButton(sender:)))
     }

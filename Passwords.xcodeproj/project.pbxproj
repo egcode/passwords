@@ -15,7 +15,6 @@
 		6A06826426E9391F00FB3827 /* StartupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06826326E9391F00FB3827 /* StartupVC.swift */; };
 		6A06826926E939CC00FB3827 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06826826E939CC00FB3827 /* UIViewController+Alert.swift */; };
 		6A06826D26E93ACD00FB3827 /* GCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06826C26E93ACD00FB3827 /* GCD.swift */; };
-		6A06827C26E93EA000FB3827 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06827B26E93EA000FB3827 /* LoginVC.swift */; };
 		6A06827F26E93EAC00FB3827 /* RootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06827E26E93EAC00FB3827 /* RootVC.swift */; };
 		6A06828226E93EE500FB3827 /* LoginVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A06828126E93EE500FB3827 /* LoginVC.storyboard */; };
 		6A06828526E93EFA00FB3827 /* RootVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A06828426E93EFA00FB3827 /* RootVC.storyboard */; };
@@ -79,7 +78,6 @@
 		6A06826326E9391F00FB3827 /* StartupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupVC.swift; sourceTree = "<group>"; };
 		6A06826826E939CC00FB3827 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		6A06826C26E93ACD00FB3827 /* GCD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCD.swift; sourceTree = "<group>"; };
-		6A06827B26E93EA000FB3827 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		6A06827E26E93EAC00FB3827 /* RootVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootVC.swift; sourceTree = "<group>"; };
 		6A06828126E93EE500FB3827 /* LoginVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginVC.storyboard; sourceTree = "<group>"; };
 		6A06828426E93EFA00FB3827 /* RootVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RootVC.storyboard; sourceTree = "<group>"; };
@@ -321,7 +319,6 @@
 		6A32D0C426F57D5500B76D30 /* LoginVC */ = {
 			isa = PBXGroup;
 			children = (
-				6A06827B26E93EA000FB3827 /* LoginVC.swift */,
 				6A32D0C526F57D7C00B76D30 /* LoginTVC.swift */,
 				6A32D0C726F580D900B76D30 /* LoginTVC+TableView.swift */,
 				6A32D0C926F5816600B76D30 /* LoginCell.swift */,
@@ -511,7 +508,6 @@
 				6A06827F26E93EAC00FB3827 /* RootVC.swift in Sources */,
 				6A06829E26E965C600FB3827 /* KeychainError.swift in Sources */,
 				6A06826926E939CC00FB3827 /* UIViewController+Alert.swift in Sources */,
-				6A06827C26E93EA000FB3827 /* LoginVC.swift in Sources */,
 				6A16EBCA26EFF5E2002C3651 /* Password.swift in Sources */,
 				6A16EBAD26EAC016002C3651 /* PasswordViewModelParent.swift in Sources */,
 				6A32D0C326F502A200B76D30 /* Passcode.swift in Sources */,
