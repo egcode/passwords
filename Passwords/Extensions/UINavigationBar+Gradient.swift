@@ -9,7 +9,7 @@ import UIKit
 
 public extension UINavigationBar {
     
-    @objc func applyGlobalNavbarColor() {
+    @objc func applyGlobalNavbarBlueColor() {
         self.tintColor = Colors.navTintColor
 
         // Also Apply attributes for all Large Titles modes
@@ -21,6 +21,20 @@ public extension UINavigationBar {
         self.standardAppearance = navBarAppearance
         self.scrollEdgeAppearance = navBarAppearance
     }
+    
+    @objc func applyGlobalNavbarClearColor() {
+        self.tintColor = Colors.navTintColor
+
+        // Also Apply attributes for all Large Titles modes
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithTransparentBackground()
+        navBarAppearance.titleTextAttributes = [.foregroundColor: Colors.clear]
+        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: Colors.textDarkGrey]
+        navBarAppearance.backgroundColor = Colors.clear
+        self.standardAppearance = navBarAppearance
+        self.scrollEdgeAppearance = navBarAppearance
+    }
+
     
 }
 

@@ -50,10 +50,8 @@ class SettingsTVC: BaseTVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Settings"
-        
-        // Remove Search bar
-        self.searchController.searchBar.isHidden = true
-        self.navigationItem.searchController = nil
+        self.applyLargeTitles()
+        self.applyGlobalNavbarBlueColor()
         
         self.sect.append(Segment(title: "Security", cells:[
             Cell(title: "Password Protection", type: .passwordEnable, action: nil),

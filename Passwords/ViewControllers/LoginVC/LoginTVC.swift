@@ -44,7 +44,10 @@ class LoginTVC: BaseTVC {
         super.viewDidLoad()
         
         self.title = "Collections"
-        
+        self.applyLargeTitles()
+        self.applyGlobalNavbarClearColor()
+//        self.setupSearchBar()
+
         self.users = DataManager.shared.cacheGetAllUsers()
         
         // Remove Search bar
