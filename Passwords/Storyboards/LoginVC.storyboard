@@ -52,6 +52,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="labelTitle" destination="Yf6-vO-ZGS" id="3WA-GC-TGi"/>
+                                    <outlet property="securityImageView" destination="fMl-Fj-daq" id="uhG-lY-yvJ"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

@@ -17,6 +17,7 @@ class LoginCell: UITableViewCell {
     public static let widthMargin:CGFloat = 32
     public static let cellBorderRadius:CGFloat = 20
 
+    @IBOutlet weak var securityImageView: UIImageView!
     // MARK: - Lifecycle
     
     override func layoutSubviews() {
@@ -30,11 +31,25 @@ class LoginCell: UITableViewCell {
         
         self.top = top
         self.bottom = bottom
+        
+        if let settingsPass = user.settingsPassword {
+            if settingsPass.useTouchFaceID {
+                self.securityImageView.isHidden = false
+                self.securityImageView.image = UIImage(named: "fingerprint")
+            } else {
+                self.securityImageView.isHidden = false
+                self.securityImageView.image = UIImage(named: "password")
+            }
+        } else {
+            self.securityImageView.image = nil
+            self.securityImageView.isHidden = true
+        }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        self.securityImageView.image = nil
+        self.securityImageView.isHidden = true
     }
     
     
