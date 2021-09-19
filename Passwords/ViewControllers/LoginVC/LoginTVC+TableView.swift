@@ -29,16 +29,30 @@ extension LoginTVC {
             Log.debug("Error in LoginCell")
             return UITableViewCell()
         }
+        var usrs = self.users
         if self.isFiltering() {
-            loginCell.configureCell(user: self.filteredUsers[indexPath.row])
+            usrs = self.filteredUsers
+        }
+        if indexPath.row == 0 {
+            if usrs.count == 1 {
+                loginCell.configureCell(user: usrs[indexPath.row], top: true, bottom: true)
+            } else {
+                loginCell.configureCell(user: usrs[indexPath.row], top: true, bottom: false)
+            }
+        } else if indexPath.row == usrs.count-1 {
+            loginCell.configureCell(user: usrs[indexPath.row], top: false, bottom: true)
         } else {
-            loginCell.configureCell(user: self.users[indexPath.row])
+            loginCell.configureCell(user: usrs[indexPath.row], top: false, bottom: false)
         }
         return loginCell
     }
     
     
     // MARK: - TableView delegate
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return LoginCell.cellHeight
+    }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if !self.isFiltering() {
