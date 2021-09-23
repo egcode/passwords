@@ -12,6 +12,8 @@ import Foundation
     
     open class CacheNaming: NSObject {
         public static var cacheFileName = "r.realm"
+        public static var cacheDebugCopyFilename = "supercache"
+
     }
 
     open class KeychainKey: NSObject {

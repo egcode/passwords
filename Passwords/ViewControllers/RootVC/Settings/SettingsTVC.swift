@@ -16,6 +16,7 @@ class SettingsTVC: BaseTVC {
         case passwordEnable
         case passwordChange
         case exportPassword
+        case importPassword
         case exit
     }
     struct Cell {
@@ -81,6 +82,10 @@ class SettingsTVC: BaseTVC {
                 Log.debug("🙀 ACTION : Export Passwords")
                 self.copyCacheFileIntoDocumentsDir()
             }),
+            Cell(title: "Import Passwords", type: .importPassword, action: { [unowned self] in
+                Log.debug("🙀 ACTION : Import Passwords")
+                self.copyCacheFileIntoApplicationSupportDir()
+            }),
             Cell(title: "Exit", type: .exportPassword, action: { [unowned self] in
                 Log.debug("🙀 Exit")
                 self.exit()
@@ -116,7 +121,7 @@ class SettingsTVC: BaseTVC {
         if Passcode.isDevicePasscodeSet() && isBiometricNeeded {
             Passcode.authenticateUser(message: "Please authenticate to proceed") { (success, error) in
                 if success && error == nil {
-                    self.processCopyCacheFileIntoDocumentsDir()
+                    self.processCopyCacheFileIntoDocumentsDir(isBackup: false)
                 } else {
                     if let e = error {
                         self.showAlert(title: "Error", message: e.localizedDescription)
@@ -126,7 +131,33 @@ class SettingsTVC: BaseTVC {
                 }
             }
         } else {
-            self.processCopyCacheFileIntoDocumentsDir()
+            self.processCopyCacheFileIntoDocumentsDir(isBackup: false)
+        }
+    }
+    
+    func copyCacheFileIntoApplicationSupportDir() {
+        
+        var isBiometricNeeded = true
+        #if targetEnvironment(simulator)
+        isBiometricNeeded = false
+        #else
+        #endif
+        if Passcode.isDevicePasscodeSet() && isBiometricNeeded {
+            Passcode.authenticateUser(message: "Please authenticate to proceed") { (success, error) in
+                if success && error == nil {
+                    self.processCopyCacheFileIntoDocumentsDir(isBackup: true)// Backup Data
+                    self.processCopyCacheFileIntoApplicationSupportDir()
+                } else {
+                    if let e = error {
+                        self.showAlert(title: "Error", message: e.localizedDescription)
+                    } else {
+                        self.showAlert(title: "Error", message: "Something went wrong")
+                    }
+                }
+            }
+        } else {
+            self.processCopyCacheFileIntoDocumentsDir(isBackup: true)// Backup Data
+            self.processCopyCacheFileIntoApplicationSupportDir()
         }
     }
     
@@ -185,8 +216,10 @@ class SettingsTVC: BaseTVC {
         self.present(alert, animated: true, completion: nil)
     }
 
-    
-    func processCopyCacheFileIntoDocumentsDir() {
+    // MARK: - File management
+
+    func processCopyCacheFileIntoDocumentsDir(isBackup:Bool) {
+        Log.debug("Method processCopyCacheFileIntoDocumentsDir")
         
         let fileManager = FileManager.default
         let appSupportFolderPath = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first! as NSURL
@@ -198,42 +231,71 @@ class SettingsTVC: BaseTVC {
         
         
         #if DEBUG
-        guard let destPath = documentsFolderPath.appendingPathComponent("supercache") else {
-            Log.error("⛔️ Unable to get documentsFolderPath path")
-            return
-        }
+        var fileName = Constants.CacheNaming.cacheDebugCopyFilename
         #else
         guard let k = DataManager.shared.keychainReadCacheKey() else {
             self.showAlert(title: "⛔️ Unable to get key", message: "")
             return
         }
-        guard let destPath = documentsFolderPath.appendingPathComponent(k) else {
+        var fileName = k
+        #endif
+        
+        if isBackup {
+            fileName = "(backup)\(fileName)"
+        }
+        guard let destPath = documentsFolderPath.appendingPathComponent(fileName) else {
             self.showAlert(title: "⛔️ Unable to get documentsFolderPath path", message: "")
             return
         }
-        #endif
         
+        self.copyFile(srcPath: srcPath, destPath: destPath, operation: "copy to documents ")
+    }
+    
+    func processCopyCacheFileIntoApplicationSupportDir() {
+        Log.debug("Method processCopyCacheFileIntoApplicationSupportDir")
+
+        let fileManager = FileManager.default
+        let documentsFolderPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
+        #if DEBUG
+        let fileName = Constants.CacheNaming.cacheDebugCopyFilename
+        #else
+        guard let fileName = DataManager.shared.keychainReadCacheKey() else {
+            self.showAlert(title: "⛔️ Unable to get key", message: "")
+            return
+        }
+        #endif
+        guard let srcPath = documentsFolderPath.appendingPathComponent(fileName) else {
+            Log.error("⛔️Unable to get Realm path in documents")
+            return
+        }
+        
+        let appSupportFolderPath = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first! as NSURL
+        guard let destPath = appSupportFolderPath.appendingPathComponent(fileName) else {
+            self.showAlert(title: "⛔️ Unable to get appSupportFolderPath path", message: "")
+            return
+        }
+
+        self.copyFile(srcPath: srcPath, destPath: destPath, operation: "copy to application support ")
+    }
+    
+    func copyFile(srcPath: URL, destPath: URL, operation: String) {
         do {
             if !FileManager.default.fileExists(atPath: srcPath.path) {
-//                            Log.error("⛔️ Realm File doesn't exists")
-                self.showAlert(title: "File at \(srcPath.path) doesn't exist", message: "")
+//                Log.error("⛔️ Realm File doesn't exists")
+                self.showAlert(title: "Failure \(operation)", message: "File at \(srcPath.path) doesn't exist")
                 return
             }
             if FileManager.default.fileExists(atPath: destPath.path) {
                 try FileManager.default.removeItem(at: destPath)
             }
-
             try FileManager.default.copyItem(at: srcPath, to: destPath)
+            self.showAlert(title: "Success \(operation)", message: "")
         } catch (let error) {
-//                        Log.error("Cannot copy item at \(srcPath) to \(destPath): \(error)")
-            self.showAlert(title: "Cannot copy item at \(srcPath) to \(destPath): \(error)", message: error.localizedDescription)
+//            Log.error("Cannot copy item at \(srcPath) to \(destPath): \(error)")
+            self.showAlert(title: "Failure \(operation), copy from \(srcPath) to \(destPath): \(error)", message: error.localizedDescription)
             return
         }
-
-        
     }
-    
-    
 
     
 }
