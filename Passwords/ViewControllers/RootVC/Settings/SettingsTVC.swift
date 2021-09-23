@@ -121,7 +121,13 @@ class SettingsTVC: BaseTVC {
         if Passcode.isDevicePasscodeSet() && isBiometricNeeded {
             Passcode.authenticateUser(message: "Please authenticate to proceed") { (success, error) in
                 if success && error == nil {
-                    self.processCopyCacheFileIntoDocumentsDir(isBackup: false)
+                    self.processCopyCacheFileIntoDocumentsDir(isBackup: false) { error in
+                        if let e = error {
+                            self.showAlert(title: "Error", message: e)
+                        } else {
+                            self.showAlert(title: "Success copy to documents folder", message: "")
+                        }
+                    }
                 } else {
                     if let e = error {
                         self.showAlert(title: "Error", message: e.localizedDescription)
@@ -131,7 +137,13 @@ class SettingsTVC: BaseTVC {
                 }
             }
         } else {
-            self.processCopyCacheFileIntoDocumentsDir(isBackup: false)
+            self.processCopyCacheFileIntoDocumentsDir(isBackup: false) { error in
+                if let e = error {
+                    self.showAlert(title: "Error", message: e)
+                } else {
+                    self.showAlert(title: "Success copy to documents folder", message: "")
+                }
+            }
         }
     }
     
@@ -145,8 +157,26 @@ class SettingsTVC: BaseTVC {
         if Passcode.isDevicePasscodeSet() && isBiometricNeeded {
             Passcode.authenticateUser(message: "Please authenticate to proceed") { (success, error) in
                 if success && error == nil {
-                    self.processCopyCacheFileIntoDocumentsDir(isBackup: true)// Backup Data
-                    self.processCopyCacheFileIntoApplicationSupportDir()
+                    self.processCopyCacheFileIntoDocumentsDir(isBackup: false) { error in
+                        if let e = error {
+                            self.showAlert(title: "Error", message: e)
+                        } else {
+//                            self.showAlert(title: "Success copy (backup) to documents folder", message: "")
+                            
+                            self.processCopyCacheFileIntoApplicationSupportDir { error in
+                                if let e = error {
+                                    self.showAlert(title: "Error", message: e)
+                                } else {
+                                    self.showAlert(title: "Backup restore success", message: "Restarting the app") {
+                                        fatalError()
+                                    }
+                                }
+                            }
+                            
+                            
+                        }
+                    }
+
                 } else {
                     if let e = error {
                         self.showAlert(title: "Error", message: e.localizedDescription)
@@ -156,8 +186,26 @@ class SettingsTVC: BaseTVC {
                 }
             }
         } else {
-            self.processCopyCacheFileIntoDocumentsDir(isBackup: true)// Backup Data
-            self.processCopyCacheFileIntoApplicationSupportDir()
+            
+            self.processCopyCacheFileIntoDocumentsDir(isBackup: false) { error in
+                if let e = error {
+                    self.showAlert(title: "Error", message: e)
+                } else {
+//                            self.showAlert(title: "Success copy (backup) to documents folder", message: "")
+                    
+                    self.processCopyCacheFileIntoApplicationSupportDir { error in
+                        if let e = error {
+                            self.showAlert(title: "Error", message: e)
+                        } else {
+                            self.showAlert(title: "Backup restore success", message: "Restarting the app") {
+                                fatalError()
+                            }
+                        }
+                    }
+                    
+                    
+                }
+            }
         }
     }
     
@@ -218,13 +266,13 @@ class SettingsTVC: BaseTVC {
 
     // MARK: - File management
 
-    func processCopyCacheFileIntoDocumentsDir(isBackup:Bool) {
+    func processCopyCacheFileIntoDocumentsDir(isBackup:Bool, completion: @escaping ((_ error: String?) -> Void) ) {
         Log.debug("Method processCopyCacheFileIntoDocumentsDir")
         
         let fileManager = FileManager.default
         let appSupportFolderPath = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first! as NSURL
         guard let srcPath = appSupportFolderPath.appendingPathComponent(Constants.CacheNaming.cacheFileName) else {
-            Log.error("⛔️Unable to get Realm path")
+            completion("⛔️Unable to get Realm path")
             return
         }
         let documentsFolderPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
@@ -234,7 +282,7 @@ class SettingsTVC: BaseTVC {
         var fileName = Constants.CacheNaming.cacheDebugCopyFilename
         #else
         guard let k = DataManager.shared.keychainReadCacheKey() else {
-            self.showAlert(title: "⛔️ Unable to get key", message: "")
+            completion("⛔️ Unable to get key")
             return
         }
         var fileName = k
@@ -244,14 +292,22 @@ class SettingsTVC: BaseTVC {
             fileName = "(backup)\(fileName)"
         }
         guard let destPath = documentsFolderPath.appendingPathComponent(fileName) else {
-            self.showAlert(title: "⛔️ Unable to get documentsFolderPath path", message: "")
+            completion("⛔️ Unable to get documentsFolderPath path")
             return
         }
         
-        self.copyFile(srcPath: srcPath, destPath: destPath, operation: "copy to documents ")
+//        self.copyFile(srcPath: srcPath, destPath: destPath, operation: "copy to documents ")
+        self.copyFile(srcPath: srcPath, destPath: destPath, operation: "copy to documents") { error in
+            if let e = error {
+                completion(e)
+            } else {
+                completion(nil)
+            }
+        }
+
     }
     
-    func processCopyCacheFileIntoApplicationSupportDir() {
+    func processCopyCacheFileIntoApplicationSupportDir(completion: @escaping ((_ error: String?) -> Void) ) {
         Log.debug("Method processCopyCacheFileIntoApplicationSupportDir")
 
         let fileManager = FileManager.default
@@ -260,39 +316,48 @@ class SettingsTVC: BaseTVC {
         let fileName = Constants.CacheNaming.cacheDebugCopyFilename
         #else
         guard let fileName = DataManager.shared.keychainReadCacheKey() else {
-            self.showAlert(title: "⛔️ Unable to get key", message: "")
+            completion("⛔️ Unable to get key")
             return
         }
         #endif
         guard let srcPath = documentsFolderPath.appendingPathComponent(fileName) else {
-            Log.error("⛔️Unable to get Realm path in documents")
+            completion("⛔️Unable to get Realm path in documents")
             return
         }
         
         let appSupportFolderPath = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first! as NSURL
         guard let destPath = appSupportFolderPath.appendingPathComponent(fileName) else {
-            self.showAlert(title: "⛔️ Unable to get appSupportFolderPath path", message: "")
+            completion("⛔️ Unable to get appSupportFolderPath path")
             return
         }
 
-        self.copyFile(srcPath: srcPath, destPath: destPath, operation: "copy to application support ")
+//        self.copyFile(srcPath: srcPath, destPath: destPath, operation: "copy to application support ")
+        self.copyFile(srcPath: srcPath, destPath: destPath, operation: "copy to application support") { error in
+            if let e = error {
+                completion(e)
+            } else {
+                completion(nil)
+            }
+        }
     }
     
-    func copyFile(srcPath: URL, destPath: URL, operation: String) {
+    func copyFile(srcPath: URL, destPath: URL, operation: String, completion: @escaping ((_ error: String?) -> Void) ) {
         do {
             if !FileManager.default.fileExists(atPath: srcPath.path) {
 //                Log.error("⛔️ Realm File doesn't exists")
-                self.showAlert(title: "Failure \(operation)", message: "File at \(srcPath.path) doesn't exist")
+                completion("Failure \(operation)\nFile at \(srcPath.path) doesn't exist")
                 return
             }
             if FileManager.default.fileExists(atPath: destPath.path) {
                 try FileManager.default.removeItem(at: destPath)
             }
             try FileManager.default.copyItem(at: srcPath, to: destPath)
-            self.showAlert(title: "Success \(operation)", message: "")
+            completion(nil)
+//            self.showAlert(title: "Success \(operation)", message: "")
         } catch (let error) {
 //            Log.error("Cannot copy item at \(srcPath) to \(destPath): \(error)")
-            self.showAlert(title: "Failure \(operation), copy from \(srcPath) to \(destPath): \(error)", message: error.localizedDescription)
+            completion("Failure \(operation), copy from \(srcPath) to \(destPath): \(error)\n\(error.localizedDescription)")
+//            self.showAlert(title: "Failure \(operation), copy from \(srcPath) to \(destPath): \(error)", message: error.localizedDescription)
             return
         }
     }
