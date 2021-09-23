@@ -49,4 +49,21 @@ public class BaseTVC: UITableViewController {
         }
     }
     
+    
+    // MARK: - TTL
+    
+    func checkForTTL() {
+        if let ttl = DataManager.shared.TTL {
+            let currentDate = Date()
+            if ttl > currentDate {
+                Log.debug("TTL session is still OK. TTL: \(ttl)   CurrentDate:\(currentDate)")
+            } else {
+                StartupVC.showLogin(title: "Sessin is expired (TTL)", message: "")
+            }
+        } else {
+            StartupVC.showLogin(title: "No TTL", message: "")
+        }
+    }
+
+    
 }

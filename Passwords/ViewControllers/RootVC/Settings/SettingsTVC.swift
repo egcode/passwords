@@ -73,6 +73,11 @@ class SettingsTVC: BaseTVC {
         ] ))
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.checkForTTL()
+    }
+    
     // MARK: - Trait Collection. Dark/Light modes change
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -134,7 +139,6 @@ class SettingsTVC: BaseTVC {
     }
     
     func exit() {
-        DataManager.shared.userID = ""
         StartupVC.showLogin(title: nil, message: nil)
     }
     

@@ -54,6 +54,16 @@ class PasswordsTVC: BaseTVC {
 
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIView.animate(withDuration: 0.2) {
+            self.tableView.setContentOffset(CGPoint(x: self.tableView.contentOffset.x, y: self.tableView.contentOffset.y-1), animated: false)
+        }
+
+        self.checkForTTL()
+    }
+
+    
     // MARK: - Trait Collection. Dark/Light modes change
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -68,18 +78,6 @@ class PasswordsTVC: BaseTVC {
         let pcNC = UINavigationController(rootViewController: passCreateVC)
         self.present(pcNC, animated: true, completion: nil)
     }
-
-    override func viewDidAppear(_ animated: Bool) {
-       super.viewDidAppear(animated)
-//        self.searchController.searchBar.becomeFirstResponder()
-
-        UIView.animate(withDuration: 0.2) {
-            self.tableView.setContentOffset(CGPoint(x: self.tableView.contentOffset.x, y: self.tableView.contentOffset.y-1), animated: false)
-        }
-
-        
-    }
-
     
         
 }

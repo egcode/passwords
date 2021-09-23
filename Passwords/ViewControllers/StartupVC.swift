@@ -46,6 +46,8 @@ class StartupVC: UIViewController {
     
     public class func showLogin(title: String?, message: String?) {
         let sb = UIStoryboard(name: "LoginVC", bundle: nil)
+        DataManager.shared.userID = ""
+        DataManager.shared.TTL = nil
         StartupVC.animateTransition(sb, addNavigationBar: true) { (vc) in
             StartupVC._isLoggedIn = false
             if let t = title, let m = message {
@@ -60,6 +62,7 @@ class StartupVC: UIViewController {
 
     public class func showRootVC() {
         let sb = UIStoryboard(name: "RootVC", bundle: nil)
+        DataManager.shared.TTL = Calendar.current.date(byAdding: .minute, value: 1, to: Date())
         StartupVC.animateTransition(sb, addNavigationBar: false) { (vc) in
             StartupVC._isLoggedIn = true
         }
