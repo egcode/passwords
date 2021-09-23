@@ -23,7 +23,15 @@ public extension UINavigationBar {
     }
     
     @objc func applyGlobalNavbarClearColor() {
-        self.tintColor = Colors.navTintColor
+        
+        switch traitCollection.userInterfaceStyle {
+            case .light, .unspecified:
+                self.tintColor = Colors.darkGray
+            case .dark:
+                self.tintColor = Colors.navTintColor
+        @unknown default:
+            fatalError()
+        }
 
         // Also Apply attributes for all Large Titles modes
         let navBarAppearance = UINavigationBarAppearance()

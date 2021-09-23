@@ -58,6 +58,13 @@ class LoginTVC: BaseTVC {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(self.actionNavBarButton(sender:)))
     }
     
+    // MARK: - Trait Collection. Dark/Light modes change
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.applyGlobalNavbarClearColor()
+    }
+    
     // MARK: - Actions
     @objc func actionNavBarButton(sender: UIBarButtonItem) {
         let alert = UIAlertController(title: "Name collection", message: "Name your new collection", preferredStyle: .alert)
