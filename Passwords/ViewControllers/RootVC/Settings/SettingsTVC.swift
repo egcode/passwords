@@ -16,6 +16,7 @@ class SettingsTVC: BaseTVC {
         case passwordEnable
         case passwordChange
         case exportPassword
+        case exit
     }
     struct Cell {
         var title: String
@@ -49,27 +50,36 @@ class SettingsTVC: BaseTVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Settings"
-        
-        // Remove Search bar
-        self.searchController.searchBar.isHidden = true
-        self.navigationItem.searchController = nil
+        self.applyLargeTitles()
+        self.applyGlobalNavbarBlueColor()
         
         self.sect.append(Segment(title: "Security", cells:[
             Cell(title: "Password Protection", type: .passwordEnable, action: nil),
             Cell(title: "Touch/Face ID", type: .touchFaceID, action: nil),
-            Cell(title: "Change Password", type: .passwordChange, action: {
+            Cell(title: "Change Password", type: .passwordChange, action: { [unowned self] in
                 Log.debug("🙀 ACTION : Change Password")
                 self.changeSettingsPassword()
             })
         ] ))
         self.sect.append(Segment(title: "Export", cells:[
-            Cell(title: "Export Passwords", type: .exportPassword, action: {
+            Cell(title: "Export Passwords", type: .exportPassword, action: { [unowned self] in
                 Log.debug("🙀 ACTION : Export Passwords")
                 self.copyCacheFileIntoDocumentsDir()
+            }),
+            Cell(title: "Exit", type: .exportPassword, action: { [unowned self] in
+                Log.debug("🙀 Exit")
+                self.exit()
             })
         ] ))
     }
     
+    // MARK: - Trait Collection. Dark/Light modes change
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.applyGlobalNavbarBlueColor()
+    }
+
     // MARK: - Actions
     
     func copyCacheFileIntoDocumentsDir() {
@@ -82,50 +92,7 @@ class SettingsTVC: BaseTVC {
         if Passcode.isDevicePasscodeSet() && isBiometricNeeded {
             Passcode.authenticateUser(message: "Please authenticate to proceed") { (success, error) in
                 if success && error == nil {
-
-                    let fileManager = FileManager.default
-                    let appSupportFolderPath = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first! as NSURL
-                    guard let srcPath = appSupportFolderPath.appendingPathComponent(Constants.CacheNaming.cacheFileName) else {
-                        Log.error("⛔️Unable to get Realm path")
-                        return
-                    }
-                    // TODO: - "supercache" should be renamed to key
-                    let documentsFolderPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
-                    
-                    
-                    #if DEBUG
-                    guard let destPath = documentsFolderPath.appendingPathComponent("supercache") else {
-                        Log.error("⛔️ Unable to get documentsFolderPath path")
-                        return
-                    }
-                    #else
-                    guard let k = DataManager.shared.keychainReadCacheKey() else {
-                        self.showAlert(title: "⛔️ Unable to get key", message: "")
-                        return
-                    }
-                    guard let destPath = documentsFolderPath.appendingPathComponent(k) else {
-                        self.showAlert(title: "⛔️ Unable to get documentsFolderPath path", message: "")
-                        return
-                    }
-                    #endif
-                    
-                    do {
-                        if !FileManager.default.fileExists(atPath: srcPath.path) {
-//                            Log.error("⛔️ Realm File doesn't exists")
-                            self.showAlert(title: "File at \(srcPath.path) doesn't exist", message: "")
-                            return
-                        }
-                        if FileManager.default.fileExists(atPath: destPath.path) {
-                            try FileManager.default.removeItem(at: destPath)
-                        }
-
-                        try FileManager.default.copyItem(at: srcPath, to: destPath)
-                    } catch (let error) {
-//                        Log.error("Cannot copy item at \(srcPath) to \(destPath): \(error)")
-                        self.showAlert(title: "Cannot copy item at \(srcPath) to \(destPath): \(error)", message: error.localizedDescription)
-                        return
-                    }
-                    
+                    self.processCopyCacheFileIntoDocumentsDir()
                 } else {
                     if let e = error {
                         self.showAlert(title: "Error", message: e.localizedDescription)
@@ -135,15 +102,9 @@ class SettingsTVC: BaseTVC {
                 }
             }
         } else {
-            self.showAlert(title: "Operation not performed", message: "")
+            self.processCopyCacheFileIntoDocumentsDir()
         }
-
-        
-        
-        
     }
-
-    
     
     func changeSettingsPassword() {
         
@@ -172,6 +133,11 @@ class SettingsTVC: BaseTVC {
         
     }
     
+    func exit() {
+        DataManager.shared.userID = ""
+        StartupVC.showLogin(title: nil, message: nil)
+    }
+    
     // MARK: - Helpers
     
     func showSettingsPasswordEditAlert(title: String, message: String, currentPassword: String, completion: @escaping (_ match: Bool, _ error: String?) -> Void) {
@@ -195,6 +161,56 @@ class SettingsTVC: BaseTVC {
         }))
         self.present(alert, animated: true, completion: nil)
     }
+
+    
+    func processCopyCacheFileIntoDocumentsDir() {
+        
+        let fileManager = FileManager.default
+        let appSupportFolderPath = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first! as NSURL
+        guard let srcPath = appSupportFolderPath.appendingPathComponent(Constants.CacheNaming.cacheFileName) else {
+            Log.error("⛔️Unable to get Realm path")
+            return
+        }
+        let documentsFolderPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
+        
+        
+        #if DEBUG
+        guard let destPath = documentsFolderPath.appendingPathComponent("supercache") else {
+            Log.error("⛔️ Unable to get documentsFolderPath path")
+            return
+        }
+        #else
+        guard let k = DataManager.shared.keychainReadCacheKey() else {
+            self.showAlert(title: "⛔️ Unable to get key", message: "")
+            return
+        }
+        guard let destPath = documentsFolderPath.appendingPathComponent(k) else {
+            self.showAlert(title: "⛔️ Unable to get documentsFolderPath path", message: "")
+            return
+        }
+        #endif
+        
+        do {
+            if !FileManager.default.fileExists(atPath: srcPath.path) {
+//                            Log.error("⛔️ Realm File doesn't exists")
+                self.showAlert(title: "File at \(srcPath.path) doesn't exist", message: "")
+                return
+            }
+            if FileManager.default.fileExists(atPath: destPath.path) {
+                try FileManager.default.removeItem(at: destPath)
+            }
+
+            try FileManager.default.copyItem(at: srcPath, to: destPath)
+        } catch (let error) {
+//                        Log.error("Cannot copy item at \(srcPath) to \(destPath): \(error)")
+            self.showAlert(title: "Cannot copy item at \(srcPath) to \(destPath): \(error)", message: error.localizedDescription)
+            return
+        }
+
+        
+    }
+    
+    
 
     
 }

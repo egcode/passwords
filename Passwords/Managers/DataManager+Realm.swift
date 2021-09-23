@@ -11,20 +11,25 @@ import RealmSwift
 extension DataManager {
     
     // MARK: - User
+    
+    func cacheGetAllUsers() -> [User] {
+        return Array(CacheRealm.realm.objects(User.self))
+    }
         
-    func cacheStartUser(userID: String, completion: @escaping (Bool) -> Void) {
-//        GCD.cacheThread {
-            if let _ =  CacheRealm.realm.object(ofType: User.self, forPrimaryKey: userID) {
-                Log.error("🗄 REALM: User with id: \(userID) is already exists")
-                completion(true)
-            } else {
-                CacheRealm.write {
-                    let user = User(id: userID)
-                    CacheRealm.realm.add(user)
-                    completion(true)
-                }
-            }
-//        }
+    func cacheDeleteUser(user: User) {
+        CacheRealm.write {
+            CacheRealm.realm.delete(user.passwords)
+            CacheRealm.realm.delete(user)
+        }
+    }
+
+    
+    func cacheCreateUser(userName: String, completion: @escaping (User) -> Void) {
+        CacheRealm.write {
+            let user = User(name: userName)
+            CacheRealm.realm.add(user)
+            completion(user)
+        }
     }
     
     fileprivate func getUser() -> User? {

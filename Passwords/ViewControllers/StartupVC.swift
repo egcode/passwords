@@ -20,25 +20,20 @@ class StartupVC: UIViewController {
         super.viewDidLoad()
         // Orientation portrait only
         AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
-        
-//         TODO: - Remove this
-//        DataManager.shared.generateFakeDataForSearch()
-//        DataManager.shared.generateFakeData()
-//        DataManager.shared.generateFakeDataLong()
     }
     
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        StartupVC.showLogin(title: "Title Blah", message: "message blah")
+        StartupVC.showLogin(title: nil, message: nil)
         
-        DataManager.shared.cacheStartUser(userID: DataManager.shared.userID) { success in
-            if success {
-                Log.debug("✅ Success user start")
-            } else {
-                Log.debug("⛔️ Unable To start user")
-            }
-        }
+//        DataManager.shared.cacheStartUser(userID: DataManager.shared.userID) { success in
+//            if success {
+//                Log.debug("✅ Success user start")
+//            } else {
+//                Log.debug("⛔️ Unable To start user")
+//            }
+//        }
     }
     
     
@@ -54,9 +49,9 @@ class StartupVC: UIViewController {
         StartupVC.animateTransition(sb, addNavigationBar: true) { (vc) in
             StartupVC._isLoggedIn = false
             if let t = title, let m = message {
-//                vc.showAlert(title: t, message: m) {
-//                    //
-//                }
+                vc.showAlert(title: t, message: m) {
+                    //
+                }
             } else {
                 print("showLogin title and message are nil. showLogin without alert")
             }

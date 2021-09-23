@@ -15,21 +15,27 @@ public class BaseTVC: UITableViewController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
-        
         self.tableView.tableFooterView = UIView()  // remove empty cells and separators
-        
+    }
+    
+    // MARK: - Helpers
+    
+    func applyLargeTitles() {
         // Large Title
         self.navigationController?.applyLargeTitle()
+    }
+    
+    func applyGlobalNavbarBlueColor() {
         // Navbar gradient
-        self.navigationController?.navigationBar.applyGlobalNavbarColor()
-        
-        ///////////////////////////////////////////////////////////////////////////////////
-        // NAVBAR SETUP
-
-        // Search bar
-        self.setupSearchBar()
+        self.navigationController?.navigationBar.applyGlobalNavbarBlueColor()
+    }
+    
+    func applyGlobalNavbarClearColor() {
+        // Navbar gradient
+        self.navigationController?.navigationBar.applyGlobalNavbarClearColor()
     }
 
+    
     // MARK: - Refresh
 
     func refreshTableView(animated: Bool = true) {

@@ -67,18 +67,14 @@ extension SettingsTVC {
                     if settingsPassword == nil {
                         return
                     } else {
-                        if let action = c.action {
-                            action()
-                        }
+                        c.action?()
                     }
                 }
             }
             
             break
         default:
-            if let action = c.action {
-                action()
-            }
+            c.action?()
         }
         
         tableView.deselectRow(at: indexPath, animated: true)

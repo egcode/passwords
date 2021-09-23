@@ -41,11 +41,24 @@ class PasswordsTVC: BaseTVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.title = "Passwords"
+        self.applyLargeTitles()
+        self.applyGlobalNavbarBlueColor()
+        self.setupSearchBar()
+        
         
         // Navigation bar Button
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(self.actionNavBarButton(sender:)))
+        
+        self.navigationItem.hidesSearchBarWhenScrolling = false
+
+    }
+    
+    // MARK: - Trait Collection. Dark/Light modes change
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.applyGlobalNavbarBlueColor()
     }
     
     // MARK: - Actions
@@ -54,6 +67,17 @@ class PasswordsTVC: BaseTVC {
         passCreateVC.delegate = self
         let pcNC = UINavigationController(rootViewController: passCreateVC)
         self.present(pcNC, animated: true, completion: nil)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+       super.viewDidAppear(animated)
+//        self.searchController.searchBar.becomeFirstResponder()
+
+        UIView.animate(withDuration: 0.2) {
+            self.tableView.setContentOffset(CGPoint(x: self.tableView.contentOffset.x, y: self.tableView.contentOffset.y-1), animated: false)
+        }
+
+        
     }
 
     
