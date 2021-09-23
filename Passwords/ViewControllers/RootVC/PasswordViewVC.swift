@@ -115,11 +115,13 @@ class PasswordViewVC : UIViewController {
     @objc func tapOnUserID(_ sender: UITapGestureRecognizer) {
         //labelUserID
         Log.debug("tapOnUserID")
+        UIPasteboard.general.string = self.labelUserID.text
         self.animateLabel(label: self.labelUserID)
       }
 
     @objc func tapOnPassword(_ sender: UITapGestureRecognizer) {
         Log.debug("tapOnPassword")
+        UIPasteboard.general.string = self.labelPassword.text
         self.animateLabel(label: self.labelPassword)
       }
     
