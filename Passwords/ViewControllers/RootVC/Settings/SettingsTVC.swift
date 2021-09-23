@@ -161,8 +161,6 @@ class SettingsTVC: BaseTVC {
                         if let e = error {
                             self.showAlert(title: "Error", message: e)
                         } else {
-//                            self.showAlert(title: "Success copy (backup) to documents folder", message: "")
-                            
                             self.processCopyCacheFileIntoApplicationSupportDir { error in
                                 if let e = error {
                                     self.showAlert(title: "Error", message: e)
@@ -295,7 +293,6 @@ class SettingsTVC: BaseTVC {
             return
         }
         
-//        self.copyFile(srcPath: srcPath, destPath: destPath, operation: "copy to documents ")
         self.copyFile(srcPath: srcPath, destPath: destPath, operation: "copy to documents") { error in
             if let e = error {
                 completion(e)
@@ -341,7 +338,7 @@ class SettingsTVC: BaseTVC {
             completion("⛔️ Unable to get appSupportFolderPath path")
             return
         }
-//        self.copyFile(srcPath: srcPath, destPath: destPath, operation: "copy to application support ")
+        
         self.copyFile(srcPath: srcPath, destPath: destPath, operation: "copy to application support") { error in
             if let e = error {
                 completion(e)
@@ -354,7 +351,6 @@ class SettingsTVC: BaseTVC {
     func copyFile(srcPath: URL, destPath: URL, operation: String, completion: @escaping ((_ error: String?) -> Void) ) {
         do {
             if !FileManager.default.fileExists(atPath: srcPath.path) {
-//                Log.error("⛔️ Realm File doesn't exists")
                 completion("Failure \(operation)\nFile at \(srcPath.path) doesn't exist")
                 return
             }
@@ -363,11 +359,8 @@ class SettingsTVC: BaseTVC {
             }
             try FileManager.default.copyItem(at: srcPath, to: destPath)
             completion(nil)
-//            self.showAlert(title: "Success \(operation)", message: "")
         } catch (let error) {
-//            Log.error("Cannot copy item at \(srcPath) to \(destPath): \(error)")
             completion("Failure \(operation), copy from \(srcPath) to \(destPath): \(error)\n\(error.localizedDescription)")
-//            self.showAlert(title: "Failure \(operation), copy from \(srcPath) to \(destPath): \(error)", message: error.localizedDescription)
             return
         }
     }
