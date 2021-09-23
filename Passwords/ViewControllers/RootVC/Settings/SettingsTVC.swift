@@ -157,7 +157,7 @@ class SettingsTVC: BaseTVC {
         if Passcode.isDevicePasscodeSet() && isBiometricNeeded {
             Passcode.authenticateUser(message: "Please authenticate to proceed") { (success, error) in
                 if success && error == nil {
-                    self.processCopyCacheFileIntoDocumentsDir(isBackup: false) { error in
+                    self.processCopyCacheFileIntoDocumentsDir(isBackup: true) { error in
                         if let e = error {
                             self.showAlert(title: "Error", message: e)
                         } else {
@@ -187,11 +187,10 @@ class SettingsTVC: BaseTVC {
             }
         } else {
             
-            self.processCopyCacheFileIntoDocumentsDir(isBackup: false) { error in
+            self.processCopyCacheFileIntoDocumentsDir(isBackup: true) { error in
                 if let e = error {
                     self.showAlert(title: "Error", message: e)
                 } else {
-//                            self.showAlert(title: "Success copy (backup) to documents folder", message: "")
                     
                     self.processCopyCacheFileIntoApplicationSupportDir { error in
                         if let e = error {
@@ -326,11 +325,22 @@ class SettingsTVC: BaseTVC {
         }
         
         let appSupportFolderPath = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first! as NSURL
-        guard let destPath = appSupportFolderPath.appendingPathComponent(fileName) else {
+        do {
+            let fileURLs = try FileManager.default.contentsOfDirectory(at: appSupportFolderPath as URL,
+                                                                       includingPropertiesForKeys: nil,
+                                                                       options: .skipsHiddenFiles)
+            for fileURL in fileURLs {
+                try FileManager.default.removeItem(at: fileURL)
+            }
+        } catch  {
+            completion("⛔️ Unable to clean application support path\n\(error.localizedDescription)")
+            return
+        }
+        
+        guard let destPath = appSupportFolderPath.appendingPathComponent(Constants.CacheNaming.cacheFileName) else {
             completion("⛔️ Unable to get appSupportFolderPath path")
             return
         }
-
 //        self.copyFile(srcPath: srcPath, destPath: destPath, operation: "copy to application support ")
         self.copyFile(srcPath: srcPath, destPath: destPath, operation: "copy to application support") { error in
             if let e = error {
