@@ -67,9 +67,7 @@ extension SettingsTVC {
                     if settingsPassword == nil {
                         return
                     } else {
-                        if let action = c.action {
-                            action()
-                        }
+                        c.action?()
                     }
                 }
             }
