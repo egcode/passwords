@@ -113,11 +113,42 @@ class PasswordViewVC : UIViewController {
     }
     
     @objc func tapOnUserID(_ sender: UITapGestureRecognizer) {
+        //labelUserID
         Log.debug("tapOnUserID")
+        self.animateLabel(label: self.labelUserID)
       }
 
     @objc func tapOnPassword(_ sender: UITapGestureRecognizer) {
         Log.debug("tapOnPassword")
+        self.animateLabel(label: self.labelPassword)
       }
+    
+    
+    fileprivate func animateLabel(label:UILabel) {
+        let font = label.font
+        let text = label.text
+        let textColor = label.textColor
+        let bgColor = label.backgroundColor
+        
+        UIView.animate(withDuration: 0.4) {
+            label.font = Fonts.latoBold(size: 20)
+            label.text = "Copied"
+            label.textColor = Colors.orange
+            label.backgroundColor = Colors.systemRed
+            
+        } completion: { success in
+            GCD.mainThreadDelayed(delay: 1) { [weak self] in
+                UIView.animate(withDuration: 1) {
+                    if let _ = self {
+                        label.font = font
+                        label.text = text
+                        label.textColor = textColor
+                        label.backgroundColor = bgColor
+                    }
+                    
+                }
+            }
+        }
+    }
 
 }
