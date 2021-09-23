@@ -40,7 +40,22 @@ class SettingsTVC: BaseTVC {
         return grpsTVC
     }
     
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        Log.error("SettingsTVC inited without storyboard. It should not happen")
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        Log.debug("SettingsTVC inited")
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(didBecomeActive),
+//                                               name: UIApplication.didBecomeActiveNotification,
+//                                               object: nil)
+    }
+    
     deinit {
+//        NotificationCenter.default.removeObserver(self)
         print("SettingsTVC deinited")
     }
 
@@ -78,6 +93,10 @@ class SettingsTVC: BaseTVC {
         self.checkForTTL()
     }
     
+//    @objc func didBecomeActive() {
+//        self.checkForTTL()
+//    }
+
     // MARK: - Trait Collection. Dark/Light modes change
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

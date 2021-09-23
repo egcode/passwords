@@ -30,9 +30,14 @@ class PasswordsTVC: BaseTVC {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         Log.debug("PasswordsTVC inited")
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(didBecomeActive),
+                                               name: UIApplication.didBecomeActiveNotification,
+                                               object: nil)
     }
     
     deinit {
+        NotificationCenter.default.removeObserver(self)
         Log.debug("PasswordsTVC deinited")
     }
 
@@ -60,6 +65,10 @@ class PasswordsTVC: BaseTVC {
             self.tableView.setContentOffset(CGPoint(x: self.tableView.contentOffset.x, y: self.tableView.contentOffset.y-1), animated: false)
         }
 
+        self.checkForTTL()
+    }
+
+    @objc func didBecomeActive() {
         self.checkForTTL()
     }
 

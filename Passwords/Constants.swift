@@ -19,7 +19,7 @@ import Foundation
     }
     
     open class TTL: NSObject {
-        public static var minutesToLive = 1 // Amount of minutes live
+        public static var minutesToLive = 5 // Amount of minutes live
     }
 
         
