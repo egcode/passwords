@@ -10,16 +10,35 @@ import UIKit
 public extension UINavigationBar {
     
     @objc func applyGlobalNavbarBlueColor() {
-        self.tintColor = Colors.navTintColor
+        self.isTranslucent = true
+        
+        var titleColor = Colors.clear
+        var bgColor = Colors.clear
+        
+        switch traitCollection.userInterfaceStyle {
+            case .light, .unspecified:
+                self.tintColor = Colors.navTintColor
+                titleColor = Colors.navTintColor
+                bgColor = Colors.navBGColor
+            case .dark:
+                self.tintColor = Colors.navTintColor
+                titleColor = Colors.lightGray
+                bgColor = Colors.darkGray
+        @unknown default:
+            fatalError()
+        }
 
         // Also Apply attributes for all Large Titles modes
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithOpaqueBackground()
-        navBarAppearance.titleTextAttributes = [.foregroundColor: Colors.navTintColor]
-        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: Colors.navTintColor]
-        navBarAppearance.backgroundColor = Colors.navBGColor
+        navBarAppearance.titleTextAttributes = [.foregroundColor: titleColor]
+        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: titleColor]
+        navBarAppearance.backgroundColor = bgColor
         self.standardAppearance = navBarAppearance
         self.scrollEdgeAppearance = navBarAppearance
+        
+        self.isTranslucent = false
+
     }
     
     @objc func applyGlobalNavbarClearColor() {

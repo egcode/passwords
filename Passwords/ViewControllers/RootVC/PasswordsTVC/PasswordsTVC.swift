@@ -54,6 +54,13 @@ class PasswordsTVC: BaseTVC {
 
     }
     
+    // MARK: - Trait Collection. Dark/Light modes change
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.applyGlobalNavbarBlueColor()
+    }
+    
     // MARK: - Actions
     @objc func actionNavBarButton(sender: UIBarButtonItem) {
         let passCreateVC = PasswordCreateEditVC.initFromStoryboard()
