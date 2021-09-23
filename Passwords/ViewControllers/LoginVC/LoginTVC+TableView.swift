@@ -94,12 +94,13 @@ extension LoginTVC {
     // MARK: - Handle Did select
     
     func handleSelect(user: User) {
-        // TODO: - Check if user has Touch/ID setup
         Log.debug("🔑SELECTED user: \(user.name)")
         DataManager.shared.userID = user.id
         
         if let settingsPass = user.settingsPassword {
             if settingsPass.useTouchFaceID {
+                
+                // -- Touch/Face ID Login
                 Log.debug("🆔 Using Touch ID")
                 
                 var isBiometricNeeded = true
@@ -125,7 +126,31 @@ extension LoginTVC {
                     StartupVC.showRootVC()
                 }
             } else {
+                // -- Password Login
                 Log.debug("🆔 Using Password")
+                
+                let alert = UIAlertController(title: "Enter Password", message: "Please enter password to use this collection", preferredStyle: .alert)
+                alert.addTextField { (textField) in
+                    textField.placeholder = "Password"
+                }
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { [weak self] action in
+                    self?.refreshTableView(animated: true)
+                }))
+                alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak alert] (_) in
+                if let al = alert, let tfs = al.textFields, let tf = tfs.first {
+                    if tf.text == settingsPass.userPassword {
+                        Log.debug("🔑 Login with Password")
+                        StartupVC.showRootVC()
+                        
+                    } else {
+                        self.showAlert(title: "Wrong password", message: "")
+                    }
+                } else {
+                    self.showAlert(title: "Internal errow", message: "")
+                }
+                }))
+                self.present(alert, animated: true, completion: nil)
+                
             }
         } else {
             Log.debug("🔑 Login without credentials")
