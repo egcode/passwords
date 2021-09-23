@@ -88,6 +88,7 @@ extension LoginTVC {
             let selUser = self.users[indexPath.row]
             self.handleSelect(user: selUser)
         }
+        self.tableView.deselectRow(at: indexPath, animated: true)
     }
 
     // MARK: - Handle Did select
@@ -96,7 +97,41 @@ extension LoginTVC {
         // TODO: - Check if user has Touch/ID setup
         Log.debug("🔑SELECTED user: \(user.name)")
         DataManager.shared.userID = user.id
-        StartupVC.showRootVC()
+        
+        if let settingsPass = user.settingsPassword {
+            if settingsPass.useTouchFaceID {
+                Log.debug("🆔 Using Touch ID")
+                
+                var isBiometricNeeded = true
+                #if targetEnvironment(simulator)
+                isBiometricNeeded = false
+                #else
+                #endif
+                if Passcode.isDevicePasscodeSet() && isBiometricNeeded {
+                    Passcode.authenticateUser(message: "Please authenticate to proceed") { (success, error) in
+                        if success && error == nil {
+                            Log.debug("🔑 Login with touch/face ID")
+                            StartupVC.showRootVC()
+                        } else {
+                            if let e = error {
+                                self.showAlert(title: "Error", message: e.localizedDescription)
+                            } else {
+                                self.showAlert(title: "Error", message: "Something went wrong")
+                            }
+                        }
+                    }
+                } else {
+                    Log.debug("🔑 Login without credentials, passcode is not set, or it is simulator")
+                    StartupVC.showRootVC()
+                }
+            } else {
+                Log.debug("🆔 Using Password")
+            }
+        } else {
+            Log.debug("🔑 Login without credentials")
+            StartupVC.showRootVC()
+        }
+
     }
     
 }
