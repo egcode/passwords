@@ -17,6 +17,11 @@ import Foundation
     open class KeychainKey: NSObject {
         public static var cacheKey = "cacheKey"
     }
+    
+    open class TTL: NSObject {
+        public static var minutesToLive = 1 // Amount of minutes live
+    }
+
         
     public class func buildNumber () -> String? {
        if let appBuild = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") {
