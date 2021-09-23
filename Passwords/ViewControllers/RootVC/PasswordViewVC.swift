@@ -130,25 +130,31 @@ class PasswordViewVC : UIViewController {
         let textColor = label.textColor
         let bgColor = label.backgroundColor
         
-        UIView.animate(withDuration: 0.4) {
+        UIView.transition(with: label, duration: 0.1, options: .transitionCrossDissolve) {
+            
             label.font = Fonts.latoBold(size: 20)
             label.text = "Copied"
             label.textColor = Colors.orange
             label.backgroundColor = Colors.systemRed
             
         } completion: { success in
-            GCD.mainThreadDelayed(delay: 1) { [weak self] in
-                UIView.animate(withDuration: 1) {
+            
+            GCD.mainThreadDelayed(delay: 0.6) { [weak self] in
+                UIView.transition(with: label, duration: 0.3, options: .transitionCrossDissolve) {
                     if let _ = self {
                         label.font = font
                         label.text = text
                         label.textColor = textColor
                         label.backgroundColor = bgColor
                     }
-                    
+                } completion: { success in
                 }
             }
+
         }
+
+        
+        
     }
 
 }
