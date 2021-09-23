@@ -123,14 +123,17 @@ class SettingsTVC: BaseTVC {
                 if success && error == nil {
                     self.processCopyCacheFileIntoDocumentsDir(isBackup: false) { error in
                         if let e = error {
-                            self.showAlert(title: "Error", message: e)
+//                            self.showAlert(title: "Error", message: e)
+                            self.showAlert(title: "Error", message: "Error copy cache into documents")
+
                         } else {
                             self.showAlert(title: "Success copy to documents folder", message: "")
                         }
                     }
                 } else {
                     if let e = error {
-                        self.showAlert(title: "Error", message: e.localizedDescription)
+//                        self.showAlert(title: "Error", message: e.localizedDescription)
+                        self.showAlert(title: "Error", message: "Unable to authenticate")
                     } else {
                         self.showAlert(title: "Error", message: "Something went wrong")
                     }
@@ -139,7 +142,8 @@ class SettingsTVC: BaseTVC {
         } else {
             self.processCopyCacheFileIntoDocumentsDir(isBackup: false) { error in
                 if let e = error {
-                    self.showAlert(title: "Error", message: e)
+//                    self.showAlert(title: "Error", message: e)
+                    self.showAlert(title: "Error", message: "Unable to copy cache into documents")
                 } else {
                     self.showAlert(title: "Success copy to documents folder", message: "")
                 }
@@ -163,7 +167,8 @@ class SettingsTVC: BaseTVC {
                         } else {
                             self.processCopyCacheFileIntoApplicationSupportDir { error in
                                 if let e = error {
-                                    self.showAlert(title: "Error", message: e)
+//                                    self.showAlert(title: "Error", message: e)
+                                    self.showAlert(title: "Error", message: "Error copy to application support")
                                 } else {
                                     self.showAlert(title: "Backup restore success", message: "Restarting the app") {
                                         fatalError()
@@ -177,7 +182,8 @@ class SettingsTVC: BaseTVC {
 
                 } else {
                     if let e = error {
-                        self.showAlert(title: "Error", message: e.localizedDescription)
+//                        self.showAlert(title: "Error", message: e.localizedDescription)
+                        self.showAlert(title: "Error", message: "Error authenticate")
                     } else {
                         self.showAlert(title: "Error", message: "Something went wrong")
                     }
@@ -187,12 +193,14 @@ class SettingsTVC: BaseTVC {
             
             self.processCopyCacheFileIntoDocumentsDir(isBackup: true) { error in
                 if let e = error {
-                    self.showAlert(title: "Error", message: e)
+//                    self.showAlert(title: "Error", message: e)
+                    self.showAlert(title: "Error", message: "Error copy (backup) cache into documents dir")
                 } else {
                     
                     self.processCopyCacheFileIntoApplicationSupportDir { error in
                         if let e = error {
-                            self.showAlert(title: "Error", message: e)
+//                            self.showAlert(title: "Error", message: e)
+                            self.showAlert(title: "Error", message: "Error copy cache into app support dir")
                         } else {
                             self.showAlert(title: "Backup restore success", message: "Restarting the app") {
                                 fatalError()
