@@ -106,7 +106,7 @@ class PasswordViewVC : UIViewController {
         Log.debug("Sel: \(String(describing: self.passwordViewModel))")
         let passCreateVC = PasswordCreateEditVC.initFromStoryboard()
         passCreateVC.passwordViewModel = self.passwordViewModel
-        passCreateVC.action = {
+        passCreateVC.action = { [unowned self] in
             self.delegate?.putToTop(passwordVM: self.passwordViewModel)
         }
         self.navigationController?.pushViewController(passCreateVC, animated: true)

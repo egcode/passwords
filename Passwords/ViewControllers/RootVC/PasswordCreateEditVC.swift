@@ -19,7 +19,7 @@ class PasswordCreateEditVC : UIViewController {
     
     weak var delegate: PasswordsTVCRefreshProtocol?
     weak var passwordViewModel: PasswordViewModel? // If in ✏️ Edit Mode
-    var action = {}
+    var action: (()->())?
     
     // MARK: - init/deinit
     
@@ -143,7 +143,7 @@ class PasswordCreateEditVC : UIViewController {
                 if let p = updatedPassword {
                     passVM.updatePassword(password: p)
                     self?.dismisVC(completion: {
-                        self?.action()
+                        self?.action?()
                     })
                 } else {
                     self?.showAlert(title: "Cache error", message: "Unable to update password", completion: {

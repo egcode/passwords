@@ -76,9 +76,7 @@ extension SettingsTVC {
             
             break
         default:
-            if let action = c.action {
-                action()
-            }
+            c.action?()
         }
         
         tableView.deselectRow(at: indexPath, animated: true)

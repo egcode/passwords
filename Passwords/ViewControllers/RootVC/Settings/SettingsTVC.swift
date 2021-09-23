@@ -56,17 +56,17 @@ class SettingsTVC: BaseTVC {
         self.sect.append(Segment(title: "Security", cells:[
             Cell(title: "Password Protection", type: .passwordEnable, action: nil),
             Cell(title: "Touch/Face ID", type: .touchFaceID, action: nil),
-            Cell(title: "Change Password", type: .passwordChange, action: {
+            Cell(title: "Change Password", type: .passwordChange, action: { [unowned self] in
                 Log.debug("🙀 ACTION : Change Password")
                 self.changeSettingsPassword()
             })
         ] ))
         self.sect.append(Segment(title: "Export", cells:[
-            Cell(title: "Export Passwords", type: .exportPassword, action: {
+            Cell(title: "Export Passwords", type: .exportPassword, action: { [unowned self] in
                 Log.debug("🙀 ACTION : Export Passwords")
                 self.copyCacheFileIntoDocumentsDir()
             }),
-            Cell(title: "Exit", type: .exportPassword, action: {
+            Cell(title: "Exit", type: .exportPassword, action: { [unowned self] in
                 Log.debug("🙀 Exit")
                 self.exit()
             })
