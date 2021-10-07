@@ -95,7 +95,6 @@ extension LoginTVC {
     
     func handleSelect(user: User) {
         Log.debug("🔑SELECTED user: \(user.name)")
-        DataManager.shared.userID = user.id
         
         if let settingsPass = user.settingsPassword {
             if settingsPass.useTouchFaceID {
@@ -112,7 +111,7 @@ extension LoginTVC {
                     Passcode.authenticateUser(message: "Please authenticate to proceed") { (success, error) in
                         if success && error == nil {
                             Log.debug("🔑 Login with touch/face ID")
-                            StartupVC.showRootVC()
+                            StartupVC.showRootVC(userID: user.id)
                         } else {
                             if let e = error {
                                 self.showAlert(title: "Error", message: e.localizedDescription)
@@ -123,7 +122,7 @@ extension LoginTVC {
                     }
                 } else {
                     Log.debug("🔑 Login without credentials, passcode is not set, or it is simulator")
-                    StartupVC.showRootVC()
+                    StartupVC.showRootVC(userID: user.id)
                 }
             } else {
                 // -- Password Login
@@ -140,7 +139,7 @@ extension LoginTVC {
                 if let al = alert, let tfs = al.textFields, let tf = tfs.first {
                     if tf.text == settingsPass.userPassword {
                         Log.debug("🔑 Login with Password")
-                        StartupVC.showRootVC()
+                        StartupVC.showRootVC(userID: user.id)
                         
                     } else {
                         self.showAlert(title: "Wrong password", message: "")
@@ -154,7 +153,7 @@ extension LoginTVC {
             }
         } else {
             Log.debug("🔑 Login without credentials")
-            StartupVC.showRootVC()
+            StartupVC.showRootVC(userID: user.id)
         }
 
     }
