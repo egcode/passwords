@@ -95,6 +95,7 @@ class LoginTVC: BaseTVC {
     }
 
     // MARK: - Long Press
+    
     @objc func longPress(longPressGestureRecognizer: UILongPressGestureRecognizer) {
 
         if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
@@ -103,17 +104,49 @@ class LoginTVC: BaseTVC {
                 
                 if self.isFiltering() {
                     let selUser = self.filteredUsers[indexPath.row]
-                    print("Long PRess: \(selUser)")
-//                    self.handleSelect(user: selUser)
+                    self.handleLongPress(user: selUser)
                 } else {
                     let selUser = self.users[indexPath.row]
-                    print("Long PRess: \(selUser)")
-//                    self.handleSelect(user: selUser)
+                    self.handleLongPress(user: selUser)
                 }
                 
                 
             }
         }
+    }
+
+    func handleLongPress(user: User) {
+        Log.debug("🔑LONG PRESS SELECTED user: \(user.name)")
+        
+        // -- Security Question Login
+        Log.debug("🆔 Using Security question")
+        
+        if let settingsPass = user.settingsPassword {
+            let alert = UIAlertController(title: "Answer question: ", message: settingsPass.userSecurityQuestion, preferredStyle: .alert)
+            alert.addTextField { (textField) in
+                textField.placeholder = "Answer"
+            }
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { [weak self] action in
+                self?.refreshTableView(animated: true)
+            }))
+            alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak alert] (_) in
+            if let al = alert, let tfs = al.textFields, let tf = tfs.first {
+                if tf.text == settingsPass.userSecurityAnswer {
+                    Log.debug("🔑 Login with Security Answer")
+                    StartupVC.showRootVC(userID: user.id)
+                    
+                } else {
+                    self.showAlert(title: "Wrong Answer", message: "")
+                }
+            } else {
+                self.showAlert(title: "Internal error", message: "")
+            }
+            }))
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            self.showAlert(title: "No Data", message: "No data to handle long press")
+        }
+
     }
 
 
