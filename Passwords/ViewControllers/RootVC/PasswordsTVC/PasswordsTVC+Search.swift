@@ -24,7 +24,9 @@ extension PasswordsTVC {
         }
         
         self.passwordViewModelParent.filteredPasswordViewModels = self.passwordViewModelParent.passwordViewModels.filter({ (password) -> Bool in
-            return password.title.lowercased().contains(searchText.lowercased())
+            let titles = password.title.lowercased().contains(searchText.lowercased())
+            let descrip = password.desc.lowercased().contains(searchText.lowercased())
+            return titles || descrip
         })
         
         self.refreshTableView()
