@@ -56,6 +56,11 @@ class LoginTVC: BaseTVC {
 
         // Navigation bar Button
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(self.actionNavBarButton(sender:)))
+        
+        // Long press
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(LoginTVC.longPress(longPressGestureRecognizer:)))
+        longPressRecognizer.minimumPressDuration = 3
+        self.view.addGestureRecognizer(longPressRecognizer)
     }
     
     // MARK: - Trait Collection. Dark/Light modes change
@@ -87,11 +92,30 @@ class LoginTVC: BaseTVC {
         }
         }))
         self.present(alert, animated: true, completion: nil)
-
-        
-        
     }
 
-    
+    // MARK: - Long Press
+    @objc func longPress(longPressGestureRecognizer: UILongPressGestureRecognizer) {
+
+        if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
+            let touchPoint = longPressGestureRecognizer.location(in: self.view)
+            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+                
+                if self.isFiltering() {
+                    let selUser = self.filteredUsers[indexPath.row]
+                    print("Long PRess: \(selUser)")
+//                    self.handleSelect(user: selUser)
+                } else {
+                    let selUser = self.users[indexPath.row]
+                    print("Long PRess: \(selUser)")
+//                    self.handleSelect(user: selUser)
+                }
+                
+                
+            }
+        }
+    }
+
+
         
 }
