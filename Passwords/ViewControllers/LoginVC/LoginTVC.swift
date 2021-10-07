@@ -56,6 +56,11 @@ class LoginTVC: BaseTVC {
 
         // Navigation bar Button
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(self.actionNavBarButton(sender:)))
+        
+        // Long press
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(LoginTVC.longPress(longPressGestureRecognizer:)))
+        longPressRecognizer.minimumPressDuration = 3
+        self.view.addGestureRecognizer(longPressRecognizer)
     }
     
     // MARK: - Trait Collection. Dark/Light modes change
@@ -87,11 +92,63 @@ class LoginTVC: BaseTVC {
         }
         }))
         self.present(alert, animated: true, completion: nil)
-
-        
-        
     }
 
+    // MARK: - Long Press
     
+    @objc func longPress(longPressGestureRecognizer: UILongPressGestureRecognizer) {
+
+        if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
+            let touchPoint = longPressGestureRecognizer.location(in: self.view)
+            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+                
+                if self.isFiltering() {
+                    let selUser = self.filteredUsers[indexPath.row]
+                    self.handleLongPress(user: selUser)
+                } else {
+                    let selUser = self.users[indexPath.row]
+                    self.handleLongPress(user: selUser)
+                }
+                
+                
+            }
+        }
+    }
+
+    func handleLongPress(user: User) {
+        Log.debug("🔑LONG PRESS SELECTED user: \(user.name)")
+        
+        // -- Security Question Login
+        Log.debug("🆔 Using Security question")
+        
+        if let settingsPass = user.settingsPassword {
+            let alert = UIAlertController(title: "Answer question: ", message: settingsPass.userSecurityQuestion, preferredStyle: .alert)
+            alert.addTextField { (textField) in
+                textField.placeholder = "Answer"
+            }
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { [weak self] action in
+                self?.refreshTableView(animated: true)
+            }))
+            alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak alert] (_) in
+            if let al = alert, let tfs = al.textFields, let tf = tfs.first {
+                if tf.text == settingsPass.userSecurityAnswer {
+                    Log.debug("🔑 Login with Security Answer")
+                    StartupVC.showRootVC(userID: user.id)
+                    
+                } else {
+                    self.showAlert(title: "Wrong Answer", message: "")
+                }
+            } else {
+                self.showAlert(title: "Internal error", message: "")
+            }
+            }))
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            self.showAlert(title: "No Data", message: "No data to handle long press")
+        }
+
+    }
+
+
         
 }
