@@ -79,12 +79,41 @@ class SettingsTVC: BaseTVC {
         ] ))
         self.sect.append(Segment(title: "Export", cells:[
             Cell(title: "Export Passwords", type: .exportPassword, action: { [unowned self] in
-                Log.debug("🙀 ACTION : Export Passwords")
-                self.copyCacheFileIntoDocumentsDir()
+                
+                let alert = UIAlertController(
+                    title: "Are you sure?",
+                    message: "Are you sure you want to export Passwords?",
+                    preferredStyle: .alert)
+                let yesButton = UIAlertAction(title: "yes", style: .default) { (action) in
+                    Log.debug("🙀 ACTION : Export Passwords")
+                    self.copyCacheFileIntoDocumentsDir()
+                }
+                let noButton = UIAlertAction(title: "no", style: .default) { (action) in
+                    //
+                }
+                alert.addAction(yesButton)
+                alert.addAction(noButton)
+                self.present(alert, animated: true, completion: nil)
+                
+                
             }),
             Cell(title: "Import Passwords", type: .importPassword, action: { [unowned self] in
-                Log.debug("🙀 ACTION : Import Passwords")
-                self.copyCacheFileIntoApplicationSupportDir()
+                
+                let alert = UIAlertController(
+                    title: "Are you sure?",
+                    message: "Are you sure you want to import Passwords?",
+                    preferredStyle: .alert)
+                let yesButton = UIAlertAction(title: "yes", style: .default) { (action) in
+                    Log.debug("🙀 ACTION : Import Passwords")
+                    self.copyCacheFileIntoApplicationSupportDir()
+                }
+                let noButton = UIAlertAction(title: "no", style: .default) { (action) in
+                    //
+                }
+                alert.addAction(yesButton)
+                alert.addAction(noButton)
+                self.present(alert, animated: true, completion: nil)
+                
             }),
             Cell(title: "Exit", type: .exportPassword, action: { [unowned self] in
                 Log.debug("🙀 Exit")
