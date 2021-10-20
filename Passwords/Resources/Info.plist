@@ -64,5 +64,11 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSFaceIDUsageDescription</key>
+	<true/>
+	<key>NSDocumentsFolderUsageDescription</key>
+    <true/>
+	<key>NSFileProviderDomainUsageDescription</key>
+    <true/>
 </dict>
 </plist>

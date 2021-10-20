@@ -20,19 +20,23 @@ open class Passcode: NSObject {
     }
     
     public static func  authenticateUser(message: String, completion: @escaping (_ authenticated: Bool, _ error: Error?) -> Void) {
-        let context = LAContext()
         
-        if #available(iOS 9.0, *) {
-            context.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: message) { (success, error) in
-                DispatchQueue.main.async {
-                    completion(success, error)
-                }
-            }
-        } else {
-            DispatchQueue.main.async {
-                completion(false, nil) // should never be execuded due to isDevicePasscodeSet will be false for older devices
-            }
-        }
+        completion(true, nil)
+
+        
+//        let context = LAContext()
+//        
+//        if #available(iOS 9.0, *) {
+//            context.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: message) { (success, error) in
+//                DispatchQueue.main.async {
+//                    completion(success, error)
+//                }
+//            }
+//        } else {
+//            DispatchQueue.main.async {
+//                completion(false, nil) // should never be execuded due to isDevicePasscodeSet will be false for older devices
+//            }
+//        }
     }
     
 }

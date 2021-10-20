@@ -161,10 +161,10 @@ class SettingsTVC: BaseTVC {
         if Passcode.isDevicePasscodeSet() && isBiometricNeeded {
             Passcode.authenticateUser(message: "Please authenticate to proceed") { (success, error) in
                 if success && error == nil {
-                    self.processCopyCacheFileIntoDocumentsDir(isBackup: true) { error in
-                        if let e = error {
-                            self.showAlert(title: "Error", message: e)
-                        } else {
+//                    self.processCopyCacheFileIntoDocumentsDir(isBackup: true) { error in
+//                        if let e = error {
+//                            self.showAlert(title: "Error", message: e)
+//                        } else {
                             self.processCopyCacheFileIntoApplicationSupportDir { error in
                                 if let e = error {
 //                                    self.showAlert(title: "Error", message: e)
@@ -177,8 +177,8 @@ class SettingsTVC: BaseTVC {
                             }
                             
                             
-                        }
-                    }
+//                        }
+//                    }
 
                 } else {
                     if let e = error {
@@ -191,11 +191,11 @@ class SettingsTVC: BaseTVC {
             }
         } else {
             
-            self.processCopyCacheFileIntoDocumentsDir(isBackup: true) { error in
-                if let e = error {
-//                    self.showAlert(title: "Error", message: e)
-                    self.showAlert(title: "Error", message: "Error copy (backup) cache into documents dir")
-                } else {
+//            self.processCopyCacheFileIntoDocumentsDir(isBackup: true) { error in
+//                if let e = error {
+////                    self.showAlert(title: "Error", message: e)
+//                    self.showAlert(title: "Error", message: "Error copy (backup) cache into documents dir")
+//                } else {
                     
                     self.processCopyCacheFileIntoApplicationSupportDir { error in
                         if let e = error {
@@ -209,8 +209,8 @@ class SettingsTVC: BaseTVC {
                     }
                     
                     
-                }
-            }
+//                }
+//            }
         }
     }
     
@@ -311,6 +311,9 @@ class SettingsTVC: BaseTVC {
 
     }
     
+    /*
+     Will copy first file from dir and copy to application support as cache file
+     */
     func processCopyCacheFileIntoApplicationSupportDir(completion: @escaping ((_ error: String?) -> Void) ) {
         Log.debug("Method processCopyCacheFileIntoApplicationSupportDir")
 
@@ -319,9 +322,12 @@ class SettingsTVC: BaseTVC {
         #if DEBUG
         let fileName = Constants.CacheNaming.cacheDebugCopyFilename
         #else
-        guard let fileName = DataManager.shared.keychainReadCacheKey() else {
-            completion("⛔️ Unable to get key")
+        guard let fileName = self.getFirstFileNameInDocumentsDirectory(documentsFolderPath: documentsFolderPath) else {
+            completion("⛔️ Unable to first file in documents directory")
             return
+        }
+        if self.checkFileNameLength(fileName: fileName) == false {
+            completion("⛔️ FileName wrong length")
         }
         #endif
         guard let srcPath = documentsFolderPath.appendingPathComponent(fileName) else {
@@ -351,6 +357,13 @@ class SettingsTVC: BaseTVC {
             if let e = error {
                 completion(e)
             } else {
+                
+                #if DEBUG
+                #else
+                // Change Keychain password
+                DataManager.shared.keychainSaveCacheKey(key: fileName)
+                #endif
+                
                 completion(nil)
             }
         }
@@ -373,5 +386,29 @@ class SettingsTVC: BaseTVC {
         }
     }
 
+    // MARK: - Source file name
+    
+    func getFirstFileNameInDocumentsDirectory(documentsFolderPath: NSURL) -> String? {
+        do {
+            // Get the directory contents urls (including subfolders urls)
+            let directoryContents = try FileManager.default.contentsOfDirectory(at: documentsFolderPath as URL, includingPropertiesForKeys: nil)
+            if let filePath = directoryContents.first {
+                return filePath.lastPathComponent
+            }
+        } catch {
+            Log.error(error)
+            return nil
+        }
+        return nil
+    }
+    
+    func checkFileNameLength(fileName: String) -> Bool {
+        if fileName.count == 64 {
+            return true
+        } else {
+            Log.error("Wrong file name length")
+            return false
+        }
+    }
     
 }
