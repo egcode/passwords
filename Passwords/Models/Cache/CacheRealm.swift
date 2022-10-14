@@ -84,6 +84,7 @@ extension CacheRealm {
                 try fileManager.createDirectory(at: applicationSupportURL, withIntermediateDirectories: true, attributes: nil)
             } catch let err {
                 Log.error(err)
+                CacheRealm.deleteRealmFileAndLogout()
             }
         }
         return urls.first! as NSURL
@@ -98,7 +99,7 @@ extension CacheRealm {
             try FileManager.default.removeItem(at:dbPath)
             print("🔵 Successfully removed Realm file")
         } catch {
-            print("🚫🔴Unale to delete Realm file")
+            print("🚫🔴Unable to delete Realm file")
         }
     }
     
@@ -117,6 +118,16 @@ extension CacheRealm {
         var schemaVersion: UInt64 = 1
         let encryptionKey: Data? = encrypt ? CacheRealm.getKey().data(using: String.Encoding.ascii) : nil
 
+        if encrypt,
+        let key = encryptionKey,
+           key.count != 64 {
+            Log.error("⛔️ encryption key length is \(key.count), should be 64")
+            DataManager.shared.keychainRemoveCacheKey()
+            CacheRealm.deleteRealmFileAndLogout()
+            exit(0)
+            return Realm.Configuration()
+        }
+        
         if FileManager.default.fileExists(atPath: dbPath.absoluteString){
             do {
                 schemaVersion = try schemaVersionAtURL(dbPath, encryptionKey: encryptionKey)
@@ -127,6 +138,7 @@ extension CacheRealm {
 //                Log.error("Schema Version encrypt error: \(error)")
 //            }
                 print("⛔️ Schema Version encrypt error: \(error)")
+                CacheRealm.deleteRealmFileAndLogout()
             }
         }
         
