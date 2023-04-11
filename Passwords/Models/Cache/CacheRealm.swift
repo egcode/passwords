@@ -16,10 +16,20 @@ class CacheRealm: NSObject {
             do {
                 let config = CacheRealm.getRealmConfig()
                 let realm = try Realm(configuration: config)
+                if let configPath = config.fileURL {
+                    try FileManager.default.setAttributes([.protectionKey: FileProtectionType.complete], ofItemAtPath: configPath.path)
+                    
+                    if let protectionLevel = CacheRealm.getFileProtectionLevel(for: configPath) {
+                        Log.debug("File protection level: \(protectionLevel)")
+                    }
+
+                } else {
+                    fatalError("Unable to get path from config")
+                }
                 return realm
             }
             catch {
-                print("⛔️Could not access Realm database:  \(error) \nDeleting...")
+                Log.error("⛔️Could not access Realm database:  \(error) \nDeleting...")
                 CacheRealm.deleteRealmFileAndLogout()
             }
             return self.realm
@@ -32,7 +42,7 @@ class CacheRealm: NSObject {
                 writeClosure()
             }
         } catch {
-            print("⛔️Could write to Realm database:  \(error) \nDeleting...")
+            Log.error("⛔️Could write to Realm database:  \(error) \nDeleting...")
             CacheRealm.deleteRealmFileAndLogout()
         }
     }
@@ -81,7 +91,7 @@ extension CacheRealm {
 
         if let applicationSupportURL = urls.last {
             do {
-                try fileManager.createDirectory(at: applicationSupportURL, withIntermediateDirectories: true, attributes: nil)
+                try fileManager.createDirectory(at: applicationSupportURL, withIntermediateDirectories: true, attributes: [.protectionKey: FileProtectionType.complete])
             } catch let err {
                 Log.error(err)
                 CacheRealm.deleteRealmFileAndLogout()
@@ -92,14 +102,14 @@ extension CacheRealm {
 
     fileprivate static func deleteRealmFile() {
         guard let dbPath = CacheRealm.getCacheDir().appendingPathComponent(fileName) else {
-            print("⛔️Unable to get Realm path")
+            Log.error("⛔️Unable to get Realm path")
             return
         }
         do {
             try FileManager.default.removeItem(at:dbPath)
-            print("🔵 Successfully removed Realm file")
+            Log.debug("🔵 Successfully removed Realm file")
         } catch {
-            print("🚫🔴Unable to delete Realm file")
+            Log.error("🚫🔴Unable to delete Realm file")
         }
     }
     
@@ -111,7 +121,7 @@ extension CacheRealm {
     public static func getRealmConfig() -> Realm.Configuration {
                 
         guard let dbPath = CacheRealm.getCacheDir().appendingPathComponent(fileName) else {
-            print("⛔️Unable to get dbPath")
+            Log.error("⛔️Unable to get dbPath")
             return Realm.Configuration()
         }
         
@@ -137,7 +147,7 @@ extension CacheRealm {
 //            } else {
 //                Log.error("Schema Version encrypt error: \(error)")
 //            }
-                print("⛔️ Schema Version encrypt error: \(error)")
+                Log.error("⛔️ Schema Version encrypt error: \(error)")
                 CacheRealm.deleteRealmFileAndLogout()
             }
         }
@@ -161,10 +171,10 @@ extension CacheRealm {
 
 extension CacheRealm {
     static let migrationBlock: RealmSwift.MigrationBlock = { migration, oldSchemaVersion in
-        print("Realm migration from version \(oldSchemaVersion)")
+        Log.debug("Realm migration from version \(oldSchemaVersion)")
         
         migration.enumerateObjects(ofType: User.className(), { (oldObject, newObject) in
-            print("Realm CachedUser old: \(oldObject) to new: \(newObject)")
+            Log.debug("Realm CachedUser old: \(oldObject) to new: \(newObject)")
             if let old = oldObject, let new = newObject {
 //                if new.containsProperty("transId") && new.containsProperty("objectId") == false &&
 //                    old.containsProperty("transId") == false && old.containsProperty("objectId") {
@@ -175,9 +185,26 @@ extension CacheRealm {
             }
         })
         
-        print("Realm migration complete")
+        Log.debug("Realm migration complete")
     }
 }
 
 extension CacheRealm {
+    
+    public static func getFileProtectionLevel(for fileURL: URL) -> URLFileProtection? {
+        let fileManager = FileManager.default
+        let resourceKey = URLResourceKey.fileProtectionKey
+        do {
+            let resourceValues = try fileURL.resourceValues(forKeys: Set([resourceKey]))
+            if let protectionLevel = resourceValues.fileProtection {
+                return protectionLevel
+            } else {
+                Log.error("File protection level not found")
+                return nil
+            }
+        } catch {
+            Log.error("Error retrieving file protection level: \(error)")
+            return nil
+        }
+    }
 }
