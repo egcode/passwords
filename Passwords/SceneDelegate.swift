@@ -10,7 +10,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    var coverView: UIView?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -26,14 +26,38 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
     }
 
-    func sceneDidBecomeActive(_ scene: UIScene) {
-        // Called when the scene has moved from an inactive state to an active state.
-        // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+    func sceneWillResignActive(_ scene: UIScene) {
+        // Create the cover view
+        coverView = UIView(frame: window?.bounds ?? UIScreen.main.bounds)
+        coverView?.backgroundColor = Colors.mainColor
+        
+        // Create the UIImageView with the "lock" system image
+        let lockImageView = UIImageView(image: UIImage(systemName: "lock"))
+        lockImageView.tintColor = .white
+        lockImageView.contentMode = .scaleAspectFit
+        lockImageView.translatesAutoresizingMaskIntoConstraints = false
+
+        // Add the lock image view to the cover view
+        if let coverView = coverView {
+            coverView.addSubview(lockImageView)
+            
+            // Center the lock image view within the cover view
+            NSLayoutConstraint.activate([
+                lockImageView.centerXAnchor.constraint(equalTo: coverView.centerXAnchor),
+                lockImageView.centerYAnchor.constraint(equalTo: coverView.centerYAnchor),
+                lockImageView.widthAnchor.constraint(equalToConstant: 100),
+                lockImageView.heightAnchor.constraint(equalToConstant: 100)
+            ])
+            
+            // Add the cover view to the application's window
+            window?.addSubview(coverView)
+        }
     }
 
-    func sceneWillResignActive(_ scene: UIScene) {
-        // Called when the scene will move from an active state to an inactive state.
-        // This may occur due to temporary interruptions (ex. an incoming phone call).
+    func sceneDidBecomeActive(_ scene: UIScene) {
+        // Remove the cover view from the application's window
+        coverView?.removeFromSuperview()
+        coverView = nil
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
